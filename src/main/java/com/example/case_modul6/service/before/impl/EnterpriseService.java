@@ -14,4 +14,9 @@ public class EnterpriseService implements IEnterpriseService {
     public void save(Enterprise enterprise) {
           enterpriseService.save(enterprise);
     }
+
+    @Override
+    public void delete(int id) {
+        enterpriseService.delete(id);
+    }
 }
