@@ -6,4 +6,5 @@ public interface IEnterpriseService {
 
     void save(Enterprise enterprise);
 
+    void delete(int id);
 }
