@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/enterprise")
+@RequestMapping("/admin")
 public class AdminAPI {
     @Autowired
     IEnterpriseService enterpriseService;
