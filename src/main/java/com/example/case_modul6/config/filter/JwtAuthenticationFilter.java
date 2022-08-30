@@ -1,6 +1,7 @@
 package com.example.case_modul6.config.filter;
 import com.example.case_modul6.service.JwtService;
-import com.example.case_modul6.service.before.AppUserService;
+
+import com.example.case_modul6.service.before.impl.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -42,7 +43,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         } catch (Exception e) {
             logger.error("Can NOT set user authentication -> Message: {}", e);
         }
-
         filterChain.doFilter(request, response);
     }
 
