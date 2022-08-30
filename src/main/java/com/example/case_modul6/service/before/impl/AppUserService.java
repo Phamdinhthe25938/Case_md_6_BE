@@ -1,4 +1,4 @@
-package com.example.case_modul6.service.before;
+package com.example.case_modul6.service.before.impl;
 
 import com.example.case_modul6.model.before.AppUser;
 import com.example.case_modul6.repository.before.IAppUserRepo;

@@ -8,9 +8,9 @@ public class UserToken {
     private long id;
     private String username;
     private String token;
-    private Set<Role> roles;
+    private Role roles;
 
-    public UserToken(long id, String username, String token, Set<Role> roles) {
+    public UserToken(long id, String username, String token, Role roles) {
         this.id = id;
         this.username = username;
         this.token = token;
@@ -44,11 +44,11 @@ public class UserToken {
         this.token = token;
     }
 
-    public Set<Role> getRoles() {
+    public Role getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(Role roles) {
         this.roles = roles;
     }
 }
