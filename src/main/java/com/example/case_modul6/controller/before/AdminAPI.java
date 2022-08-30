@@ -56,8 +56,9 @@ public class AdminAPI {
         appUserService.save(appUser);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    @PostMapping("/refuseConfirm/{id}")
+    @PostMapping("/refuseConfirm/{id}/{reasonRefuse}")
     public  ResponseEntity<Enterprise> refuseConfirmEnterprise(@PathVariable int id,@PathVariable String reasonRefuse){
+        enterpriseService.delete(id);
         String mail = enterpriseService.findEnterpriseById(id).getGmailEnterprise();
         sendMailService.sendMail(mail,"Thông báo ","Việc làm  24 thông báo :\n\t\t\t Công ty của bạn không đủ điều kiện để chúng tôi xác thực !\n\t\t\tLý do : "+reasonRefuse+"\n\t\tXin cảm ơn !");
         return new ResponseEntity<>(HttpStatus.OK);
