@@ -22,6 +22,8 @@ public class PostEnterpriseService implements IPostEnterpriseService {
         return postEnterpriseRepo.findAllById(id);
     }
 
+
+
     @Override
     public PostEnterprise findById(int id) {
         return postEnterpriseRepo.findById(id).get();
@@ -40,5 +42,17 @@ public class PostEnterpriseService implements IPostEnterpriseService {
     @Override
     public void edit(PostEnterprise postEnterprise) {
         postEnterpriseRepo.save(postEnterprise);
+    }
+
+
+
+    // Song Đạt tìm kiếm bài đnagư theo địa chỉ và công ty
+
+    public List<PostEnterprise> findByAddress(String address){
+        return postEnterpriseRepo.findByAddress(address);
+    }
+
+    public List<PostEnterprise> findByEnterprise(int id){
+        return postEnterpriseRepo.findByEnterprise(id);
     }
 }
