@@ -46,7 +46,7 @@ public class SendMailService {
         message.setFrom("ducnguyenbvtvc@gmail.com");
         message.setTo(toMail);
         message.setSubject(subject);
-        message.setText(content+createCode());
+        message.setText(content);
 //        Message message1=new MimeMessage();
         try {
             mailSender.send(message);

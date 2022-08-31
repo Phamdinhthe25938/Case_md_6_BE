@@ -1,6 +1,6 @@
 package com.example.case_modul6.controller.before;
 
-import com.example.case_modul6.model.before.AppUser;
+import com.example.case_modul6.model.before.Enterprise;
 
 import com.example.case_modul6.service.before.impl.SendMailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +14,8 @@ public class MailAPI {
     SendMailService sendMailService;
 
     @PostMapping ("/send")
-    public boolean send(@RequestBody AppUser appUser){
-        return sendMailService.sendMail(appUser.getEmail(),"Hello bạn nhỏ !", appUser.getUsername()+"Mã xác nhận của bạn là: ");
+    public boolean send(@RequestBody Enterprise enterprise){
+        return sendMailService.sendMail(enterprise.getGmailEnterprise(),"Xác nhân !", enterprise.getNameEnterprise()+"\nMã xác nhận của bạn là: ");
     }
     @GetMapping("/confirm")
     public String confirm(@RequestParam("code") String code){
