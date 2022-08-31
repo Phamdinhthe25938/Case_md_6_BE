@@ -1,4 +1,4 @@
-package com.example.case_modul6.service.before;
+package com.example.case_modul6.service.before.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
@@ -43,7 +43,7 @@ public class SendMailService {
     public boolean sendMail(String toMail,String subject,String content){
         SimpleMailMessage message =new SimpleMailMessage();
 //         chinh mail
-        message.setFrom("phamdinhthe2509@gmail.com");
+        message.setFrom("ducnguyenbvtvc@gmail.com");
         message.setTo(toMail);
         message.setSubject(subject);
         message.setText(content+createCode());

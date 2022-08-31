@@ -3,7 +3,6 @@ package com.example.case_modul6.model.before;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Data
