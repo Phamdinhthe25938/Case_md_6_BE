@@ -3,6 +3,7 @@ package com.example.case_modul6.controller.before;
 import com.example.case_modul6.model.before.AppUser;
 import com.example.case_modul6.model.before.Enterprise;
 import com.example.case_modul6.model.before.Field;
+import com.example.case_modul6.model.before.Role;
 import com.example.case_modul6.service.before.InterfaceService.All.IEnterpriseService;
 import com.example.case_modul6.service.before.InterfaceService.All.IFieldService;
 import com.example.case_modul6.service.before.impl.AppUserService;
@@ -30,6 +31,9 @@ public class RegisterAPI {
 
     @PostMapping("/user")
     public ResponseEntity<AppUser> register(@RequestBody AppUser appUser){
+        Role role = new Role();
+        role.setId(3);
+        appUser.setRoles(role);
         return new ResponseEntity<>(appUserService.save(appUser), HttpStatus.OK);
 //
     }
