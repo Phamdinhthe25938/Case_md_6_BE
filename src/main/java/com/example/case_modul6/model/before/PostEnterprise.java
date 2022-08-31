@@ -31,8 +31,15 @@ public class PostEnterprise {
     private int priorityPostEnterprise;
 
     private String describePostEnterprise;
+
+    private int quantityApplyPost;
+
     @ManyToOne
     private Regime regime;
+
+    @ManyToOne
+    private Field field;
+
     @ManyToOne
     private Enterprise enterprise;
 }
