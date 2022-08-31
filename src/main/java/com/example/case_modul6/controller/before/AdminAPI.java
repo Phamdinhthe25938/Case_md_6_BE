@@ -48,6 +48,7 @@ public class AdminAPI {
         enterpriseService.confirmRegisterEnterprise(password,codeVi,1,id);
         AppUser appUser = new AppUser();
         appUser.setUsername(enterpriseService.findEnterpriseById(id).getGmailEnterprise());
+//        Chỉnh sửa password
         appUser.setPassword(password);
         appUser.setEmail(enterpriseService.findEnterpriseById(id).getGmailEnterprise());
         Role role = new Role();
