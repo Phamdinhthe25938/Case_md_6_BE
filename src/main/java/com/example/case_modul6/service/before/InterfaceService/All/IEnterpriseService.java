@@ -15,14 +15,13 @@ public interface IEnterpriseService {
 
     List<Enterprise> getAllEnterpriseOrderByVi();
     Enterprise findEnterpriseById(int id);
+    Enterprise findByGmailEnterprise(String name);
+    double findViByIdEnterprise(int id);
+
 
     void confirmRegisterEnterprise(String password,String codeVi,int status,int id);
 
     void delete(int id);
-
-     Enterprise findByIdEnterprise(int id);
-     Enterprise findByGmailEnterprise(String name);
-    double findViByIdEnterprise(int id);
 
 //    the
 
