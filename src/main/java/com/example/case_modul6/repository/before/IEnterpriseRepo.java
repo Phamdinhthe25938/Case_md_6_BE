@@ -24,4 +24,12 @@ public interface IEnterpriseRepo extends CrudRepository<Enterprise,Integer>{
     double findViByIdEnterprise(@Param("id") int id);
     @Query(nativeQuery = true,value = "SELECT * FROM case_module_6.enterprise where gmail_enterprise=:gmail")
     Enterprise findByGmailEnterprise(@Param("gmail") String name);
+
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true,value = "update case_module_6.enterprise set vi_enterprise=:numberMoney where id_enterprise=:id")
+   void rechargeWallet(@Param("id") int id,@Param("numberMoney") double numberMoney);
+
+    @Query(nativeQuery = true,value = "SELECT vi_enterprise FROM case_module_6.enterprise  where id_enterprise=:id")
+    double getMoneyViEnterpriseById(@Param("id")int id);
 }

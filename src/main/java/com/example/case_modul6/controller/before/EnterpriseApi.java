@@ -35,13 +35,23 @@ public class EnterpriseApi {
         postEnterpriseService.save(postEnterprise);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
     @GetMapping("/vi/{id}")
     public ResponseEntity<Double> getViEnterprise(@PathVariable int id){
         return new ResponseEntity<>(enterpriseService.findViByIdEnterprise(id),HttpStatus.OK);
+    }
+    @GetMapping("/findEnterpriseId/{id}")
+    public ResponseEntity<Enterprise> getEnterpriseById(@PathVariable int id){
+        return new ResponseEntity<>(enterpriseService.findEnterpriseById(id),HttpStatus.OK);
     }
     @GetMapping("/findEnterprise/{name}")
     public ResponseEntity<Enterprise> getEnterpriseByName(@PathVariable String name){
           return new ResponseEntity<>(enterpriseService.findByGmailEnterprise(name),HttpStatus.OK);
     }
-
+    @PostMapping("/rechargeWallet/{id}/{numberMoney}")
+    public ResponseEntity<Double> rechargeWallet(@PathVariable int id,@PathVariable double numberMoney ){
+        double money = enterpriseService.getMoneyViEnterpriseById(id)+numberMoney;
+        enterpriseService.rechargeWallet(id,money);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

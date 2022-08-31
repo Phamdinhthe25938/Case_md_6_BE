@@ -49,6 +49,15 @@ public class EnterpriseService implements IEnterpriseService {
         enterpriseRepo.deleteById(id);
     }
 
+    @Override
+    public void rechargeWallet(int id, double numberMoney){
+         enterpriseRepo.rechargeWallet(id,numberMoney);
+    }
+
+    @Override
+    public double getMoneyViEnterpriseById(int id) {
+        return enterpriseRepo.getMoneyViEnterpriseById(id);
+    }
 
     @Override
     public Enterprise findByGmailEnterprise(String name){

@@ -12,10 +12,7 @@ public interface IPostEnterpriseRepo extends CrudRepository<PostEnterprise, Inte
     @Query(nativeQuery = true, value = "select  * from case_module_6.post_enterprise where id_post_enterprise=:id")
     List<PostEnterprise> findAllById(@Param("id") int id);
 
-
-
     // Song Đạt tìm kiếm bài đăng theo địa chỉ và công ty
-
     @Query(nativeQuery = true, value = "select * from case_module_6.post_enterprise where address_main_enterprise LIKE %:address% ")
     List<PostEnterprise> findByAddress(@Param("address") String address);
 
