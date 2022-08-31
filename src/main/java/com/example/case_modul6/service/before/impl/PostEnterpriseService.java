@@ -46,13 +46,23 @@ public class PostEnterpriseService implements IPostEnterpriseService {
 
 
 
-    // Song Đạt tìm kiếm bài đnagư theo địa chỉ và công ty
+    // Song Đạt tìm kiếm bài đăng theo địa chỉ và công ty
 
     public List<PostEnterprise> findByAddress(String address){
         return postEnterpriseRepo.findByAddress(address);
     }
 
+    public List<PostEnterprise> findByNamePost (String name){
+        return postEnterpriseRepo.findByNamePost(name);
+    }
+
     public List<PostEnterprise> findByEnterprise(int id){
         return postEnterpriseRepo.findByEnterprise(id);
     }
+
+    public List<PostEnterprise> findSalary(double salary){
+        return postEnterpriseRepo.findSalary(salary);
+    }
+
+
 }

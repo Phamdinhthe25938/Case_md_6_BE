@@ -30,8 +30,20 @@ public class UserApi {
         return new ResponseEntity<>(postEnterpriseService.findByAddress(address), HttpStatus.OK);
     }
 
+    @GetMapping("/findByNamePost/{name}")
+    public ResponseEntity<List<PostEnterprise>> findByNamePost(@PathVariable String name) {
+        return new ResponseEntity<>(postEnterpriseService.findByNamePost(name), HttpStatus.OK);
+    }
+
     @GetMapping("/findByEnterprise/{id}")
     public ResponseEntity<List<PostEnterprise>> findByEnterprise(@PathVariable int id) {
         return new ResponseEntity<>(postEnterpriseService.findByEnterprise(id), HttpStatus.OK);
     }
+
+    @GetMapping("/findSalary/{salary}")
+    public ResponseEntity<List<PostEnterprise>> findBySalary(@PathVariable double salary) {
+        return new ResponseEntity<>(postEnterpriseService.findSalary(salary), HttpStatus.OK);
+    }
+
+
 }

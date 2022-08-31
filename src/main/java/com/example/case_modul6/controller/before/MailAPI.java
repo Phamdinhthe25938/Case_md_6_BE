@@ -2,8 +2,9 @@ package com.example.case_modul6.controller.before;
 
 import com.example.case_modul6.model.before.AppUser;
 import com.example.case_modul6.model.before.Enterprise;
-import com.example.case_modul6.service.before.SendMailService;
 
+
+import com.example.case_modul6.service.before.impl.SendMailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

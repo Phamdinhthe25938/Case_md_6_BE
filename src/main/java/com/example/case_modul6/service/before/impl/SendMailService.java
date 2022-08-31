@@ -1,4 +1,4 @@
-package com.example.case_modul6.service.before;
+package com.example.case_modul6.service.before.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
