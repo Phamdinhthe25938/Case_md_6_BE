@@ -48,7 +48,8 @@ public class AdminAPI {
         enterpriseService.confirmRegisterEnterprise(password,codeVi,1,id);
         AppUser appUser = new AppUser();
         appUser.setUsername(enterpriseService.findEnterpriseById(id).getGmailEnterprise());
-        appUser.setPassword(enterpriseService.findEnterpriseById(id).getPasswordEnterprise());
+//        Chỉnh sửa password
+        appUser.setPassword(password);
         appUser.setEmail(enterpriseService.findEnterpriseById(id).getGmailEnterprise());
         Role role = new Role();
         role.setId(2);
@@ -56,10 +57,11 @@ public class AdminAPI {
         appUserService.save(appUser);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    @PostMapping("/refuseConfirm/{id}")
+    @PostMapping("/refuseConfirm/{id}/{reasonRefuse}")
     public  ResponseEntity<Enterprise> refuseConfirmEnterprise(@PathVariable int id,@PathVariable String reasonRefuse){
         String mail = enterpriseService.findEnterpriseById(id).getGmailEnterprise();
         sendMailService.sendMail(mail,"Thông báo ","Việc làm  24 thông báo :\n\t\t\t Công ty của bạn không đủ điều kiện để chúng tôi xác thực !\n\t\t\tLý do : "+reasonRefuse+"\n\t\tXin cảm ơn !");
+        enterpriseService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
