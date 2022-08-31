@@ -48,7 +48,7 @@ public class AdminAPI {
         enterpriseService.confirmRegisterEnterprise(password,codeVi,1,id);
         AppUser appUser = new AppUser();
         appUser.setUsername(enterpriseService.findEnterpriseById(id).getGmailEnterprise());
-        appUser.setPassword(enterpriseService.findEnterpriseById(id).getPasswordEnterprise());
+        appUser.setPassword(password);
         appUser.setEmail(enterpriseService.findEnterpriseById(id).getGmailEnterprise());
         Role role = new Role();
         role.setId(2);
