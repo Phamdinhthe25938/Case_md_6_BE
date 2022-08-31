@@ -7,8 +7,18 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface IPostEnterpriseRepo extends CrudRepository<PostEnterprise,Integer> {
+public interface IPostEnterpriseRepo extends CrudRepository<PostEnterprise, Integer> {
 
-    @Query(nativeQuery = true,value = "select  * from case_module_6.post_enterprise where id_post_enterprise=:id")
+    @Query(nativeQuery = true, value = "select  * from case_module_6.post_enterprise where id_post_enterprise=:id")
     List<PostEnterprise> findAllById(@Param("id") int id);
+
+
+
+    // Song Đạt tìm kiếm bài đăng theo địa chỉ và công ty
+
+    @Query(nativeQuery = true, value = "select * from case_module_6.post_enterprise where address_main_enterprise LIKE %:address% ")
+    List<PostEnterprise> findByAddress(@Param("address") String address);
+
+    @Query(nativeQuery = true, value = "select *from case_module_6.post_enterprise where enterprise_id_enterprise=:id_enterprise")
+    List<PostEnterprise> findByEnterprise (@Param("id_enterprise") int id);
 }
