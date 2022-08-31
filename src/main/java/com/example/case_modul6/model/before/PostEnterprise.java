@@ -13,9 +13,15 @@ public class PostEnterprise {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idEnterprise;
 
+<<<<<<< HEAD
     private String nameEnterprise;
 
     private String codeConfirmEnterprise;
+=======
+    private String namePostEnterprise;
+
+    private String addressMainEnterprise;
+>>>>>>> e0cb3a6c060e91cd873977cfdf6fb9857c69979e
 
     private String gmailEnterprise;
 
