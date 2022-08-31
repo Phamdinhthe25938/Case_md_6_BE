@@ -48,4 +48,19 @@ public class EnterpriseService implements IEnterpriseService {
     public void delete(int id){
         enterpriseRepo.deleteById(id);
     }
+
+    @Override
+    public Enterprise findByIdEnterprise(int id) {
+        return enterpriseRepo.findById(id).get();
+    }
+
+    @Override
+    public Enterprise findByGmailEnterprise(String name) {
+        return enterpriseRepo.findByGmailEnterprise(name);
+    }
+
+    @Override
+    public double findViByIdEnterprise(int id) {
+        return enterpriseRepo.findViByIdEnterprise(id);
+    }
 }
