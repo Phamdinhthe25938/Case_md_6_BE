@@ -20,6 +20,10 @@ public interface IEnterpriseService {
 
     void delete(int id);
 
+     Enterprise findByIdEnterprise(int id);
+     Enterprise findByGmailEnterprise(String name);
+    double findViByIdEnterprise(int id);
+
 //    the
 
 //    tuan

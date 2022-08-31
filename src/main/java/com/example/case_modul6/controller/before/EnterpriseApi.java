@@ -1,7 +1,9 @@
 package com.example.case_modul6.controller.before;
 
+import com.example.case_modul6.model.before.Enterprise;
 import com.example.case_modul6.model.before.PostEnterprise;
 import com.example.case_modul6.repository.before.IPostEnterpriseRepo;
+import com.example.case_modul6.service.before.InterfaceService.All.IEnterpriseService;
 import com.example.case_modul6.service.before.InterfaceService.All.IPostEnterpriseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,9 @@ public class EnterpriseApi {
     @Autowired
     IPostEnterpriseService postEnterpriseService;
 
+    @Autowired
+    IEnterpriseService enterpriseService;
+
     @GetMapping("/findAll")
     public ResponseEntity<List<PostEnterprise>> findAllPostEnterprise(){
          return new ResponseEntity<>(postEnterpriseService.findAll(), HttpStatus.OK);
@@ -30,4 +35,13 @@ public class EnterpriseApi {
         postEnterpriseService.save(postEnterprise);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    @GetMapping("/vi/{id}")
+    public ResponseEntity<Double> getViEnterprise(@PathVariable int id){
+        return new ResponseEntity<>(enterpriseService.findViByIdEnterprise(id),HttpStatus.OK);
+    }
+    @GetMapping("/findEnterprise/{name}")
+    public ResponseEntity<Enterprise> getEnterpriseByName(@PathVariable String name){
+          return new ResponseEntity<>(enterpriseService.findByGmailEnterprise(name),HttpStatus.OK);
+    }
+
 }
