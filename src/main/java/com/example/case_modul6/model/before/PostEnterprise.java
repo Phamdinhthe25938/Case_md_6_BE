@@ -2,9 +2,7 @@ package com.example.case_modul6.model.before;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
 
@@ -12,34 +10,35 @@ import java.sql.Time;
 @Entity
 public class PostEnterprise {
     @Id
-    private int idPostEnterprise;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int idEnterprise;
 
-    private int namePostEnterprise;
+    private String nameEnterprise;
 
-    private int addressMainEnterprise;
+    private String codeConfirmEnterprise;
 
-    private Time timePostEnterprise;
+    private String gmailEnterprise;
 
-    private Date datePostEnterprise;
+    private String  imgEnterprise;
 
-    private boolean statusPostEnterprise;
-
-    private double salarySmallPostEnterprise;
-
-    private double salaryBigPostEnterprise;
-
-    private int priorityPostEnterprise;
-
-    private String describePostEnterprise;
-
-    private int quantityApplyPost;
+    private String addressMainEnterprise;
 
     @ManyToOne
-    private Regime regime;
+    private Field fieldEnterprise;
 
-    @ManyToOne
-    private Field field;
+    private String describeEnterprise;
 
-    @ManyToOne
-    private Enterprise enterprise;
+    private Time timeRegisterEnterprise;
+
+    private Date dateRegisterEnterprise;
+
+    private String passwordEnterprise;
+
+    private String codeViEnterprise;
+
+    private double viEnterprise=0;
+
+    private boolean statusEnterprise=false;
+
+    private boolean statusConfirm =false;
 }
