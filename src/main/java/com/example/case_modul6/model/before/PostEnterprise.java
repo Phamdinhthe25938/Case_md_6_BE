@@ -14,9 +14,9 @@ public class PostEnterprise {
     @Id
     private int idPostEnterprise;
 
-    private int namePostEnterprise;
+    private String namePostEnterprise;
 
-    private int addressMainEnterprise;
+    private String addressMainEnterprise;
 
     private Time timePostEnterprise;
 
