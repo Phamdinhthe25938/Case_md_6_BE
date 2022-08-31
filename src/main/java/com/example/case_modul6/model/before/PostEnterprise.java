@@ -37,5 +37,7 @@ public class PostEnterprise {
     @ManyToOne
     private Regime regime;
     @ManyToOne
+    private Field field;
+    @ManyToOne
     private Enterprise enterprise;
 }
