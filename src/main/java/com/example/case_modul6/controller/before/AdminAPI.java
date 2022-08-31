@@ -62,5 +62,4 @@ public class AdminAPI {
         sendMailService.sendMail(mail,"Thông báo ","Việc làm  24 thông báo :\n\t\t\t Công ty của bạn không đủ điều kiện để chúng tôi xác thực !\n\t\t\tLý do : "+reasonRefuse+"\n\t\tXin cảm ơn !");
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }
