@@ -60,12 +60,27 @@ public class EnterpriseService implements IEnterpriseService {
     }
 
     @Override
+    public void changeCodeVi(int id, String codeVi){
+        enterpriseRepo.changeCodeVi(id,codeVi);
+    }
+
+    @Override
+    public void setStatusEnterpriseTo1(int id) {
+        enterpriseRepo.setStatusEnterpriseTo1(id);
+    }
+
+    @Override
+    public void setStatusEnterpriseTo0(int id) {
+        enterpriseRepo.setStatusEnterpriseTo0(id);
+    }
+
+    @Override
     public Enterprise findByGmailEnterprise(String name){
         return enterpriseRepo.findByGmailEnterprise(name);
     }
 
     @Override
-    public double findViByIdEnterprise(int id) {
+    public double findViByIdEnterprise(int id){
         return enterpriseRepo.findViByIdEnterprise(id);
     }
 }

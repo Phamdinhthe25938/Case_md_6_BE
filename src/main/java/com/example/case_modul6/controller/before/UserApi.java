@@ -40,7 +40,7 @@ public class UserApi {
         return new ResponseEntity<>(postEnterpriseService.findByEnterprise(id), HttpStatus.OK);
     }
     @GetMapping("/findSalary/{salary}")
-    public ResponseEntity<List<PostEnterprise>> findBySalary(@PathVariable double salary) {
+    public ResponseEntity<List<PostEnterprise>> findBySalary(@PathVariable double salary){
         return new ResponseEntity<>(postEnterpriseService.findSalary(salary), HttpStatus.OK);
     }
 

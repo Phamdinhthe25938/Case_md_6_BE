@@ -17,6 +17,11 @@ public interface IEnterpriseService {
     void delete(int id);
     void rechargeWallet(int id,double numberMoney);
     double getMoneyViEnterpriseById(int id);
+
+    void changeCodeVi(int id,String codeVi);
+    void setStatusEnterpriseTo1(int id);
+    void setStatusEnterpriseTo0(int id);
+
 //    the
 
 //    tuan

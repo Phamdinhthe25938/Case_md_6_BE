@@ -27,16 +27,23 @@ public class PostEnterprise {
     private double salarySmallPostEnterprise;
 
     private double salaryBigPostEnterprise;
-
+//  vị trí ứng tuyển
+    private String VacanciesPostEnterprise;
+//    hình thức job
+    @ManyToOne
+    private FormJob formJobPostEnterprise;
+//    Ngày hết hạn
+    private Date expirationDatePostEnterprise;
+// độ ưu tiên bài đăng
     private int priorityPostEnterprise;
 
     private String describePostEnterprise;
 
     private int quantityApplyPost;
-
+//    Chọn gói
     @ManyToOne
     private Regime regime;
-
+// Lĩnh vực
     @ManyToOne
     private Field field;
 

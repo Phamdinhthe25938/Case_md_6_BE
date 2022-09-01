@@ -5,6 +5,7 @@ import com.example.case_modul6.model.before.PostEnterprise;
 import com.example.case_modul6.repository.before.IPostEnterpriseRepo;
 import com.example.case_modul6.service.before.InterfaceService.All.IEnterpriseService;
 import com.example.case_modul6.service.before.InterfaceService.All.IPostEnterpriseService;
+import com.example.case_modul6.service.before.impl.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,9 @@ public class EnterpriseApi {
 
     @Autowired
     IEnterpriseService enterpriseService;
+
+    @Autowired
+    AppUserService appUserService;
 
     @GetMapping("/findAll")
     public ResponseEntity<List<PostEnterprise>> findAllPostEnterprise(){
@@ -54,4 +58,10 @@ public class EnterpriseApi {
         enterpriseService.rechargeWallet(id,money);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    @PostMapping("/changeCodeVi/{id}/{codeVi}")
+    public ResponseEntity<Double> changeCodeVi(@PathVariable int id,@PathVariable String codeVi ){
+        enterpriseService.changeCodeVi(id,codeVi);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }
