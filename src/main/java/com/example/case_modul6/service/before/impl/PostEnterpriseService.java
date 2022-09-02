@@ -1,7 +1,11 @@
 package com.example.case_modul6.service.before.impl;
 
+import com.example.case_modul6.model.before.FormJob;
 import com.example.case_modul6.model.before.PostEnterprise;
+import com.example.case_modul6.model.before.Regime;
+import com.example.case_modul6.repository.before.IFormJobRepo;
 import com.example.case_modul6.repository.before.IPostEnterpriseRepo;
+import com.example.case_modul6.repository.before.IRegimeRepo;
 import com.example.case_modul6.service.before.InterfaceService.All.IPostEnterpriseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +16,11 @@ public class PostEnterpriseService implements IPostEnterpriseService {
 
     @Autowired
     IPostEnterpriseRepo postEnterpriseRepo;
+
+    @Autowired
+    IFormJobRepo formJobRepo;
+    @Autowired
+    IRegimeRepo regimeRepo;
     @Override
     public List<PostEnterprise> findAll() {
         return (List<PostEnterprise>) postEnterpriseRepo.findAll();
@@ -21,21 +30,17 @@ public class PostEnterpriseService implements IPostEnterpriseService {
     public List<PostEnterprise> findAllById(int id) {
         return postEnterpriseRepo.findAllById(id);
     }
-
-
-
     @Override
     public PostEnterprise findById(int id) {
         return postEnterpriseRepo.findById(id).get();
     }
 
     @Override
-    public void save(PostEnterprise postEnterprise) {
-         postEnterpriseRepo.save(postEnterprise);
+    public void save(PostEnterprise postEnterprise){
+          postEnterpriseRepo.save(postEnterprise);
     }
-
     @Override
-    public void delete(int id) {
+    public void delete(int id){
         postEnterpriseRepo.deleteById(id);
     }
 
@@ -44,7 +49,14 @@ public class PostEnterpriseService implements IPostEnterpriseService {
         postEnterpriseRepo.save(postEnterprise);
     }
 
+// List chế độ bài đăng và hình thức công việc
 
+    public List<FormJob> findAllFormJob(){
+        return (List<FormJob>) formJobRepo.findAll();
+    }
+    public List<Regime> findAllRegime(){
+        return (List<Regime>) regimeRepo.findAll();
+    }
 
     // Song Đạt tìm kiếm bài đăng theo địa chỉ và công ty
 

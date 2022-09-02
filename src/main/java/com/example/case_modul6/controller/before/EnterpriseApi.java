@@ -1,7 +1,9 @@
 package com.example.case_modul6.controller.before;
 
 import com.example.case_modul6.model.before.Enterprise;
+import com.example.case_modul6.model.before.FormJob;
 import com.example.case_modul6.model.before.PostEnterprise;
+import com.example.case_modul6.model.before.Regime;
 import com.example.case_modul6.repository.before.IPostEnterpriseRepo;
 import com.example.case_modul6.service.before.InterfaceService.All.IEnterpriseService;
 import com.example.case_modul6.service.before.InterfaceService.All.IPostEnterpriseService;
@@ -11,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Time;
 import java.util.List;
 
 @RestController
@@ -34,12 +37,28 @@ public class EnterpriseApi {
     public  ResponseEntity<List<PostEnterprise>> findAllPostEnterpriseById(@PathVariable int id){
         return new ResponseEntity<>(postEnterpriseService.findAllById(id),HttpStatus.OK);
     }
-    @PostMapping("/save")
+    @PostMapping("/savePost")
     public ResponseEntity<PostEnterprise> savePostEnterprise(@RequestBody PostEnterprise postEnterprise){
-        postEnterpriseService.save(postEnterprise);
-        return new ResponseEntity<>(HttpStatus.OK);
+       if(enterpriseService.findEnterpriseById(postEnterprise.getEnterprise().getIdEnterprise()).isStatusEnterprise()){
+           postEnterprise.setTimePostEnterprise(Time.valueOf(java.time.LocalTime.now()));
+           long millis=System.currentTimeMillis();
+           java.sql.Date date=new java.sql.Date(millis);
+           postEnterprise.setDatePostEnterprise(date);
+           postEnterprise.setStatusPostEnterprise(true);
+           if(postEnterprise.getRegime().getIdRegime()==1){
+               postEnterprise.setPriorityPostEnterprise(100);
+               double money = enterpriseService.getMoneyViEnterpriseById(postEnterprise.getEnterprise().getIdEnterprise())-2;
+               enterpriseService.setViEnterprise(postEnterprise.getEnterprise().getIdEnterprise(),money);
+           }else if(postEnterprise.getRegime().getIdRegime()==2){
+               double money = enterpriseService.getMoneyViEnterpriseById(postEnterprise.getEnterprise().getIdEnterprise())-1;
+               enterpriseService.setViEnterprise(postEnterprise.getEnterprise().getIdEnterprise(),money);
+               postEnterprise.setPriorityPostEnterprise(20);
+           }
+           postEnterpriseService.save(postEnterprise);
+           return new ResponseEntity<>(HttpStatus.OK);
+       }
+       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
-
     @GetMapping("/vi/{id}")
     public ResponseEntity<Double> getViEnterprise(@PathVariable int id){
         return new ResponseEntity<>(enterpriseService.findViByIdEnterprise(id),HttpStatus.OK);
@@ -57,6 +76,14 @@ public class EnterpriseApi {
         double money = enterpriseService.getMoneyViEnterpriseById(id)+numberMoney;
         enterpriseService.rechargeWallet(id,money);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @GetMapping("/findAllFormJob")
+    public ResponseEntity<List<FormJob>> listFormJob(){
+        return new ResponseEntity<>(postEnterpriseService.findAllFormJob(),HttpStatus.OK);
+    }
+    @GetMapping("/findAllRegime")
+    public ResponseEntity<List<Regime>> listRegime(){
+        return new ResponseEntity<>(postEnterpriseService.findAllRegime(),HttpStatus.OK);
     }
     @PostMapping("/changeCodeVi/{id}/{codeVi}")
     public ResponseEntity<Double> changeCodeVi(@PathVariable int id,@PathVariable String codeVi ){

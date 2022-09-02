@@ -21,6 +21,7 @@ public interface IEnterpriseService {
     void changeCodeVi(int id,String codeVi);
     void setStatusEnterpriseTo1(int id);
     void setStatusEnterpriseTo0(int id);
+    void setViEnterprise(int id,double numberMoney);
 
 //    the
 

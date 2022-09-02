@@ -43,17 +43,14 @@ public class EnterpriseService implements IEnterpriseService {
     public void confirmRegisterEnterprise(String password, String codeVi, int status, int id) {
         enterpriseRepo.confirmRegisterEnterprise(password,codeVi,status,id);
     }
-
     @Override
     public void delete(int id){
         enterpriseRepo.deleteById(id);
     }
-
     @Override
     public void rechargeWallet(int id, double numberMoney){
          enterpriseRepo.rechargeWallet(id,numberMoney);
     }
-
     @Override
     public double getMoneyViEnterpriseById(int id) {
         return enterpriseRepo.getMoneyViEnterpriseById(id);
@@ -63,15 +60,17 @@ public class EnterpriseService implements IEnterpriseService {
     public void changeCodeVi(int id, String codeVi){
         enterpriseRepo.changeCodeVi(id,codeVi);
     }
-
     @Override
     public void setStatusEnterpriseTo1(int id) {
         enterpriseRepo.setStatusEnterpriseTo1(id);
     }
-
     @Override
     public void setStatusEnterpriseTo0(int id) {
         enterpriseRepo.setStatusEnterpriseTo0(id);
+    }
+    @Override
+    public void setViEnterprise(int id, double numberMoney){
+         enterpriseRepo.setViEnterprise(id,numberMoney);
     }
 
     @Override
