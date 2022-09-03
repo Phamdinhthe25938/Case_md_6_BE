@@ -13,8 +13,8 @@ public interface IEnterpriseRepo extends CrudRepository<Enterprise,Integer>{
 
     @Transactional
     @Modifying
-    @Query(nativeQuery = true,value = "update enterprise set password_enterprise=:password,code_vi_enterprise=:codeVi,status_confirm=:status where id_enterprise=:id")
-    void confirmRegisterEnterprise(@Param("password") String password,@Param("codeVi") String codeVi,@Param("status") int status,@Param("id")int id);
+    @Query(nativeQuery = true,value = "update enterprise set password_enterprise=:password,code_vi_enterprise=:codeVi,status_confirm=:status,number_vi_enterprise=:numberVi where id_enterprise=:id")
+    void confirmRegisterEnterprise(@Param("password") String password,@Param("codeVi") String codeVi,@Param("numberVi") String numberVi,@Param("status") int status,@Param("id")int id);
     @Query(nativeQuery = true,value = "SELECT * FROM case_module_6.enterprise where status_confirm=0 ORDER BY time_register_enterprise DESC, date_register_enterprise DESC")
     List<Enterprise> getAllEnterpriseNotConfirmOrderByTime();
     @Query(nativeQuery = true,value = "SELECT * FROM case_module_6.enterprise where status_confirm=1 ORDER BY time_register_enterprise DESC, date_register_enterprise DESC")

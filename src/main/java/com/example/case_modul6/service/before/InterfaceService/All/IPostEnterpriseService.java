@@ -22,4 +22,6 @@ public interface IPostEnterpriseService {
     void edit(PostEnterprise postEnterprise);
     List<FormJob> findAllFormJob();
     List<Regime> findAllRegime();
+    List<PostEnterprise> findAllByIdEnterprise(int id);
+    List<PostEnterprise> listPostByOderPriority();
 }

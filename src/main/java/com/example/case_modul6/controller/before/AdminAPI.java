@@ -5,8 +5,9 @@ import com.example.case_modul6.model.before.Enterprise;
 import com.example.case_modul6.model.before.Role;
 import com.example.case_modul6.service.before.InterfaceService.All.IEnterpriseService;
 
+import com.example.case_modul6.service.before.SendMailService;
 import com.example.case_modul6.service.before.impl.AppUserService;
-import com.example.case_modul6.service.before.impl.SendMailService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,10 +44,11 @@ public class AdminAPI {
     public ResponseEntity<Enterprise> confirmEnterprise(@PathVariable int id){
         String password = sendMailService.createCode();
         String codeVi = sendMailService.createCode();
+        String numberVi = sendMailService.createNumberVi();
         String mail = enterpriseService.findEnterpriseById(id).getGmailEnterprise();
-        sendMailService.sendMail(mail,"Thông tin xác thực","Việc làm  24 đã xác thực yêu cầu của bạn :\n\t\t- Mã ví điện tử  :"+codeVi+"\n\t\t- Mật khẩu :"+password+"\nLưu ý  :" +
+        sendMailService.sendMail(mail,"Thông tin xác thực","Việc làm  24 đã xác thực yêu cầu của bạn :\n\t\t-Số ví :"+numberVi+"\n\t\t- Mã ví điện tử  :"+codeVi+"\n\t\t- Mật khẩu :"+password+"\nLưu ý  :" +
                 "\n\t\t\t - Để bảo mật đổi mật khẩu ứng dụng trước khi sử dụng ! \n\t\t\t- Để hoạt động trước tiên vui lòng nạp tiền vào ví điện tử !\n\t Xin cảm ơn !");
-        enterpriseService.confirmRegisterEnterprise(password,codeVi,1,id);
+        enterpriseService.confirmRegisterEnterprise(password,codeVi,numberVi,1,id);
         AppUser appUser = new AppUser();
         appUser.setUsername(enterpriseService.findEnterpriseById(id).getGmailEnterprise());
 //        Chỉnh sửa password

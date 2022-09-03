@@ -22,7 +22,11 @@ public class UserApi {
     public ResponseEntity<List<PostEnterprise>> findAll() {
         return new ResponseEntity<>(postEnterpriseService.findAll(), HttpStatus.OK);
     }
-
+    @GetMapping("/listPostByOderPriority")
+    public ResponseEntity<List<PostEnterprise>>listPostByOderPriority(){
+        return new ResponseEntity<>(postEnterpriseService.listPostByOderPriority(),HttpStatus.OK);
+    }
+//  a song tìm kiếm
     @GetMapping("/findAddress/{address}")
 
     public ResponseEntity<List<PostEnterprise>> findByAddress(@PathVariable String address) {
@@ -43,5 +47,4 @@ public class UserApi {
     public ResponseEntity<List<PostEnterprise>> findBySalary(@PathVariable double salary){
         return new ResponseEntity<>(postEnterpriseService.findSalary(salary), HttpStatus.OK);
     }
-
 }

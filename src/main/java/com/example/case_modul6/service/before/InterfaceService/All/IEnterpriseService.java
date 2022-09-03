@@ -13,7 +13,7 @@ public interface IEnterpriseService {
     Enterprise findEnterpriseById(int id);
     Enterprise findByGmailEnterprise(String name);
     double findViByIdEnterprise(int id);
-    void confirmRegisterEnterprise(String password,String codeVi,int status,int id);
+    void confirmRegisterEnterprise(String password,String codeVi,String numberVi,int status,int id);
     void delete(int id);
     void rechargeWallet(int id,double numberMoney);
     double getMoneyViEnterpriseById(int id);

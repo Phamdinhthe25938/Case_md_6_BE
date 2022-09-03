@@ -58,6 +58,16 @@ public class PostEnterpriseService implements IPostEnterpriseService {
         return (List<Regime>) regimeRepo.findAll();
     }
 
+    @Override
+    public List<PostEnterprise> findAllByIdEnterprise(int id) {
+        return postEnterpriseRepo.findAllByIdEnterprise(id);
+    }
+
+    @Override
+    public List<PostEnterprise> listPostByOderPriority() {
+        return postEnterpriseRepo.listPostByOderPriority();
+    }
+
     // Song Đạt tìm kiếm bài đăng theo địa chỉ và công ty
 
     public List<PostEnterprise> findByAddress(String address){

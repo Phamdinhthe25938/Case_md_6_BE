@@ -35,6 +35,8 @@ public class Enterprise {
 
     private String passwordEnterprise;
 
+    private String numberViEnterprise;
+
     private String codeViEnterprise;
 
     private double viEnterprise=0;

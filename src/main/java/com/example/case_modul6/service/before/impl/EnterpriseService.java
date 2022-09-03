@@ -40,8 +40,8 @@ public class EnterpriseService implements IEnterpriseService {
     }
 
     @Override
-    public void confirmRegisterEnterprise(String password, String codeVi, int status, int id) {
-        enterpriseRepo.confirmRegisterEnterprise(password,codeVi,status,id);
+    public void confirmRegisterEnterprise(String password, String codeVi,String numberVi, int status, int id) {
+        enterpriseRepo.confirmRegisterEnterprise(password,codeVi,numberVi,status,id);
     }
     @Override
     public void delete(int id){
