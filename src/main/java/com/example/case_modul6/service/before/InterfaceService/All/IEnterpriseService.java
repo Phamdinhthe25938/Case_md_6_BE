@@ -7,19 +7,16 @@ import java.util.List;
 public interface IEnterpriseService {
 
     void save(Enterprise enterprise);
-
-
     List<Enterprise> getAllEnterprise();
-
      List<Enterprise> getAllEnterpriseNotConfirmOrderByTime();
-
     List<Enterprise> getAllEnterpriseOrderByVi();
     Enterprise findEnterpriseById(int id);
-
+    Enterprise findByGmailEnterprise(String name);
+    double findViByIdEnterprise(int id);
     void confirmRegisterEnterprise(String password,String codeVi,int status,int id);
-
     void delete(int id);
-
+    void rechargeWallet(int id,double numberMoney);
+    double getMoneyViEnterpriseById(int id);
 //    the
 
 //    tuan

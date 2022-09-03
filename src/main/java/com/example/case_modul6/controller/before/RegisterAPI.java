@@ -54,4 +54,12 @@ public class RegisterAPI {
         enterpriseService.save(enterprise);
         return  new ResponseEntity<>(HttpStatus.OK);
     }
+    @GetMapping("/checkEnterprise")
+    public ResponseEntity<List<Enterprise>> findAllEnterprise(){
+        return new ResponseEntity<>(enterpriseService.getAllEnterprise(), HttpStatus.OK);
+    }
+    @GetMapping("/checkUser")
+    public ResponseEntity<List<AppUser>> findAllUser(){
+        return new ResponseEntity<>(appUserService.getAll(), HttpStatus.OK);
+    }
 }

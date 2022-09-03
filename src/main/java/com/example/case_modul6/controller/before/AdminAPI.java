@@ -64,5 +64,4 @@ public class AdminAPI {
         enterpriseService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }
