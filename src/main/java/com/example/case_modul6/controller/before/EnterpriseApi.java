@@ -1,13 +1,12 @@
 package com.example.case_modul6.controller.before;
 
-import com.example.case_modul6.model.before.Enterprise;
-import com.example.case_modul6.model.before.FormJob;
-import com.example.case_modul6.model.before.PostEnterprise;
-import com.example.case_modul6.model.before.Regime;
+import com.example.case_modul6.model.before.*;
 import com.example.case_modul6.repository.before.IPostEnterpriseRepo;
 import com.example.case_modul6.service.before.InterfaceService.All.IEnterpriseService;
 import com.example.case_modul6.service.before.InterfaceService.All.IPostEnterpriseService;
+import com.example.case_modul6.service.before.InterfaceService.All.ITransactionHistoryService;
 import com.example.case_modul6.service.before.impl.AppUserService;
+import com.example.case_modul6.service.before.impl.TransactionHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +26,9 @@ public class EnterpriseApi {
     IEnterpriseService enterpriseService;
 
     @Autowired
+    ITransactionHistoryService transactionHistoryService;
+
+    @Autowired
     AppUserService appUserService;
 
     @GetMapping("/findAll")
@@ -40,7 +42,8 @@ public class EnterpriseApi {
     @PostMapping("/savePost")
     public ResponseEntity<PostEnterprise> savePostEnterprise(@RequestBody PostEnterprise postEnterprise){
        if(enterpriseService.findEnterpriseById(postEnterprise.getEnterprise().getIdEnterprise()).isStatusEnterprise()){
-           postEnterprise.setTimePostEnterprise(Time.valueOf(java.time.LocalTime.now()));
+           Time timeNow =Time.valueOf(java.time.LocalTime.now());
+           postEnterprise.setTimePostEnterprise(timeNow);
            long millis=System.currentTimeMillis();
            java.sql.Date date=new java.sql.Date(millis);
            postEnterprise.setDatePostEnterprise(date);
@@ -49,12 +52,18 @@ public class EnterpriseApi {
                postEnterprise.setPriorityPostEnterprise(100);
                double money = enterpriseService.getMoneyViEnterpriseById(postEnterprise.getEnterprise().getIdEnterprise())-2;
                enterpriseService.setViEnterprise(postEnterprise.getEnterprise().getIdEnterprise(),money);
+               transactionHistoryService.save(new TransactionHistory(enterpriseService.findEnterpriseById(postEnterprise.getEnterprise().getIdEnterprise()),timeNow,date,2));
            }else if(postEnterprise.getRegime().getIdRegime()==2){
                double money = enterpriseService.getMoneyViEnterpriseById(postEnterprise.getEnterprise().getIdEnterprise())-1;
                enterpriseService.setViEnterprise(postEnterprise.getEnterprise().getIdEnterprise(),money);
                postEnterprise.setPriorityPostEnterprise(20);
+               transactionHistoryService.save(new TransactionHistory(enterpriseService.findEnterpriseById(postEnterprise.getEnterprise().getIdEnterprise()),timeNow,date,1));
            }
            postEnterpriseService.save(postEnterprise);
+           int totalTransaction = transactionHistoryService.totalTransaction();
+           int totalMoneyTransactionByEnterprise = transactionHistoryService.totalTransactionByEnterprise(postEnterprise.getEnterprise().getIdEnterprise());
+           double rates = (totalMoneyTransactionByEnterprise / totalTransaction)*100;
+           enterpriseService.setRatesByEnterprise(postEnterprise.getEnterprise().getIdEnterprise(),rates);
            return new ResponseEntity<>(HttpStatus.OK);
        }
        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -90,5 +99,12 @@ public class EnterpriseApi {
         enterpriseService.changeCodeVi(id,codeVi);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
+    @GetMapping("/listPostVipByEnterprise/{id}")
+    public ResponseEntity<List<PostEnterprise>> listPostVipByEnterprise(@PathVariable int id){
+        return new ResponseEntity<>(postEnterpriseService.listPostVipByEnterprise(id),HttpStatus.OK);
+    }
+    @GetMapping("listPostThuongByEnterprise/{id}")
+    public ResponseEntity<List<PostEnterprise>> listThuongVipByEnterprise(@PathVariable int id){
+        return new ResponseEntity<>(postEnterpriseService.listPostThuongByEnterprise(id),HttpStatus.OK);
+    }
 }

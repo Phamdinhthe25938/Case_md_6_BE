@@ -40,7 +40,8 @@ public class Enterprise {
     private String codeViEnterprise;
 
     private double viEnterprise=0;
-
+// Tỷ suất phần trăm
+    private double ratesEnterprise =0;
     private boolean statusEnterprise=false;
 
     private boolean statusConfirm =false;

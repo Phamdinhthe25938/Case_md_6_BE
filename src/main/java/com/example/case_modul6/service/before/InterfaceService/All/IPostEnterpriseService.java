@@ -24,4 +24,6 @@ public interface IPostEnterpriseService {
     List<Regime> findAllRegime();
     List<PostEnterprise> findAllByIdEnterprise(int id);
     List<PostEnterprise> listPostByOderPriority();
+    List<PostEnterprise> listPostVipByEnterprise(int id);
+    List<PostEnterprise> listPostThuongByEnterprise(int id);
 }

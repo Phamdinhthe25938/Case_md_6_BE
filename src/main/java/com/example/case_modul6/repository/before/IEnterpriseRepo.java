@@ -51,4 +51,15 @@ public interface IEnterpriseRepo extends CrudRepository<Enterprise,Integer>{
     @Transactional
     @Query(nativeQuery = true,value = "update case_module_6.enterprise set vi_enterprise=:numberMoney where id_enterprise=:id")
     void setViEnterprise(@Param("id") int id,@Param("numberMoney") double numberMoney);
+
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true,value = "update case_module_6.enterprise set rates_enterprise=:rates where id_enterprise=:id")
+    void setRatesByEnterprise(@Param("id") int id,@Param("rates") double rates);
+
+
+    @Query(nativeQuery = true,value = "SELECT * FROM case_module_6.enterprise order by rates_enterprise desc")
+    List<Enterprise> listEnterpriseOderByRates();
+
+
 }

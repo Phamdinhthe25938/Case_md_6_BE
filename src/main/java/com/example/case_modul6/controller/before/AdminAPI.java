@@ -3,8 +3,10 @@ package com.example.case_modul6.controller.before;
 import com.example.case_modul6.model.before.AppUser;
 import com.example.case_modul6.model.before.Enterprise;
 import com.example.case_modul6.model.before.Role;
+import com.example.case_modul6.model.before.TransactionHistory;
 import com.example.case_modul6.service.before.InterfaceService.All.IEnterpriseService;
 
+import com.example.case_modul6.service.before.InterfaceService.All.ITransactionHistoryService;
 import com.example.case_modul6.service.before.SendMailService;
 import com.example.case_modul6.service.before.impl.AppUserService;
 
@@ -27,6 +29,9 @@ public class AdminAPI {
 
     @Autowired
     AppUserService appUserService;
+
+    @Autowired
+    ITransactionHistoryService transactionHistoryService;
     @GetMapping("/getAllNotConfirm")
     public ResponseEntity<List<Enterprise>> getAllEnterpriseNotConfirm(){
          return new ResponseEntity<>(enterpriseService.getAllEnterpriseNotConfirmOrderByTime(), HttpStatus.OK);
@@ -67,4 +72,11 @@ public class AdminAPI {
         enterpriseService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-}
+    @GetMapping("/listTransactionHistory")
+    public ResponseEntity<List<TransactionHistory>> listTransactionHistory(){
+         return  new ResponseEntity<>(transactionHistoryService.listTransactionHistory(),HttpStatus.OK);
+    }
+    @GetMapping("/listEnterpriseOderByRates")
+    public ResponseEntity<List<Enterprise>> listEnterpriseOderByRates(){
+         return  new ResponseEntity<>(enterpriseService.listEnterpriseOderByRates(),HttpStatus.OK);
+    }}

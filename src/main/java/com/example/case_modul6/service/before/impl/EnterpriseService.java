@@ -74,6 +74,16 @@ public class EnterpriseService implements IEnterpriseService {
     }
 
     @Override
+    public void setRatesByEnterprise(int id,double rates) {
+        enterpriseRepo.setRatesByEnterprise(id,rates);
+    }
+
+    @Override
+    public List<Enterprise> listEnterpriseOderByRates() {
+        return enterpriseRepo.listEnterpriseOderByRates();
+    }
+
+    @Override
     public Enterprise findByGmailEnterprise(String name){
         return enterpriseRepo.findByGmailEnterprise(name);
     }

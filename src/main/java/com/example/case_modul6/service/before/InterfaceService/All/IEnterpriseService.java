@@ -23,6 +23,10 @@ public interface IEnterpriseService {
     void setStatusEnterpriseTo0(int id);
     void setViEnterprise(int id,double numberMoney);
 
+    void setRatesByEnterprise(int id,double rates);
+
+    List<Enterprise> listEnterpriseOderByRates();
+
 //    the
 
 //    tuan
