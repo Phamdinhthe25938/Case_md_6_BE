@@ -13,8 +13,8 @@ public interface IEnterpriseRepo extends CrudRepository<Enterprise,Integer>{
 
     @Transactional
     @Modifying
-    @Query(nativeQuery = true,value = "update enterprise set password_enterprise=:password,code_vi_enterprise=:codeVi,status_confirm=:status where id_enterprise=:id")
-    void confirmRegisterEnterprise(@Param("password") String password,@Param("codeVi") String codeVi,@Param("status") int status,@Param("id")int id);
+    @Query(nativeQuery = true,value = "update enterprise set password_enterprise=:password,code_vi_enterprise=:codeVi,status_confirm=:status,number_vi_enterprise=:numberVi where id_enterprise=:id")
+    void confirmRegisterEnterprise(@Param("password") String password,@Param("codeVi") String codeVi,@Param("numberVi") String numberVi,@Param("status") int status,@Param("id")int id);
     @Query(nativeQuery = true,value = "SELECT * FROM case_module_6.enterprise where status_confirm=0 ORDER BY time_register_enterprise DESC, date_register_enterprise DESC")
     List<Enterprise> getAllEnterpriseNotConfirmOrderByTime();
     @Query(nativeQuery = true,value = "SELECT * FROM case_module_6.enterprise where status_confirm=1 ORDER BY time_register_enterprise DESC, date_register_enterprise DESC")
@@ -33,10 +33,33 @@ public interface IEnterpriseRepo extends CrudRepository<Enterprise,Integer>{
     @Query(nativeQuery = true,value = "SELECT vi_enterprise FROM case_module_6.enterprise  where id_enterprise=:id")
     double getMoneyViEnterpriseById(@Param("id")int id);
 
-// Tuấn: tìm kiếm doanh nghiệp theo tên và địa chỉ chính
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true,value = "update case_module_6.enterprise set code_vi_enterprise=:codeVi where id_enterprise=:id")
+    void changeCodeVi(@Param("id") int id,@Param("codeVi") String codeVi);
 
-    @Query(nativeQuery = true, value = "select * from case_module_6.enterprise where name_enterprise LIKE %:name% ")
-    List<Enterprise> findByNameEnterprise(@Param("name") String name);
-    @Query(nativeQuery = true, value = "select * from case_module_6.enterprise where address_main_enterprise LIKE %:address% ")
-    List<Enterprise> findByMainAddress(@Param("address") String address);
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true,value = "update case_module_6.enterprise set status_enterprise=1 where id_enterprise=:id")
+    void setStatusEnterpriseTo1(@Param("id") int id);
+
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true,value = "update case_module_6.enterprise set status_enterprise=1 where id_enterprise=:id")
+    void setStatusEnterpriseTo0(@Param("id") int id);
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true,value = "update case_module_6.enterprise set vi_enterprise=:numberMoney where id_enterprise=:id")
+    void setViEnterprise(@Param("id") int id,@Param("numberMoney") double numberMoney);
+
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true,value = "update case_module_6.enterprise set rates_enterprise=:rates where id_enterprise=:id")
+    void setRatesByEnterprise(@Param("id") int id,@Param("rates") double rates);
+
+
+    @Query(nativeQuery = true,value = "SELECT * FROM case_module_6.enterprise order by rates_enterprise desc")
+    List<Enterprise> listEnterpriseOderByRates();
+
+
 }
