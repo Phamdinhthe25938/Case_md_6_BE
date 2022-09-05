@@ -48,4 +48,33 @@ public class EnterpriseService implements IEnterpriseService {
     public void delete(int id){
         enterpriseRepo.deleteById(id);
     }
+
+    @Override
+    public void rechargeWallet(int id, double numberMoney){
+         enterpriseRepo.rechargeWallet(id,numberMoney);
+    }
+
+    @Override
+    public double getMoneyViEnterpriseById(int id) {
+        return enterpriseRepo.getMoneyViEnterpriseById(id);
+    }
+
+    @Override
+    public Enterprise findByGmailEnterprise(String name){
+        return enterpriseRepo.findByGmailEnterprise(name);
+    }
+
+    @Override
+    public double findViByIdEnterprise(int id) {
+        return enterpriseRepo.findViByIdEnterprise(id);
+    }
+//Tuấn: search công ty theo địa chỉ chính và tên công ty
+    @Override
+    public List<Enterprise> findByNameEnterprise(String name){
+        return enterpriseRepo.findByNameEnterprise(name);
+    }
+    @Override
+    public List<Enterprise> findByMainAddress(String address){
+        return enterpriseRepo.findByMainAddress(address);
+    }
 }
