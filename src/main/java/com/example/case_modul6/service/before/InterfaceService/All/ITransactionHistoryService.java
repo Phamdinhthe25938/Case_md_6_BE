@@ -13,4 +13,7 @@ public interface ITransactionHistoryService {
 
     int totalTransaction();
     int totalTransactionByEnterprise(int id);
+
+    List<TransactionHistory> listTransactionHistoryByDateNow(String date);
+
 }

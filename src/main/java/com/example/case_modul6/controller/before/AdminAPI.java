@@ -79,4 +79,11 @@ public class AdminAPI {
     @GetMapping("/listEnterpriseOderByRates")
     public ResponseEntity<List<Enterprise>> listEnterpriseOderByRates(){
          return  new ResponseEntity<>(enterpriseService.listEnterpriseOderByRates(),HttpStatus.OK);
-    }}
+    }
+    @GetMapping("/totalTransaction")
+    public ResponseEntity<Integer> totalTransaction(){
+        return new ResponseEntity<>(transactionHistoryService.totalTransaction(),HttpStatus.OK);
+    }
+
+}
+
