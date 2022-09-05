@@ -47,4 +47,10 @@ public class UserApi {
     public ResponseEntity<List<PostEnterprise>> findBySalary(@PathVariable double salary){
         return new ResponseEntity<>(postEnterpriseService.findSalary(salary), HttpStatus.OK);
     }
+
+    //Tuấn Chi tiết bài đăng
+    @GetMapping("/postDetail/{id}")
+    public ResponseEntity<PostEnterprise> findPostByID(@PathVariable int id) {
+        return new ResponseEntity<>(postEnterpriseService.findById(id), HttpStatus.OK);
+    }
 }
