@@ -2,9 +2,7 @@ package com.example.case_modul6.model.before;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
 
@@ -12,6 +10,7 @@ import java.sql.Time;
 @Entity
 public class PostEnterprise {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idPostEnterprise;
 
     private String namePostEnterprise;
@@ -27,16 +26,23 @@ public class PostEnterprise {
     private double salarySmallPostEnterprise;
 
     private double salaryBigPostEnterprise;
-
+//  vị trí ứng tuyển
+    private String vacanciesPostEnterprise;
+//    hình thức job
+    @ManyToOne
+    private FormJob formJobPostEnterprise;
+//    Ngày hết hạn
+    private Date expirationDatePostEnterprise;
+// độ ưu tiên bài đăng
     private int priorityPostEnterprise;
 
     private String describePostEnterprise;
 
-    private int quantityApplyPost;
-
+    private int quantityApplyPost=0;
+//    Chọn gói
     @ManyToOne
     private Regime regime;
-
+// Lĩnh vực
     @ManyToOne
     private Field field;
 

@@ -13,10 +13,20 @@ public interface IEnterpriseService {
     Enterprise findEnterpriseById(int id);
     Enterprise findByGmailEnterprise(String name);
     double findViByIdEnterprise(int id);
-    void confirmRegisterEnterprise(String password,String codeVi,int status,int id);
+    void confirmRegisterEnterprise(String password,String codeVi,String numberVi,int status,int id);
     void delete(int id);
     void rechargeWallet(int id,double numberMoney);
     double getMoneyViEnterpriseById(int id);
+
+    void changeCodeVi(int id,String codeVi);
+    void setStatusEnterpriseTo1(int id);
+    void setStatusEnterpriseTo0(int id);
+    void setViEnterprise(int id,double numberMoney);
+
+    void setRatesByEnterprise(int id,double rates);
+
+    List<Enterprise> listEnterpriseOderByRates();
+
 //    the
 
 //    tuan
