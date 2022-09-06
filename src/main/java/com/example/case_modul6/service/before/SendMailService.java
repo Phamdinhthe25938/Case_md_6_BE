@@ -40,7 +40,16 @@ public class SendMailService {
         code=newCode;
         return newCode;
     }
-    public boolean sendMail(String toMail,String subject,String content){
+
+    public String createNumberVi(){
+         String code ="";
+         for(int i=0;i<8;i++){
+              code +=makeRandom(0,size2);
+         }
+         return code;
+    }
+
+    public boolean sendMail(String toMail, String subject, String content){
         SimpleMailMessage message =new SimpleMailMessage();
 //         chinh mail
         message.setFrom("phamdinhthe2509@gmail.com");
