@@ -26,4 +26,6 @@ public interface IPostEnterpriseService {
     List<PostEnterprise> listPostByOderPriority();
     List<PostEnterprise> listPostVipByEnterprise(int id);
     List<PostEnterprise> listPostThuongByEnterprise(int id);
+
+    PostEnterprise statusPost(boolean status);
 }

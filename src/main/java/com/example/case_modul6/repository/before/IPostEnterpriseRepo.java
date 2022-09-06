@@ -8,20 +8,21 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface IPostEnterpriseRepo extends CrudRepository<PostEnterprise,Integer> {
+public interface IPostEnterpriseRepo extends CrudRepository<PostEnterprise, Integer> {
 
     @Query(nativeQuery = true, value = "select  * from case_module_6.post_enterprise where id_post_enterprise=:id")
     List<PostEnterprise> findAllById(@Param("id") int id);
 
-    @Query(nativeQuery = true,value = "select  * from case_module_6.post_enterprise where enterprise_id_enterprise=:id")
-     List<PostEnterprise> findAllByIdEnterprise(@Param("id") int id);
+    @Query(nativeQuery = true, value = "select  * from case_module_6.post_enterprise where enterprise_id_enterprise=:id")
+    List<PostEnterprise> findAllByIdEnterprise(@Param("id") int id);
 
-    @Query(nativeQuery = true,value = "select   * from case_module_6.post_enterprise order by priority_post_enterprise DESC limit 4")
+    @Query(nativeQuery = true, value = "select   * from case_module_6.post_enterprise order by priority_post_enterprise DESC limit 4")
     List<PostEnterprise> listPostByOderPriority();
 
-    @Query(nativeQuery = true,value = "select  * from case_module_6.post_enterprise where enterprise_id_enterprise=:id and regime_id_regime=1")
+    @Query(nativeQuery = true, value = "select  * from case_module_6.post_enterprise where enterprise_id_enterprise=:id and regime_id_regime=1")
     List<PostEnterprise> listPostVipByEnterprise(@Param("id") int id);
-    @Query(nativeQuery = true,value = "select  * from case_module_6.post_enterprise where enterprise_id_enterprise=:id and regime_id_regime=2")
+
+    @Query(nativeQuery = true, value = "select  * from case_module_6.post_enterprise where enterprise_id_enterprise=:id and regime_id_regime=2")
     List<PostEnterprise> listPostThuongByEnterprise(@Param("id") int id);
 
     // Song Đạt tìm kiếm bài đăng theo địa chỉ và công ty
@@ -36,5 +37,8 @@ public interface IPostEnterpriseRepo extends CrudRepository<PostEnterprise,Integ
 
     @Query(nativeQuery = true, value = "select * from case_module_6.post_enterprise where salary_big_post_enterprise between  salary_small_post_enterprise AND  salary_big_post_enterprise ")
     List<PostEnterprise> findSalary(double salary);
+
+    @Query(nativeQuery = true, value = "select * from case_module_6.post_enterprise SET status_post_enterprise = 0 WHERE status_post_enterprise=:status_post ")
+    PostEnterprise statusPost(boolean status);
 
 }
