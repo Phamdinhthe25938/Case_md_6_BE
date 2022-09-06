@@ -29,14 +29,18 @@ public class TransactionHistoryService implements ITransactionHistoryService {
     public int totalTransaction() {
         return transactionHistoryRepo.totalTransaction();
     }
-
     @Override
     public int totalTransactionByEnterprise(int id) {
         return transactionHistoryRepo.totalTransactionByEnterprise(id);
     }
-
     @Override
-    public List<TransactionHistory> listTransactionHistoryByDateNow(String date) {
+    public List<TransactionHistory> listTransactionHistoryByDateNow(String date){
         return transactionHistoryRepo.listTransactionHistoryByDateNow(date);
     }
+
+    @Override
+    public TransactionHistory checkExist(int id) {
+        return transactionHistoryRepo.checkExist(id);
+    }
+
 }

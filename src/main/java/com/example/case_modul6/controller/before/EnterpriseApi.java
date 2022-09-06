@@ -53,17 +53,32 @@ public class EnterpriseApi {
                double money = enterpriseService.getMoneyViEnterpriseById(postEnterprise.getEnterprise().getIdEnterprise())-2;
                enterpriseService.setViEnterprise(postEnterprise.getEnterprise().getIdEnterprise(),money);
                transactionHistoryService.save(new TransactionHistory(enterpriseService.findEnterpriseById(postEnterprise.getEnterprise().getIdEnterprise()),timeNow,date,2));
-           }else if(postEnterprise.getRegime().getIdRegime()==2){
+           }
+           else if(postEnterprise.getRegime().getIdRegime()==2){
                double money = enterpriseService.getMoneyViEnterpriseById(postEnterprise.getEnterprise().getIdEnterprise())-1;
                enterpriseService.setViEnterprise(postEnterprise.getEnterprise().getIdEnterprise(),money);
                postEnterprise.setPriorityPostEnterprise(20);
                transactionHistoryService.save(new TransactionHistory(enterpriseService.findEnterpriseById(postEnterprise.getEnterprise().getIdEnterprise()),timeNow,date,1));
            }
            postEnterpriseService.save(postEnterprise);
-           int totalTransaction = transactionHistoryService.totalTransaction();
-           int totalMoneyTransactionByEnterprise = transactionHistoryService.totalTransactionByEnterprise(postEnterprise.getEnterprise().getIdEnterprise());
-           double rates = (totalMoneyTransactionByEnterprise / totalTransaction)*100;
-           enterpriseService.setRatesByEnterprise(postEnterprise.getEnterprise().getIdEnterprise(),rates);
+           long totalTransaction = transactionHistoryService.totalTransaction();
+           long totalMoneyTransactionByEnterprise = transactionHistoryService.totalTransactionByEnterprise(postEnterprise.getEnterprise().getIdEnterprise());
+           float rates =(float)((totalMoneyTransactionByEnterprise*100)/totalTransaction);
+           enterpriseService.setRatesByEnterprise(postEnterprise.getEnterprise().getIdEnterprise(),Math.ceil(rates*100.0)/100.0);
+           int sizeEnterpriseConfirm  =enterpriseService.getAllEnterpriseOrderByVi().size();
+           for (int i=0;i<sizeEnterpriseConfirm;i++){
+                Enterprise enterprise = enterpriseService.getAllEnterpriseOrderByVi().get(i);
+                if(enterprise.getIdEnterprise()!=postEnterprise.getEnterprise().getIdEnterprise()){
+                    if(transactionHistoryService.checkExist(enterprise.getIdEnterprise())==null){
+                       continue;
+                    }
+                    else {
+                        long totalMoney = transactionHistoryService.totalTransactionByEnterprise(enterprise.getIdEnterprise());
+                        float kq = (float) (totalMoney*100)/totalTransaction;
+                        enterpriseService.setRatesByEnterprise(enterprise.getIdEnterprise(),Math.ceil(kq*100.0)/100.0);
+                    }
+                }
+           }
            return new ResponseEntity<>(HttpStatus.OK);
        }
        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

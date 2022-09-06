@@ -15,5 +15,6 @@ public interface ITransactionHistoryService {
     int totalTransactionByEnterprise(int id);
 
     List<TransactionHistory> listTransactionHistoryByDateNow(String date);
+    TransactionHistory checkExist(int id);
 
 }
