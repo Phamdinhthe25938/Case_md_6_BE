@@ -27,5 +27,5 @@ public interface IPostEnterpriseService {
     List<PostEnterprise> listPostVipByEnterprise(int id);
     List<PostEnterprise> listPostThuongByEnterprise(int id);
 
-    PostEnterprise statusPost(boolean status);
+    void statusPost(int id);
 }

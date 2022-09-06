@@ -16,4 +16,7 @@ public interface ITransactionHistoryRepo extends CrudRepository<TransactionHisto
     
     @Query(nativeQuery = true,value = "select * from case_module_6.transaction_history where date_transaction=:date")
     List<TransactionHistory> listTransactionHistoryByDateNow(@Param("date") String date);
+
+    @Query(nativeQuery = true,value = "select * from case_module_6.transaction_history where enterprise_id_enterprise=:id limit 1")
+    TransactionHistory checkExist(@Param("id") int id);
 }

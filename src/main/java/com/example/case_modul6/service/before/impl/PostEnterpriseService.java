@@ -101,9 +101,8 @@ public class PostEnterpriseService implements IPostEnterpriseService {
         return postEnterpriseRepo.findSalary(salary);
     }
 
-    public PostEnterprise statusPost(boolean status) {
-        return postEnterpriseRepo.statusPost(status);
+    public void statusPost(int id) {
+         postEnterpriseRepo.statusPost(id);
     }
-
 
 }
