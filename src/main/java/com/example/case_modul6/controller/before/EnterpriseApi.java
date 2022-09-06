@@ -25,6 +25,11 @@ public class EnterpriseApi {
     public  ResponseEntity<List<PostEnterprise>> findAllPostEnterpriseById(@PathVariable int id){
         return new ResponseEntity<>(postEnterpriseService.findAllById(id),HttpStatus.OK);
     }
+
+    @GetMapping("/findAllEnterprise/{id}")
+    public  ResponseEntity<List<PostEnterprise>> findAllPostEnterpriseByEnterprise(@PathVariable int id){
+        return new ResponseEntity<>(postEnterpriseService.findAllById(id),HttpStatus.OK);
+    }
     @PostMapping("/save")
     public ResponseEntity<PostEnterprise> savePostEnterprise(@RequestBody PostEnterprise postEnterprise){
         postEnterpriseService.save(postEnterprise);
