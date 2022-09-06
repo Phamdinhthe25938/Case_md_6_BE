@@ -54,4 +54,5 @@ public class RegisterAPI {
         enterpriseService.save(enterprise);
         return  new ResponseEntity<>(HttpStatus.OK);
     }
+//    @GetMapping("/enterprise")
 }

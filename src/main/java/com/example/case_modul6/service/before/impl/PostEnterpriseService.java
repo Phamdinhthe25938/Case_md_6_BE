@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class PostEnterpriseService implements IPostEnterpriseService {
 
@@ -21,6 +22,7 @@ public class PostEnterpriseService implements IPostEnterpriseService {
     IFormJobRepo formJobRepo;
     @Autowired
     IRegimeRepo regimeRepo;
+
     @Override
     public List<PostEnterprise> findAll() {
         return (List<PostEnterprise>) postEnterpriseRepo.findAll();
@@ -30,17 +32,19 @@ public class PostEnterpriseService implements IPostEnterpriseService {
     public List<PostEnterprise> findAllById(int id) {
         return postEnterpriseRepo.findAllById(id);
     }
+
     @Override
     public PostEnterprise findById(int id) {
         return postEnterpriseRepo.findById(id).get();
     }
 
     @Override
-    public void save(PostEnterprise postEnterprise){
-          postEnterpriseRepo.save(postEnterprise);
+    public void save(PostEnterprise postEnterprise) {
+        postEnterpriseRepo.save(postEnterprise);
     }
+
     @Override
-    public void delete(int id){
+    public void delete(int id) {
         postEnterpriseRepo.deleteById(id);
     }
 
@@ -51,10 +55,11 @@ public class PostEnterpriseService implements IPostEnterpriseService {
 
 // List chế độ bài đăng và hình thức công việc
 
-    public List<FormJob> findAllFormJob(){
+    public List<FormJob> findAllFormJob() {
         return (List<FormJob>) formJobRepo.findAll();
     }
-    public List<Regime> findAllRegime(){
+
+    public List<Regime> findAllRegime() {
         return (List<Regime>) regimeRepo.findAll();
     }
 
@@ -80,21 +85,24 @@ public class PostEnterpriseService implements IPostEnterpriseService {
 
     // Song Đạt tìm kiếm bài đăng theo địa chỉ và công ty
 
-    public List<PostEnterprise> findByAddress(String address){
+    public List<PostEnterprise> findByAddress(String address) {
         return postEnterpriseRepo.findByAddress(address);
     }
 
-    public List<PostEnterprise> findByNamePost (String name){
+    public List<PostEnterprise> findByNamePost(String name) {
         return postEnterpriseRepo.findByNamePost(name);
     }
 
-    public List<PostEnterprise> findByEnterprise(int id){
+    public List<PostEnterprise> findByEnterprise(int id) {
         return postEnterpriseRepo.findByEnterprise(id);
     }
 
-    public List<PostEnterprise> findSalary(double salary){
+    public List<PostEnterprise> findSalary(double salary) {
         return postEnterpriseRepo.findSalary(salary);
     }
 
+    public void statusPost(int id) {
+         postEnterpriseRepo.statusPost(id);
+    }
 
 }

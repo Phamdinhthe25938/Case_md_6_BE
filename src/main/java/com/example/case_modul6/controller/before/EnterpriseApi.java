@@ -32,94 +32,109 @@ public class EnterpriseApi {
     AppUserService appUserService;
 
     @GetMapping("/findAll")
-    public ResponseEntity<List<PostEnterprise>> findAllPostEnterprise(){
-         return new ResponseEntity<>(postEnterpriseService.findAll(), HttpStatus.OK);
+    public ResponseEntity<List<PostEnterprise>> findAllPostEnterprise() {
+        return new ResponseEntity<>(postEnterpriseService.findAll(), HttpStatus.OK);
     }
+
     @GetMapping("/findAllByIdEnterprise/{id}")
-    public  ResponseEntity<List<PostEnterprise>> findAllByIdEnterprise(@PathVariable int id){
-        return new ResponseEntity<>(postEnterpriseService.findAllByIdEnterprise(id),HttpStatus.OK);
+    public ResponseEntity<List<PostEnterprise>> findAllByIdEnterprise(@PathVariable int id) {
+        return new ResponseEntity<>(postEnterpriseService.findAllByIdEnterprise(id), HttpStatus.OK);
     }
+
     @PostMapping("/savePost")
-    public ResponseEntity<PostEnterprise> savePostEnterprise(@RequestBody PostEnterprise postEnterprise){
-       if(enterpriseService.findEnterpriseById(postEnterprise.getEnterprise().getIdEnterprise()).isStatusEnterprise()){
-           Time timeNow =Time.valueOf(java.time.LocalTime.now());
-           postEnterprise.setTimePostEnterprise(timeNow);
-           long millis=System.currentTimeMillis();
-           java.sql.Date date=new java.sql.Date(millis);
-           postEnterprise.setDatePostEnterprise(date);
-           postEnterprise.setStatusPostEnterprise(true);
-           if(postEnterprise.getRegime().getIdRegime()==1){
-               postEnterprise.setPriorityPostEnterprise(100);
-               double money = enterpriseService.getMoneyViEnterpriseById(postEnterprise.getEnterprise().getIdEnterprise())-2;
-               enterpriseService.setViEnterprise(postEnterprise.getEnterprise().getIdEnterprise(),money);
-               transactionHistoryService.save(new TransactionHistory(enterpriseService.findEnterpriseById(postEnterprise.getEnterprise().getIdEnterprise()),timeNow,date,2));
-           }
-           else if(postEnterprise.getRegime().getIdRegime()==2){
-               double money = enterpriseService.getMoneyViEnterpriseById(postEnterprise.getEnterprise().getIdEnterprise())-1;
-               enterpriseService.setViEnterprise(postEnterprise.getEnterprise().getIdEnterprise(),money);
-               postEnterprise.setPriorityPostEnterprise(20);
-               transactionHistoryService.save(new TransactionHistory(enterpriseService.findEnterpriseById(postEnterprise.getEnterprise().getIdEnterprise()),timeNow,date,1));
-           }
-           postEnterpriseService.save(postEnterprise);
-           long totalTransaction = transactionHistoryService.totalTransaction();
-           long totalMoneyTransactionByEnterprise = transactionHistoryService.totalTransactionByEnterprise(postEnterprise.getEnterprise().getIdEnterprise());
-           float rates =(float)((totalMoneyTransactionByEnterprise*100)/totalTransaction);
-           enterpriseService.setRatesByEnterprise(postEnterprise.getEnterprise().getIdEnterprise(),Math.ceil(rates*100.0)/100.0);
-           int sizeEnterpriseConfirm  =enterpriseService.getAllEnterpriseOrderByVi().size();
-           for (int i=0;i<sizeEnterpriseConfirm;i++){
+    public ResponseEntity<PostEnterprise> savePostEnterprise(@RequestBody PostEnterprise postEnterprise) {
+        if (enterpriseService.findEnterpriseById(postEnterprise.getEnterprise().getIdEnterprise()).isStatusEnterprise()) {
+            Time timeNow = Time.valueOf(java.time.LocalTime.now());
+            postEnterprise.setTimePostEnterprise(timeNow);
+            long millis = System.currentTimeMillis();
+            java.sql.Date date = new java.sql.Date(millis);
+            postEnterprise.setDatePostEnterprise(date);
+            postEnterprise.setStatusPostEnterprise(true);
+            if (postEnterprise.getRegime().getIdRegime() == 1) {
+                postEnterprise.setPriorityPostEnterprise(100);
+                double money = enterpriseService.getMoneyViEnterpriseById(postEnterprise.getEnterprise().getIdEnterprise()) - 2;
+                enterpriseService.setViEnterprise(postEnterprise.getEnterprise().getIdEnterprise(), money);
+                transactionHistoryService.save(new TransactionHistory(enterpriseService.findEnterpriseById(postEnterprise.getEnterprise().getIdEnterprise()), timeNow, date, 2));
+            } else if (postEnterprise.getRegime().getIdRegime() == 2) {
+                double money = enterpriseService.getMoneyViEnterpriseById(postEnterprise.getEnterprise().getIdEnterprise()) - 1;
+                enterpriseService.setViEnterprise(postEnterprise.getEnterprise().getIdEnterprise(), money);
+                postEnterprise.setPriorityPostEnterprise(20);
+                transactionHistoryService.save(new TransactionHistory(enterpriseService.findEnterpriseById(postEnterprise.getEnterprise().getIdEnterprise()), timeNow, date, 1));
+            }
+            postEnterpriseService.save(postEnterprise);
+            long totalTransaction = transactionHistoryService.totalTransaction();
+            long totalMoneyTransactionByEnterprise = transactionHistoryService.totalTransactionByEnterprise(postEnterprise.getEnterprise().getIdEnterprise());
+            float rates = (float) ((totalMoneyTransactionByEnterprise * 100) / totalTransaction);
+            enterpriseService.setRatesByEnterprise(postEnterprise.getEnterprise().getIdEnterprise(), Math.ceil(rates * 100.0) / 100.0);
+            int sizeEnterpriseConfirm = enterpriseService.getAllEnterpriseOrderByVi().size();
+            for (int i = 0; i < sizeEnterpriseConfirm; i++) {
                 Enterprise enterprise = enterpriseService.getAllEnterpriseOrderByVi().get(i);
-                if(enterprise.getIdEnterprise()!=postEnterprise.getEnterprise().getIdEnterprise()){
-                    if(transactionHistoryService.checkExist(enterprise.getIdEnterprise())==null){
-                       continue;
-                    }
-                    else {
+                if (enterprise.getIdEnterprise() != postEnterprise.getEnterprise().getIdEnterprise()) {
+                    if (transactionHistoryService.checkExist(enterprise.getIdEnterprise()) == null) {
+                        continue;
+                    } else {
                         long totalMoney = transactionHistoryService.totalTransactionByEnterprise(enterprise.getIdEnterprise());
-                        float kq = (float) (totalMoney*100)/totalTransaction;
-                        enterpriseService.setRatesByEnterprise(enterprise.getIdEnterprise(),Math.ceil(kq*100.0)/100.0);
+                        float kq = (float) (totalMoney * 100) / totalTransaction;
+                        enterpriseService.setRatesByEnterprise(enterprise.getIdEnterprise(), Math.ceil(kq * 100.0) / 100.0);
                     }
                 }
-           }
-           return new ResponseEntity<>(HttpStatus.OK);
-       }
-       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+
     @GetMapping("/vi/{id}")
-    public ResponseEntity<Double> getViEnterprise(@PathVariable int id){
-        return new ResponseEntity<>(enterpriseService.findViByIdEnterprise(id),HttpStatus.OK);
+    public ResponseEntity<Double> getViEnterprise(@PathVariable int id) {
+        return new ResponseEntity<>(enterpriseService.findViByIdEnterprise(id), HttpStatus.OK);
     }
+
     @GetMapping("/findEnterpriseId/{id}")
-    public ResponseEntity<Enterprise> getEnterpriseById(@PathVariable int id){
-        return new ResponseEntity<>(enterpriseService.findEnterpriseById(id),HttpStatus.OK);
+    public ResponseEntity<Enterprise> getEnterpriseById(@PathVariable int id) {
+        return new ResponseEntity<>(enterpriseService.findEnterpriseById(id), HttpStatus.OK);
     }
+
     @GetMapping("/findEnterprise/{name}")
-    public ResponseEntity<Enterprise> getEnterpriseByName(@PathVariable String name){
-          return new ResponseEntity<>(enterpriseService.findByGmailEnterprise(name),HttpStatus.OK);
+    public ResponseEntity<Enterprise> getEnterpriseByName(@PathVariable String name) {
+        return new ResponseEntity<>(enterpriseService.findByGmailEnterprise(name), HttpStatus.OK);
     }
+
     @PostMapping("/rechargeWallet/{id}/{numberMoney}")
-    public ResponseEntity<Double> rechargeWallet(@PathVariable int id,@PathVariable double numberMoney ){
-        double money = enterpriseService.getMoneyViEnterpriseById(id)+numberMoney;
-        enterpriseService.rechargeWallet(id,money);
+    public ResponseEntity<Double> rechargeWallet(@PathVariable int id, @PathVariable double numberMoney) {
+        double money = enterpriseService.getMoneyViEnterpriseById(id) + numberMoney;
+        enterpriseService.rechargeWallet(id, money);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
     @GetMapping("/findAllFormJob")
-    public ResponseEntity<List<FormJob>> listFormJob(){
-        return new ResponseEntity<>(postEnterpriseService.findAllFormJob(),HttpStatus.OK);
+    public ResponseEntity<List<FormJob>> listFormJob() {
+        return new ResponseEntity<>(postEnterpriseService.findAllFormJob(), HttpStatus.OK);
     }
+
     @GetMapping("/findAllRegime")
-    public ResponseEntity<List<Regime>> listRegime(){
-        return new ResponseEntity<>(postEnterpriseService.findAllRegime(),HttpStatus.OK);
+    public ResponseEntity<List<Regime>> listRegime() {
+        return new ResponseEntity<>(postEnterpriseService.findAllRegime(), HttpStatus.OK);
     }
+
     @PostMapping("/changeCodeVi/{id}/{codeVi}")
-    public ResponseEntity<Double> changeCodeVi(@PathVariable int id,@PathVariable String codeVi ){
-        enterpriseService.changeCodeVi(id,codeVi);
+    public ResponseEntity<Double> changeCodeVi(@PathVariable int id, @PathVariable String codeVi) {
+        enterpriseService.changeCodeVi(id, codeVi);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
     @GetMapping("/listPostVipByEnterprise/{id}")
-    public ResponseEntity<List<PostEnterprise>> listPostVipByEnterprise(@PathVariable int id){
-        return new ResponseEntity<>(postEnterpriseService.listPostVipByEnterprise(id),HttpStatus.OK);
+    public ResponseEntity<List<PostEnterprise>> listPostVipByEnterprise(@PathVariable int id) {
+        return new ResponseEntity<>(postEnterpriseService.listPostVipByEnterprise(id), HttpStatus.OK);
     }
+
     @GetMapping("listPostThuongByEnterprise/{id}")
-    public ResponseEntity<List<PostEnterprise>> listThuongVipByEnterprise(@PathVariable int id){
-        return new ResponseEntity<>(postEnterpriseService.listPostThuongByEnterprise(id),HttpStatus.OK);
+    public ResponseEntity<List<PostEnterprise>> listThuongVipByEnterprise(@PathVariable int id) {
+        return new ResponseEntity<>(postEnterpriseService.listPostThuongByEnterprise(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/statusPost/{id}")
+    public ResponseEntity<PostEnterprise> statusPost(@PathVariable int id) {
+        postEnterpriseService.statusPost(id);
+        return new ResponseEntity<>( HttpStatus.OK);
     }
 }
