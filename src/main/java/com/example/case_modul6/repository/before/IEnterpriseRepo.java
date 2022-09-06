@@ -58,7 +58,7 @@ public interface IEnterpriseRepo extends CrudRepository<Enterprise,Integer>{
     void setRatesByEnterprise(@Param("id") int id,@Param("rates") double rates);
 
 
-    @Query(nativeQuery = true,value = "SELECT * FROM case_module_6.enterprise order by rates_enterprise desc")
+    @Query(nativeQuery = true,value = "SELECT * FROM case_module_6.enterprise where status_confirm=1 order by rates_enterprise desc")
     List<Enterprise> listEnterpriseOderByRates();
 
 
