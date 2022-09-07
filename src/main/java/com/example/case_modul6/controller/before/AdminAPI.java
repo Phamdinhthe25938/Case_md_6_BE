@@ -85,9 +85,12 @@ public class AdminAPI {
     public ResponseEntity<Integer> totalTransaction(){
         return new ResponseEntity<>(transactionHistoryService.totalTransaction(),HttpStatus.OK);
     }
-   @GetMapping("/listTransactionHistoryByDateNow/{date}")
-    public ResponseEntity<List<TransactionHistory>> listTransactionHistoryByDateNow(@PathVariable String date ){
-         return new ResponseEntity<>(transactionHistoryService.listTransactionHistoryByDateNow(date),HttpStatus.OK);
+         @GetMapping("/listTransactionHistoryByDateNow")
+    public ResponseEntity<List<TransactionHistory>> listTransactionHistoryByDateNow( ){
+       long millis = System.currentTimeMillis();
+       java.sql.Date date = new java.sql.Date(millis);
+       String dateStr ="'"+date+"'";
+       return new ResponseEntity<>(transactionHistoryService.listTransactionHistoryByDateNow(dateStr),HttpStatus.OK);
    }
 }
 

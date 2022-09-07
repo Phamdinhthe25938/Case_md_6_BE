@@ -24,16 +24,13 @@ import java.util.Set;
 public class LoginAPI {
     @Autowired
     JwtService jwtService;
-
     @Autowired
     private AuthenticationManager authenticationManager;
-
     @Autowired
     AppUserService appUserService;
-
     @PostMapping("/login")
     public UserToken login(@RequestBody AppUser appUser){
-        try {
+        try{
             // Tạo ra 1 đối tượng Authentication.
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(appUser.getUsername(), appUser.getPassword()));
@@ -41,14 +38,12 @@ public class LoginAPI {
             String token = jwtService.createToken(authentication);
             AppUser appUser1 = appUserService.findByUserName(appUser.getUsername());
             return new UserToken(appUser1.getId(),appUser1.getUsername(),token, appUser1.getRoles());
-        } catch (Exception e) {
+        }catch (Exception e) {
             return null;
         }
-
     }
-
     @GetMapping("/findByName/{name}")
     public ResponseEntity<AppUser> findByUserName(@PathVariable String name){
         return new ResponseEntity<>(appUserService.findByUserName(name),HttpStatus.OK);
     }
-}
+  }
