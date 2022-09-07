@@ -1,12 +1,11 @@
 package com.example.case_modul6.controller.before;
 
 import com.example.case_modul6.model.before.AppUser;
-import com.example.case_modul6.model.before.Enterprise;
-import com.example.case_modul6.model.before.Role;
+
 import com.example.case_modul6.model.before.ot.UserToken;
-import com.example.case_modul6.repository.before.IEnterpriseRepo;
+
 import com.example.case_modul6.service.JwtService;
-import com.example.case_modul6.service.before.InterfaceService.All.IEnterpriseService;
+
 import com.example.case_modul6.service.before.impl.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

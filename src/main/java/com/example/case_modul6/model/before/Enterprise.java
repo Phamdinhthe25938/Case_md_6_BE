@@ -1,11 +1,11 @@
 package com.example.case_modul6.model.before;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
-import java.util.Set;
 
 @Entity
 @Data

@@ -3,7 +3,6 @@ package com.example.case_modul6.service.before.impl;
 import com.example.case_modul6.model.before.AppUser;
 import com.example.case_modul6.repository.before.IAppUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
