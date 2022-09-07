@@ -55,4 +55,14 @@ public class RegisterAPI {
         return  new ResponseEntity<>(HttpStatus.OK);
     }
 //    @GetMapping("/enterprise")
+// Đức
+   @GetMapping("/checkEnterprise")
+     public ResponseEntity<List<Enterprise>> findAllEnterprise(){
+    return new ResponseEntity<>(enterpriseService.getAllEnterprise(), HttpStatus.OK);
+    }
+    // Đức
+    @GetMapping("/checkUser")
+    public ResponseEntity<List<AppUser>> findAllUser(){
+        return new ResponseEntity<>(appUserService.getAll(), HttpStatus.OK);
+    }
 }
