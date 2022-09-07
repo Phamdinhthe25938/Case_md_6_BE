@@ -93,48 +93,49 @@ public class EnterpriseApi {
     public ResponseEntity<Enterprise> getEnterpriseById(@PathVariable int id) {
         return new ResponseEntity<>(enterpriseService.findEnterpriseById(id), HttpStatus.OK);
     }
-
     @GetMapping("/findEnterprise/{name}")
     public ResponseEntity<Enterprise> getEnterpriseByName(@PathVariable String name) {
         return new ResponseEntity<>(enterpriseService.findByGmailEnterprise(name), HttpStatus.OK);
     }
-
     @PostMapping("/rechargeWallet/{id}/{numberMoney}")
     public ResponseEntity<Double> rechargeWallet(@PathVariable int id, @PathVariable double numberMoney) {
         double money = enterpriseService.getMoneyViEnterpriseById(id) + numberMoney;
         enterpriseService.rechargeWallet(id, money);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
     @GetMapping("/findAllFormJob")
     public ResponseEntity<List<FormJob>> listFormJob() {
         return new ResponseEntity<>(postEnterpriseService.findAllFormJob(), HttpStatus.OK);
     }
-
     @GetMapping("/findAllRegime")
     public ResponseEntity<List<Regime>> listRegime() {
         return new ResponseEntity<>(postEnterpriseService.findAllRegime(), HttpStatus.OK);
     }
-
     @PostMapping("/changeCodeVi/{id}/{codeVi}")
     public ResponseEntity<Double> changeCodeVi(@PathVariable int id, @PathVariable String codeVi) {
         enterpriseService.changeCodeVi(id, codeVi);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
     @GetMapping("/listPostVipByEnterprise/{id}")
     public ResponseEntity<List<PostEnterprise>> listPostVipByEnterprise(@PathVariable int id) {
         return new ResponseEntity<>(postEnterpriseService.listPostVipByEnterprise(id), HttpStatus.OK);
     }
-
     @GetMapping("listPostThuongByEnterprise/{id}")
     public ResponseEntity<List<PostEnterprise>> listThuongVipByEnterprise(@PathVariable int id) {
         return new ResponseEntity<>(postEnterpriseService.listPostThuongByEnterprise(id), HttpStatus.OK);
     }
-
     @GetMapping("/statusPost/{id}")
     public ResponseEntity<PostEnterprise> statusPost(@PathVariable int id) {
         postEnterpriseService.statusPost(id);
         return new ResponseEntity<>( HttpStatus.OK);
+    }
+    @GetMapping("/openKeyPost/{id}")
+    public ResponseEntity<PostEnterprise> openKeyPost(@PathVariable int id){
+        postEnterpriseService.openKeyPost(id);
+        return new ResponseEntity<>( HttpStatus.OK);
+    }
+    @GetMapping("/findPostById/{id}")
+    public ResponseEntity<PostEnterprise> findPostById(@PathVariable int id){
+        return new ResponseEntity<>(postEnterpriseService.findById(id), HttpStatus.OK);
     }
 }

@@ -44,4 +44,8 @@ public interface IPostEnterpriseRepo extends CrudRepository<PostEnterprise, Inte
     @Query(nativeQuery = true, value = "update post_enterprise set status_post_enterprise = 0 where  id_post_enterprise=:id ")
     void statusPost( @Param("id") int id);
 
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true, value = "update post_enterprise set status_post_enterprise = 1 where  id_post_enterprise=:id ")
+    void openKeyPost( @Param("id") int id);
 }

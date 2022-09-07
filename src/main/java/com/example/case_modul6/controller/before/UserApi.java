@@ -47,7 +47,6 @@ public class UserApi {
     public ResponseEntity<List<PostEnterprise>> findByNamePost(@PathVariable String name) {
         return new ResponseEntity<>(postEnterpriseService.findByNamePost(name), HttpStatus.OK);
     }
-
     @GetMapping("/findByEnterprise/{id}")
     public ResponseEntity<List<PostEnterprise>> findByEnterprise(@PathVariable int id) {
         return new ResponseEntity<>(postEnterpriseService.findByEnterprise(id), HttpStatus.OK);
@@ -56,4 +55,8 @@ public class UserApi {
     public ResponseEntity<List<PostEnterprise>> findBySalary(@PathVariable double salary){
         return new ResponseEntity<>(postEnterpriseService.findSalary(salary), HttpStatus.OK);
     }
+//    @PostMapping("/saveApplly")
+//    public ResponseEntity<PostEnterprise> saveApply(@RequestBody PostEnterprise postEnterprise){
+//
+//    }
 }

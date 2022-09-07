@@ -105,4 +105,9 @@ public class PostEnterpriseService implements IPostEnterpriseService {
          postEnterpriseRepo.statusPost(id);
     }
 
+    @Override
+    public void openKeyPost(int id) {
+        postEnterpriseRepo.openKeyPost(id);
+    }
+
 }

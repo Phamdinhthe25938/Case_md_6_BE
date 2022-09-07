@@ -28,4 +28,5 @@ public interface IPostEnterpriseService {
     List<PostEnterprise> listPostThuongByEnterprise(int id);
 
     void statusPost(int id);
+    void openKeyPost(int id);
 }
