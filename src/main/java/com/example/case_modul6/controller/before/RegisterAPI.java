@@ -61,6 +61,7 @@ public class RegisterAPI {
     // Đức
     @GetMapping("/checkUser")
     public ResponseEntity<List<AppUser>> findAllUser(){
+        System.out.println("hello");
         return new ResponseEntity<>(appUserService.getAll(), HttpStatus.OK);
     }
 }
