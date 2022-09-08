@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.parameters.P;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -48,4 +49,14 @@ public interface IPostEnterpriseRepo extends CrudRepository<PostEnterprise, Inte
     @Transactional
     @Query(nativeQuery = true, value = "update post_enterprise set status_post_enterprise = 1 where  id_post_enterprise=:id ")
     void openKeyPost( @Param("id") int id);
+
+//     số lượng apply theo post
+    @Query(nativeQuery = true,value = "select quantity_apply_post from case_module_6.post_enterprise where  id_post_enterprise=:id ")
+    int quantityApplyByIdPost(@Param("id") int id);
+
+//    update số lượng apply theo post
+     @Modifying
+     @Transactional
+     @Query(nativeQuery = true,value = "update post_enterprise set quantity_apply_post=:quantity where id_post_enterprise=:id ")
+    void setQuantityApplyPost(@Param("id") int id,@Param("quantity") int quantity);
 }

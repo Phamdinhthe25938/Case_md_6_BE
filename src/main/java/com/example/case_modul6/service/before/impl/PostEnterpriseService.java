@@ -110,4 +110,14 @@ public class PostEnterpriseService implements IPostEnterpriseService {
         postEnterpriseRepo.openKeyPost(id);
     }
 
+    @Override
+    public int quantityApplyByIdPost(int id) {
+        return postEnterpriseRepo.quantityApplyByIdPost(id);
+    }
+
+    @Override
+    public void setQuantityApplyPost(int id, int quantity) {
+         postEnterpriseRepo.setQuantityApplyPost(id,quantity);
+    }
+
 }

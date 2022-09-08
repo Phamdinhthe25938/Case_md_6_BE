@@ -101,7 +101,6 @@ public class AdminAPI {
 
 // khóa doanh nghiệp
 
-
     @GetMapping("/setStatusEnterpriseTo1/{id}")
     public ResponseEntity<Enterprise> setStatusEnterpriseTo1(@PathVariable int id) {
         enterpriseService.setStatusEnterpriseTo1(id);

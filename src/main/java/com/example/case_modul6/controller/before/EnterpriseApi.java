@@ -112,7 +112,7 @@ public class EnterpriseApi {
         return new ResponseEntity<>(postEnterpriseService.findAllRegime(), HttpStatus.OK);
     }
     @PostMapping("/changeCodeVi/{id}/{codeVi}")
-    public ResponseEntity<Double> changeCodeVi(@PathVariable int id, @PathVariable String codeVi) {
+    public ResponseEntity<Double> changeCodeVi(@PathVariable int id, @PathVariable String codeVi){
         enterpriseService.changeCodeVi(id, codeVi);
         return new ResponseEntity<>(HttpStatus.OK);
     }

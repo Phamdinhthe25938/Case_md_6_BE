@@ -29,4 +29,8 @@ public interface IPostEnterpriseService {
 
     void statusPost(int id);
     void openKeyPost(int id);
+
+//    lấy và update số lượng apply bài post
+    int quantityApplyByIdPost(int id);
+    void setQuantityApplyPost(int id,int quantity);
 }

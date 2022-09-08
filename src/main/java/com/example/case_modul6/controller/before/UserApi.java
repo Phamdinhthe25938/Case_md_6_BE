@@ -2,7 +2,9 @@ package com.example.case_modul6.controller.before;
 
 import com.example.case_modul6.model.before.CvUser;
 import com.example.case_modul6.model.before.PostEnterprise;
+import com.example.case_modul6.model.before.UserApply;
 import com.example.case_modul6.service.before.InterfaceService.All.ICvUserService;
+import com.example.case_modul6.service.before.InterfaceService.All.IUserApplyService;
 import com.example.case_modul6.service.before.impl.CvUserService;
 import com.example.case_modul6.service.before.impl.PostEnterpriseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class UserApi {
     PostEnterpriseService postEnterpriseService;
     @Autowired
     ICvUserService cvUserService;
+
+    @Autowired
+    IUserApplyService userApplyService;
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<PostEnterprise>> findAll() {
         return new ResponseEntity<>(postEnterpriseService.findAll(), HttpStatus.OK);
@@ -55,6 +60,7 @@ public class UserApi {
     public ResponseEntity<List<PostEnterprise>> findBySalary(@PathVariable double salary){
         return new ResponseEntity<>(postEnterpriseService.findSalary(salary), HttpStatus.OK);
     }
+//    Lưu Cv
     @GetMapping("/findCvByIdUser/{id}")
     public ResponseEntity<CvUser> findCvByIdUser(@PathVariable int id){
          return new ResponseEntity<>(cvUserService.findByIdAppUser(id),HttpStatus.OK);
@@ -63,5 +69,29 @@ public class UserApi {
     @GetMapping("/postDetail/{id}")
     public ResponseEntity<PostEnterprise> findPostByID(@PathVariable int id) {
         return new ResponseEntity<>(postEnterpriseService.findById(id), HttpStatus.OK);
+    }
+
+//    SaveApplyJob  -- Thế
+    @PostMapping("/saveApplyJob")
+    public  ResponseEntity<UserApply> saveApplyJob(@RequestBody UserApply userApply){
+        int idAppUser = userApply.getAppUser().getId();
+        int idPost = userApply.getPostEnterprise().getIdPostEnterprise();
+        String telephoneCV = cvUserService.findByIdAppUser(idAppUser).getTelephone().trim();
+        String mail = cvUserService.findByIdAppUser(idAppUser).getMail().trim();
+        String imgCv = cvUserService.findByIdAppUser(idAppUser).getImgCV().trim();
+        UserApply userApply1 = userApplyService.findByIdAppUserAndIdPost(imgCv,mail,telephoneCV,idAppUser,idPost);
+        if(userApply1 ==null){
+            userApplyService.save(userApply);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
+    @GetMapping("/findUserApplyByIdAppUserAndIdPost/{idAppUser}/{idPost}")
+    public ResponseEntity<UserApply>findByIdAppUserAndIdPost(@PathVariable int idAppUser,@PathVariable int idPost){
+        String telephoneCV = cvUserService.findByIdAppUser(idAppUser).getTelephone().trim();
+        String mail = cvUserService.findByIdAppUser(idAppUser).getMail().trim();
+        String imgCv = cvUserService.findByIdAppUser(idAppUser).getImgCV().trim();
+        return new  ResponseEntity<UserApply>(userApplyService.findByIdAppUserAndIdPost(imgCv,mail,telephoneCV,idAppUser,idPost),HttpStatus.OK);
     }
 }

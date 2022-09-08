@@ -49,7 +49,7 @@ public class PostEnterprise {
 
     @ManyToOne
     private Enterprise enterprise;
-
-   @ManyToMany(fetch = FetchType.EAGER)
-    private List<CvUser> cvUsers;
+//
+//   @ManyToMany(fetch = FetchType.EAGER)
+//    private List<CvUser> cvUsers;
 }
