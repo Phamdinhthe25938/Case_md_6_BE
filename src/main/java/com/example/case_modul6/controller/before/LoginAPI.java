@@ -2,10 +2,12 @@ package com.example.case_modul6.controller.before;
 
 import com.example.case_modul6.model.before.AppUser;
 
+import com.example.case_modul6.model.before.ChangePassWord;
 import com.example.case_modul6.model.before.ot.UserToken;
 
 import com.example.case_modul6.service.JwtService;
 
+import com.example.case_modul6.service.before.InterfaceService.All.IEnterpriseService;
 import com.example.case_modul6.service.before.impl.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,6 +30,9 @@ public class LoginAPI {
     private AuthenticationManager authenticationManager;
     @Autowired
     AppUserService appUserService;
+
+    @Autowired
+    IEnterpriseService enterpriseService;
     @PostMapping("/login")
     public UserToken login(@RequestBody AppUser appUser){
         try{
@@ -45,5 +50,11 @@ public class LoginAPI {
     @GetMapping("/findByName/{name}")
     public ResponseEntity<AppUser> findByUserName(@PathVariable String name){
         return new ResponseEntity<>(appUserService.findByUserName(name),HttpStatus.OK);
+    }
+
+    @PostMapping("/changePassword")
+    public ResponseEntity<AppUser> changePassword(@RequestBody ChangePassWord changePassWord ) {
+        enterpriseService.changPassword(changePassWord.getGmail(), changePassWord.getPassword());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
   }

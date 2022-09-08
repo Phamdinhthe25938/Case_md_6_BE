@@ -40,17 +40,13 @@ public class UserApi {
 
 //  a song tìm kiếm
     @GetMapping("/findAddress/{address}")
-
     public ResponseEntity<List<PostEnterprise>> findByAddress(@PathVariable String address) {
-
         return new ResponseEntity<>(postEnterpriseService.findByAddress(address), HttpStatus.OK);
     }
-
     @GetMapping("/findByNamePost/{name}")
     public ResponseEntity<List<PostEnterprise>> findByNamePost(@PathVariable String name) {
         return new ResponseEntity<>(postEnterpriseService.findByNamePost(name), HttpStatus.OK);
     }
-
     @GetMapping("/findByEnterprise/{id}")
     public ResponseEntity<List<PostEnterprise>> findByEnterprise(@PathVariable int id) {
         return new ResponseEntity<>(postEnterpriseService.findByEnterprise(id), HttpStatus.OK);
@@ -59,7 +55,10 @@ public class UserApi {
     public ResponseEntity<List<PostEnterprise>> findBySalary(@PathVariable double salary){
         return new ResponseEntity<>(postEnterpriseService.findSalary(salary), HttpStatus.OK);
     }
-
+    @GetMapping("/findCvByIdUser/{id}")
+    public ResponseEntity<CvUser> findCvByIdUser(@PathVariable int id){
+         return new ResponseEntity<>(cvUserService.findByIdAppUser(id),HttpStatus.OK);
+    }
     //Tuấn Chi tiết bài đăng
     @GetMapping("/postDetail/{id}")
     public ResponseEntity<PostEnterprise> findPostByID(@PathVariable int id) {

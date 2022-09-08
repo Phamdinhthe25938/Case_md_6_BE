@@ -138,4 +138,6 @@ public class EnterpriseApi {
     public ResponseEntity<PostEnterprise> findPostById(@PathVariable int id){
         return new ResponseEntity<>(postEnterpriseService.findById(id), HttpStatus.OK);
     }
+
+
 }
