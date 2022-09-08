@@ -15,4 +15,9 @@ public class CvUserService implements ICvUserService {
     public void save(CvUser cvUser) {
         cvUserRepo.save(cvUser);
     }
+
+    @Override
+    public CvUser findByIdAppUser(int id) {
+        return cvUserRepo.findCvByAppUser(id);
+    }
 }
