@@ -43,6 +43,9 @@ public interface IEnterpriseService {
     //    song
     void setStatusEnterpriseTo1(int id);
     void setStatusEnterpriseTo0(int id);
+
+    void changPassword(String email, String password);
+
 //    hai
 
 //    duc

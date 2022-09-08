@@ -10,8 +10,11 @@ import javax.transaction.Transactional;
 
 public interface IAppUserRepo extends CrudRepository<AppUser, Long> {
     AppUser findByUsername(String username);
-//    @Modifying
-//    @Transactional
-//    @Query(nativeQuery = true,value = "update case_module_6.app_user set password=:codeVi where id_enterprise=:id")
-//    void changeCodeVi(@Param("id") int id, @Param("codeVi") String codeVi);
+
+
+    // ĐỔi mật khẩu
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true,value = "update  case_module_6.app_user set password=:password where email=:email")
+    void changPassword(@Param("email") String gmail,@Param("password") String password);
 }
