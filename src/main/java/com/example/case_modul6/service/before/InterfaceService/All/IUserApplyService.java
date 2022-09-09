@@ -7,6 +7,8 @@ import java.util.List;
 public interface IUserApplyService {
 
    void save(UserApply userApply);
-  UserApply  findByIdAppUserAndIdPost(String imgcv,String mail,String numberTelephone,int idAppUser, int idPost);
+   UserApply  findByIdAppUserAndIdPost(String imgcv,String mail,String numberTelephone,int idAppUser, int idPost);
     void updateStatusConfirmUserApply(int id);
+
+    UserApply findById(int id);
 }

@@ -3,10 +3,9 @@ package com.example.case_modul6.controller.before;
 import com.example.case_modul6.model.before.*;
 import com.example.case_modul6.model.before.Notification.NotificationEnterprise;
 import com.example.case_modul6.repository.before.IPostEnterpriseRepo;
-import com.example.case_modul6.service.before.InterfaceService.All.IEnterpriseService;
-import com.example.case_modul6.service.before.InterfaceService.All.INotificationEnterpriseService;
-import com.example.case_modul6.service.before.InterfaceService.All.IPostEnterpriseService;
-import com.example.case_modul6.service.before.InterfaceService.All.ITransactionHistoryService;
+import com.example.case_modul6.repository.before.IUserApplyRepo;
+import com.example.case_modul6.service.before.InterfaceService.All.*;
+import com.example.case_modul6.service.before.SendMailService;
 import com.example.case_modul6.service.before.impl.AppUserService;
 import com.example.case_modul6.service.before.impl.TransactionHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +34,12 @@ public class EnterpriseApi {
 
     @Autowired
     INotificationEnterpriseService notificationEnterpriseService;
+
+    @Autowired
+    IUserApplyService userApplyService;
+
+    @Autowired
+    SendMailService sendMailService;
 
     @GetMapping("/findAll")
     public ResponseEntity<List<PostEnterprise>> findAllPostEnterprise() {
@@ -150,5 +155,17 @@ public class EnterpriseApi {
         return new ResponseEntity<>(notificationEnterpriseService.notificationEnterpriseSByEnterprise(idEnterprise),HttpStatus.OK);
     }
 //confim cv của user
-
+     @PostMapping("/confirmUserApply/{id}")
+     public ResponseEntity<NotificationEnterprise> confirmUserApply(@PathVariable int id){
+          notificationEnterpriseService.updateStatusNotifi(id);
+          int idUserApply= notificationEnterpriseService.findById(id).getId();
+          userApplyService.updateStatusConfirmUserApply(idUserApply);
+          String mailUserApply = userApplyService.findById(idUserApply).getMailCv();
+          String nameEnterToMail=  notificationEnterpriseService.findById(id).getEnterprise().getNameEnterprise();
+          String nameJob = userApplyService.findById(id).getPostEnterprise().getNamePostEnterprise();
+          String vtJob = userApplyService.findById(id).getPostEnterprise().getVacanciesPostEnterprise();
+          sendMailService.sendMail(mailUserApply,"Công ty "+nameEnterToMail+" thông báo ","\n\t\t Cv ứng tuyển công viêc "+nameJob+" ví trí "+vtJob+" bạn đã được" +
+                  "công ty chúng tôi xác nhận \n\t\t\t\t -Xin lòng để ý điện thoại khi chúng tôi liên hệ !\n\t Xin cảm ơn ! ");
+       return  new ResponseEntity<>(HttpStatus.OK);
+    }
 }

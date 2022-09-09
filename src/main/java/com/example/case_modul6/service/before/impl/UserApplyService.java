@@ -55,4 +55,9 @@ public class UserApplyService implements IUserApplyService {
     public void updateStatusConfirmUserApply(int id) {
           userApplyRepo.updateStatusConfirmUserApply(id);
     }
+
+    @Override
+    public UserApply findById(int id) {
+        return userApplyRepo.findById(id).get();
+    }
 }
