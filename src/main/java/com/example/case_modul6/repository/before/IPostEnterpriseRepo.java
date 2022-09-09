@@ -50,6 +50,13 @@ public interface IPostEnterpriseRepo extends CrudRepository<PostEnterprise, Inte
     @Query(nativeQuery = true, value = "update post_enterprise set status_post_enterprise = 1 where  id_post_enterprise=:id ")
     void openKeyPost( @Param("id") int id);
 
+
+    //edit bài viết
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true, value = "UPDATE post_enterprise SET address_main_enterprise =:addressMainEnterprise, describe_post_enterprise =:describePostEnterprise, name_post_enterprise =:namePostEnterprise, salary_big_post_enterprise =:salaryBigPostEnterprise, salary_small_post_enterprise =:salarySmallPostEnterprise, vacancies_post_enterprise =:vacanciesPostEnterprise, field_id_field =:id, form_job_post_enterprise_id_form_job =:formJobPostEnterpriseid WHERE id_post_enterprise =:idPostEnterprise ")
+    void editPost( @Param("addressMainEnterprise") String addressMainEnterprise,@Param("describePostEnterprise") String describePostEnterprise,@Param("namePostEnterprise") String namePostEnterprise,@Param("salaryBigPostEnterprise") double salaryBigPostEnterprise,@Param("salarySmallPostEnterprise") double salarySmallPostEnterprise,@Param("vacanciesPostEnterprise") String vacanciesPostEnterprise,@Param("id") int idfield,@Param("formJobPostEnterpriseid") int formJobPostEnterpriseid,@Param("idPostEnterprise") int idPostEnterprise);
+
 //     số lượng apply theo post
     @Query(nativeQuery = true,value = "select quantity_apply_post from case_module_6.post_enterprise where  id_post_enterprise=:id ")
     int quantityApplyByIdPost(@Param("id") int id);
