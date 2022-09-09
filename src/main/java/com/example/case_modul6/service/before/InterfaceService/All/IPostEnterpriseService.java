@@ -19,7 +19,7 @@ public interface IPostEnterpriseService {
 
     void delete(int id);
 
-    void edit(PostEnterprise postEnterprise);
+    void editPost(PostEnterprise postEnterprise);
     List<FormJob> findAllFormJob();
     List<Regime> findAllRegime();
     List<PostEnterprise> findAllByIdEnterprise(int id);
