@@ -50,4 +50,9 @@ public class UserApplyService implements IUserApplyService {
     public UserApply  findByIdAppUserAndIdPost(String imgcv,String mail,String numberTelephone,int idAppUser, int idPost) {
         return userApplyRepo.findByIdAppUserAndIdPost(imgcv,mail,numberTelephone,idAppUser,idPost);
     }
+
+    @Override
+    public void updateStatusConfirmUserApply(int id) {
+          userApplyRepo.updateStatusConfirmUserApply(id);
+    }
 }

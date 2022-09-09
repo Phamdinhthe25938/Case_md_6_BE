@@ -149,5 +149,6 @@ public class EnterpriseApi {
     public ResponseEntity<List<NotificationEnterprise>> listNotiyApply(@PathVariable int idEnterprise){
         return new ResponseEntity<>(notificationEnterpriseService.notificationEnterpriseSByEnterprise(idEnterprise),HttpStatus.OK);
     }
+//confim cv của user
 
 }

@@ -11,4 +11,6 @@ public interface INotificationEnterpriseService {
 
     NotificationEnterprise findById(int id);
     List<NotificationEnterprise> notificationEnterpriseSByEnterprise(int id);
+
+    void updateStatusNotifi(int id);
 }
