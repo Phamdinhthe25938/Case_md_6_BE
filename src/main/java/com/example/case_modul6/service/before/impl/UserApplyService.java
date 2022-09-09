@@ -1,14 +1,18 @@
 package com.example.case_modul6.service.before.impl;
 
 import com.example.case_modul6.model.before.CvUser;
+import com.example.case_modul6.model.before.Enterprise;
+import com.example.case_modul6.model.before.Notification.NotificationEnterprise;
 import com.example.case_modul6.model.before.UserApply;
 import com.example.case_modul6.repository.before.IUserApplyRepo;
 import com.example.case_modul6.service.before.InterfaceService.All.ICvUserService;
+import com.example.case_modul6.service.before.InterfaceService.All.INotificationEnterpriseService;
 import com.example.case_modul6.service.before.InterfaceService.All.IPostEnterpriseService;
 import com.example.case_modul6.service.before.InterfaceService.All.IUserApplyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
 import java.util.List;
 
 @Service
@@ -21,6 +25,9 @@ public class UserApplyService implements IUserApplyService {
     @Autowired
     IPostEnterpriseService postEnterpriseService;
 
+    @Autowired
+    INotificationEnterpriseService notificationEnterpriseService;
+
     @Override
     public void save(UserApply userApply){
         int idPost = userApply.getPostEnterprise().getIdPostEnterprise();
@@ -32,6 +39,11 @@ public class UserApplyService implements IUserApplyService {
         userApplyRepo.save(userApply);
         int quantity = postEnterpriseService.quantityApplyByIdPost(idPost)+1;
         postEnterpriseService.setQuantityApplyPost(idPost,quantity);
+        Enterprise enterpriseNotifi= postEnterpriseService.findById(idPost).getEnterprise();
+        Time timeNow = Time.valueOf(java.time.LocalTime.now());
+        long millis = System.currentTimeMillis();
+        java.sql.Date dateNow = new java.sql.Date(millis);
+        notificationEnterpriseService.save(new NotificationEnterprise(userApply,enterpriseNotifi,timeNow,dateNow));
     }
 
     @Override

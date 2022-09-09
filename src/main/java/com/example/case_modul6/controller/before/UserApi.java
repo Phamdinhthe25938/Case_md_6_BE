@@ -1,9 +1,11 @@
 package com.example.case_modul6.controller.before;
 
 import com.example.case_modul6.model.before.CvUser;
+import com.example.case_modul6.model.before.Notification.NotificationEnterprise;
 import com.example.case_modul6.model.before.PostEnterprise;
 import com.example.case_modul6.model.before.UserApply;
 import com.example.case_modul6.service.before.InterfaceService.All.ICvUserService;
+import com.example.case_modul6.service.before.InterfaceService.All.INotificationEnterpriseService;
 import com.example.case_modul6.service.before.InterfaceService.All.IUserApplyService;
 import com.example.case_modul6.service.before.impl.CvUserService;
 import com.example.case_modul6.service.before.impl.PostEnterpriseService;
@@ -27,6 +29,9 @@ public class UserApi {
 
     @Autowired
     IUserApplyService userApplyService;
+
+    @Autowired
+    INotificationEnterpriseService notificationEnterpriseService;
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<PostEnterprise>> findAll() {
         return new ResponseEntity<>(postEnterpriseService.findAll(), HttpStatus.OK);
@@ -82,6 +87,7 @@ public class UserApi {
         UserApply userApply1 = userApplyService.findByIdAppUserAndIdPost(imgCv,mail,telephoneCV,idAppUser,idPost);
         if(userApply1 ==null){
             userApplyService.save(userApply);
+
             return new ResponseEntity<>(HttpStatus.OK);
         }else {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -94,4 +100,5 @@ public class UserApi {
         String imgCv = cvUserService.findByIdAppUser(idAppUser).getImgCV().trim();
         return new  ResponseEntity<UserApply>(userApplyService.findByIdAppUserAndIdPost(imgCv,mail,telephoneCV,idAppUser,idPost),HttpStatus.OK);
     }
+
 }

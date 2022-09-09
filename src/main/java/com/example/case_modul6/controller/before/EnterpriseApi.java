@@ -1,8 +1,10 @@
 package com.example.case_modul6.controller.before;
 
 import com.example.case_modul6.model.before.*;
+import com.example.case_modul6.model.before.Notification.NotificationEnterprise;
 import com.example.case_modul6.repository.before.IPostEnterpriseRepo;
 import com.example.case_modul6.service.before.InterfaceService.All.IEnterpriseService;
+import com.example.case_modul6.service.before.InterfaceService.All.INotificationEnterpriseService;
 import com.example.case_modul6.service.before.InterfaceService.All.IPostEnterpriseService;
 import com.example.case_modul6.service.before.InterfaceService.All.ITransactionHistoryService;
 import com.example.case_modul6.service.before.impl.AppUserService;
@@ -30,6 +32,9 @@ public class EnterpriseApi {
 
     @Autowired
     AppUserService appUserService;
+
+    @Autowired
+    INotificationEnterpriseService notificationEnterpriseService;
 
     @GetMapping("/findAll")
     public ResponseEntity<List<PostEnterprise>> findAllPostEnterprise() {
@@ -138,6 +143,11 @@ public class EnterpriseApi {
     public ResponseEntity<PostEnterprise> findPostById(@PathVariable int id){
         return new ResponseEntity<>(postEnterpriseService.findById(id), HttpStatus.OK);
     }
+//    Thông bao đến doanh nghiệp sau khi có user apply
 
+    @GetMapping("/listNotiyApply/{idEnterprise}")
+    public ResponseEntity<List<NotificationEnterprise>> listNotiyApply(@PathVariable int idEnterprise){
+        return new ResponseEntity<>(notificationEnterpriseService.notificationEnterpriseSByEnterprise(idEnterprise),HttpStatus.OK);
+    }
 
 }
