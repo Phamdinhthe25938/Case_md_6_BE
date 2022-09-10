@@ -18,4 +18,7 @@ public interface IUserApplyRepo extends CrudRepository<UserApply,Integer> {
     @Transactional
     @Query(nativeQuery = true,value = "update case_module_6.user_apply set status_confirm=1 where id_user_apply=:id")
     void updateStatusConfirmUserApply(@Param("id") int id);
+
+    @Query(nativeQuery = true,value = "select * from case_module_6.user_apply where post_enterprise_id_post_enterprise=:id")
+    List<UserApply> listUserApplyByIdPost(@Param("id") int id);
 }

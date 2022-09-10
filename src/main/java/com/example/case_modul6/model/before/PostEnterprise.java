@@ -35,7 +35,7 @@ public class PostEnterprise {
 //    Ngày hết hạn
     private Date expirationDatePostEnterprise;
 // độ ưu tiên bài đăng
-    private int priorityPostEnterprise;
+    private int priorityPostEnterprise=0;
 
     private String describePostEnterprise;
 

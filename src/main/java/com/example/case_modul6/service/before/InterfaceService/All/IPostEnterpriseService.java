@@ -4,6 +4,7 @@ package com.example.case_modul6.service.before.InterfaceService.All;
 import com.example.case_modul6.model.before.FormJob;
 import com.example.case_modul6.model.before.PostEnterprise;
 import com.example.case_modul6.model.before.Regime;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -33,4 +34,8 @@ public interface IPostEnterpriseService {
 //    lấy và update số lượng apply bài post
     int quantityApplyByIdPost(int id);
     void setQuantityApplyPost(int id,int quantity);
+//    lấy và update điểm đề xuất
+    int priorityByIdPost(int id);
+
+    void setPriorityIdPost( int number, int id);
 }

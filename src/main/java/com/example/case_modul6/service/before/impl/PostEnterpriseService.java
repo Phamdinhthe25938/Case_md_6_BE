@@ -120,4 +120,14 @@ public class PostEnterpriseService implements IPostEnterpriseService {
          postEnterpriseRepo.setQuantityApplyPost(id,quantity);
     }
 
+    @Override
+    public int priorityByIdPost(int id) {
+        return postEnterpriseRepo.priorityByIdPost(id);
+    }
+
+    @Override
+    public void setPriorityIdPost(int number, int id) {
+         postEnterpriseRepo.setPriorityIdPost(number,id);
+    }
+
 }

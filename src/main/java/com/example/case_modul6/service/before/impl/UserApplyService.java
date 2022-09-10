@@ -43,6 +43,9 @@ public class UserApplyService implements IUserApplyService {
         Time timeNow = Time.valueOf(java.time.LocalTime.now());
         long millis = System.currentTimeMillis();
         java.sql.Date dateNow = new java.sql.Date(millis);
+        int priority =postEnterpriseService.priorityByIdPost(idPost);
+        int priorityUpdate = priority +3 ;
+        postEnterpriseService.setPriorityIdPost(priorityUpdate,idPost);
         notificationEnterpriseService.save(new NotificationEnterprise(userApply,enterpriseNotifi,timeNow,dateNow));
     }
 
@@ -59,5 +62,10 @@ public class UserApplyService implements IUserApplyService {
     @Override
     public UserApply findById(int id) {
         return userApplyRepo.findById(id).get();
+    }
+
+    @Override
+    public List<UserApply> listUserApplyByIdPost(int id) {
+        return userApplyRepo.listUserApplyByIdPost(id);
     }
 }

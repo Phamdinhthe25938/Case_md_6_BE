@@ -175,4 +175,9 @@ public class EnterpriseApi {
                   "công ty chúng tôi xác nhận \n\t\t\t\t -Xin lòng để ý điện thoại khi chúng tôi liên hệ !\n\t Xin cảm ơn ! ");
        return  new ResponseEntity<>(HttpStatus.OK);
     }
+//    ListAppLy theo bài đăng !
+    @GetMapping("/allUserApplyByIdPost/{idPost}")
+    public ResponseEntity<List<UserApply>> allUserApplyByIdPost(@PathVariable int idPost){
+         return new ResponseEntity<>(userApplyService.listUserApplyByIdPost(idPost),HttpStatus.OK);
+    }
 }

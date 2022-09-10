@@ -66,4 +66,14 @@ public interface IPostEnterpriseRepo extends CrudRepository<PostEnterprise, Inte
      @Transactional
      @Query(nativeQuery = true,value = "update post_enterprise set quantity_apply_post=:quantity where id_post_enterprise=:id ")
     void setQuantityApplyPost(@Param("id") int id,@Param("quantity") int quantity);
+// lấy và chỉnh sửa  điểm đề xuất của bài post theo id
+    @Query(nativeQuery = true,value = "select  priority_post_enterprise from case_module_6.post_enterprise where id_post_enterprise=:id")
+    int priorityByIdPost(@Param("id") int id);
+
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true,value = "update post_enterprise set priority_post_enterprise=:quantity where id_post_enterprise=:id ")
+    void setPriorityIdPost(@Param("quantity") int quantity,@Param("id") int id);
+
+
 }
