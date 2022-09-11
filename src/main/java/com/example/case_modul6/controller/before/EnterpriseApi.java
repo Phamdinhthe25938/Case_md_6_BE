@@ -41,6 +41,9 @@ public class EnterpriseApi {
     @Autowired
     SendMailService sendMailService;
 
+    @Autowired
+    ITransactionWalletService transactionWalletService;
+
     @GetMapping("/findAll")
     public ResponseEntity<List<PostEnterprise>> findAllPostEnterprise() {
         return new ResponseEntity<>(postEnterpriseService.findAll(), HttpStatus.OK);
@@ -180,4 +183,17 @@ public class EnterpriseApi {
     public ResponseEntity<List<UserApply>> allUserApplyByIdPost(@PathVariable int idPost){
          return new ResponseEntity<>(userApplyService.listUserApplyByIdPost(idPost),HttpStatus.OK);
     }
+
+//    Save việc nạp tiền
+    @PostMapping("/saveTransWallet")
+    public ResponseEntity<TransactionWallet> saveTransWallet(@RequestBody TransactionWallet transactionWallet){
+        Time timeNow = Time.valueOf(java.time.LocalTime.now());
+        transactionWallet.setTimeTransaction(timeNow);
+        long millis = System.currentTimeMillis();
+        java.sql.Date date = new java.sql.Date(millis);
+        transactionWallet.setDateTransaction(date);
+        transactionWalletService.save(transactionWallet);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

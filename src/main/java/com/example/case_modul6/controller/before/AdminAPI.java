@@ -4,6 +4,8 @@ import com.example.case_modul6.model.before.*;
 import com.example.case_modul6.service.before.InterfaceService.All.IEnterpriseService;
 
 import com.example.case_modul6.service.before.InterfaceService.All.ITransactionHistoryService;
+import com.example.case_modul6.service.before.InterfaceService.All.ITransactionWalletService;
+import com.example.case_modul6.service.before.InterfaceService.All.IViAdminService;
 import com.example.case_modul6.service.before.SendMailService;
 
 import com.example.case_modul6.service.before.impl.AppUserService;
@@ -31,7 +33,11 @@ public class AdminAPI {
     @Autowired
     ITransactionHistoryService transactionHistoryService;
 
+    @Autowired
+    ITransactionWalletService transactionWalletService;
 
+    @Autowired
+    IViAdminService viAdminService;
     @GetMapping("/getAllNotConfirm")
     public ResponseEntity<List<Enterprise>> getAllEnterpriseNotConfirm() {
         return new ResponseEntity<>(enterpriseService.getAllEnterpriseNotConfirmOrderByTime(), HttpStatus.OK);
@@ -39,7 +45,7 @@ public class AdminAPI {
 
     @GetMapping("/getAllConfirm")
     public ResponseEntity<List<Enterprise>> getAllEnterpriseConfirm() {
-        return new ResponseEntity<>(enterpriseService.getAllEnterpriseOrderByVi(), HttpStatus.OK);
+        return new ResponseEntity<>(enterpriseService.listEnterpriseOderByRates(), HttpStatus.OK);
     }
 
     @GetMapping("/findEnterprise/{id}")
@@ -98,22 +104,69 @@ public class AdminAPI {
         String dateStr = "'" + date + "'";
         return new ResponseEntity<>(transactionHistoryService.listTransactionHistoryByDateNow(dateStr), HttpStatus.OK);
     }
-
 // khóa doanh nghiệp
-
     @GetMapping("/setStatusEnterpriseTo1/{id}")
     public ResponseEntity<Enterprise> setStatusEnterpriseTo1(@PathVariable int id) {
         enterpriseService.setStatusEnterpriseTo1(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-        @GetMapping("/setStatusEnterpriseTo0/{id}")
-        public ResponseEntity<Enterprise> setStatusEnterpriseTo0 ( @PathVariable int id){
-            enterpriseService.setStatusEnterpriseTo0(id);
+    @GetMapping("/setStatusEnterpriseTo0/{id}")
+    public ResponseEntity<Enterprise> setStatusEnterpriseTo0 ( @PathVariable int id){
+        enterpriseService.setStatusEnterpriseTo0(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }
-
-
+    //    Hiện thị danh sách giao dịch nạp tiền !
+    @GetMapping("transWalletAll")
+    public ResponseEntity<List<TransactionWallet>> getAllTransWallet(){
+         return  new ResponseEntity<>(transactionWalletService.transactionWalletAll(),HttpStatus.OK);
     }
+    @GetMapping("/getViAdmin")
+    public ResponseEntity<ViAdmin> getViAdmin(){
+        return new ResponseEntity<>(viAdminService.getViAdmin(),HttpStatus.OK);
+    }
+    @GetMapping("getTransWalletById/{id}")
+    public ResponseEntity<TransactionWallet> getTransWalletById(@PathVariable int id){
+        return new ResponseEntity<>(transactionWalletService.transactionById(id),HttpStatus.OK);
+    }
+    @PostMapping ("/confirmTransWallet/{id}")
+    public ResponseEntity<Integer>confirmTransWallet(@PathVariable int id){
+        double moneyToEnterprise;
+        double moneyDiscountAfter;
+        int idEnterprise = transactionWalletService.transactionById(id).getEnterprise().getIdEnterprise();
+        double moneyViEnterprise = enterpriseService.getMoneyViEnterpriseById(idEnterprise);
+        double moneyTrans= transactionWalletService.transactionById(id).getNumberMoney();
+        double moneyViAdmin = viAdminService.getViAdmin().getNumberMoneyVi();
+        double moneyViAdminExits;
+        if(moneyViAdmin>moneyTrans){
+             if(moneyTrans<20){
+                 moneyDiscountAfter = moneyTrans - ((10* moneyTrans)/100);
+                 moneyToEnterprise = moneyViEnterprise+ moneyDiscountAfter;
+                 moneyViAdminExits = moneyViAdmin -moneyDiscountAfter;
+                 enterpriseService.setViEnterprise(idEnterprise,moneyToEnterprise);
+                 viAdminService.setMoneyViAdmin(moneyViAdminExits);
+             }
+             else if(moneyTrans<50){
+                 moneyDiscountAfter = moneyTrans - ((6* moneyTrans)/100);
+                 moneyToEnterprise = moneyViEnterprise+ moneyDiscountAfter;
+                 moneyViAdminExits = moneyViAdmin - moneyDiscountAfter;
+                 enterpriseService.setViEnterprise(idEnterprise,moneyToEnterprise);
+                 viAdminService.setMoneyViAdmin(moneyViAdminExits);
+             }
+             else if(moneyTrans<100){
+                  moneyDiscountAfter = moneyTrans - ((3* moneyTrans)/100);
+                 moneyToEnterprise = moneyViEnterprise+ moneyDiscountAfter;
+                 moneyViAdminExits = moneyViAdmin -moneyDiscountAfter;
+                 enterpriseService.setViEnterprise(idEnterprise,moneyToEnterprise);
+                 viAdminService.setMoneyViAdmin(moneyViAdminExits);
+             }
+             transactionWalletService.setStatusConfirmTransWallet(id);
+             return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+    }
+}
+
+
+
 
 

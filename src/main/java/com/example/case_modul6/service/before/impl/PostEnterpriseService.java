@@ -82,49 +82,38 @@ public class PostEnterpriseService implements IPostEnterpriseService {
     public List<PostEnterprise> listPostThuongByEnterprise(int id) {
         return postEnterpriseRepo.listPostThuongByEnterprise(id);
     }
-
     // Song Đạt tìm kiếm bài đăng theo địa chỉ và công ty
-
     public List<PostEnterprise> findByAddress(String address) {
         return postEnterpriseRepo.findByAddress(address);
     }
-
     public List<PostEnterprise> findByNamePost(String name) {
         return postEnterpriseRepo.findByNamePost(name);
     }
-
     public List<PostEnterprise> findByEnterprise(int id) {
         return postEnterpriseRepo.findByEnterprise(id);
     }
-
     public List<PostEnterprise> findSalary(double salary) {
         return postEnterpriseRepo.findSalary(salary);
     }
-
     public void statusPost(int id) {
          postEnterpriseRepo.statusPost(id);
     }
-
     @Override
     public void openKeyPost(int id) {
         postEnterpriseRepo.openKeyPost(id);
     }
-
     @Override
     public int quantityApplyByIdPost(int id) {
         return postEnterpriseRepo.quantityApplyByIdPost(id);
     }
-
     @Override
     public void setQuantityApplyPost(int id, int quantity) {
          postEnterpriseRepo.setQuantityApplyPost(id,quantity);
     }
-
     @Override
     public int priorityByIdPost(int id) {
         return postEnterpriseRepo.priorityByIdPost(id);
     }
-
     @Override
     public void setPriorityIdPost(int number, int id) {
          postEnterpriseRepo.setPriorityIdPost(number,id);
