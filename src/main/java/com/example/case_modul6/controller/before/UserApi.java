@@ -114,5 +114,10 @@ public class UserApi {
     public ResponseEntity<List<PostEnterprise>> findPostUser(@RequestBody FindPostByUser findPostByUser) {
         return new ResponseEntity<>(postEnterpriseService.findPostUser(findPostByUser.getNameEnterprise(), findPostByUser.getCity(), findPostByUser.getIdField()), HttpStatus.OK);
     }
-
+//    Xóa bài đăng khi hết hạn
+       @GetMapping("/deletePostExpired")
+        public ResponseEntity<Boolean> deletePostExpired(){
+          postEnterpriseService.deletePostExpired();
+         return new ResponseEntity<>(HttpStatus.OK);
+         }
 }

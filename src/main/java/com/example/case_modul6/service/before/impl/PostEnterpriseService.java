@@ -10,6 +10,7 @@ import com.example.case_modul6.service.before.InterfaceService.All.IPostEnterpri
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
 import java.util.List;
 
 @Service
@@ -133,6 +134,24 @@ public class PostEnterpriseService implements IPostEnterpriseService {
     @Override
     public List<PostEnterprise> findPostUser(String name, String address, int field) {
         return postEnterpriseRepo.findPostUser(name, address, field);
+    }
+
+    @Override
+    public void deletePostExpired() {
+        long millis = System.currentTimeMillis();
+        java.sql.Date dateNow = new java.sql.Date(millis);
+        String dateNowStr= String.valueOf(dateNow);
+        if(getPostExpired(dateNowStr)!=null){
+               postEnterpriseRepo.deletePostExpired(dateNowStr);
+        }
+        else {
+            System.out.println("Không có !");
+        }
+    }
+
+    @Override
+    public PostEnterprise getPostExpired(String date) {
+        return postEnterpriseRepo.getPostExpired(date);
     }
 
 }
