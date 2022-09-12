@@ -177,6 +177,14 @@ public class AdminAPI {
     public  ResponseEntity<List<TransWalletHr>> getTransWalletHrAll(){
            return new ResponseEntity<>(transWalletHrService.findAllTransWalletHr(),HttpStatus.OK);
     }
+    @GetMapping("/transWalletHrAllDateNow")
+    public ResponseEntity<List<TransWalletHr>> getTransWalletHrAllDateNow(){
+        return new ResponseEntity<>(transWalletHrService.getAllTransWalletDateNow(),HttpStatus.OK);
+    }
+    @GetMapping("/totalMoneyTransDateNow")
+    public ResponseEntity<Double> totalMoneyTransDateNow(){
+        return new ResponseEntity<>(transWalletHrService.totalMoneyTransDateNow(),HttpStatus.OK);
+    }
 }
 
 

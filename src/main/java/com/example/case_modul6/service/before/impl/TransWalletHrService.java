@@ -26,4 +26,20 @@ public class TransWalletHrService implements ITransWalletHrService {
     public List<TransWalletHr> getAllTransWalletByIdEnter(int id) {
         return transWalletHrRepo.getAllTransWalletByIdEnter(id);
     }
+
+    @Override
+    public List<TransWalletHr> getAllTransWalletDateNow() {
+        long millis = System.currentTimeMillis();
+        java.sql.Date dateNow = new java.sql.Date(millis);
+        String dateNowStr= String.valueOf(dateNow);
+        return transWalletHrRepo.getAllTransWalletDateNow(dateNowStr);
+    }
+
+    @Override
+    public double totalMoneyTransDateNow() {
+        long millis = System.currentTimeMillis();
+        java.sql.Date dateNow = new java.sql.Date(millis);
+        String dateNowStr= String.valueOf(dateNow);
+        return transWalletHrRepo.totalMoneyTransDateNow(dateNowStr);
+    }
 }

@@ -11,4 +11,8 @@ public interface ITransWalletHrService {
 
     List<TransWalletHr> findAllTransWalletHr();
     List<TransWalletHr> getAllTransWalletByIdEnter( int id);
+    List<TransWalletHr> getAllTransWalletDateNow(  );
+    double  totalMoneyTransDateNow();
+
+
 }
