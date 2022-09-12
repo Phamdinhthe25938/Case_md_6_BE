@@ -181,6 +181,9 @@ public class EnterpriseApi {
 //    ListAppLy theo bài đăng !
     @GetMapping("/allUserApplyByIdPost/{idPost}")
     public ResponseEntity<List<UserApply>> allUserApplyByIdPost(@PathVariable int idPost){
+        for (int i=0;i<userApplyService.listUserApplyByIdPost(idPost).size();i++){
+            System.out.println(userApplyService.listUserApplyByIdPost(idPost).get(i));
+        }
          return new ResponseEntity<>(userApplyService.listUserApplyByIdPost(idPost),HttpStatus.OK);
     }
 

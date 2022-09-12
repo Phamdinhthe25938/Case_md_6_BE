@@ -29,4 +29,18 @@ public class ViAdminService implements IViAdminService {
     public ViAdmin getViAdmin() {
         return viAdminRepo.findById(1).get();
     }
+
+    @Override
+    public int percentDiscount(double money) {
+        if(money<20){
+            return 10;
+        }
+        else if(money<50){
+            return 6;
+        }else {
+            return 3;
+        }
+    }
+
+
 }

@@ -1,11 +1,9 @@
 package com.example.case_modul6.controller.before;
 
 import com.example.case_modul6.model.before.*;
-import com.example.case_modul6.service.before.InterfaceService.All.IEnterpriseService;
+import com.example.case_modul6.model.before.ot.AdminWallet;
+import com.example.case_modul6.service.before.InterfaceService.All.*;
 
-import com.example.case_modul6.service.before.InterfaceService.All.ITransactionHistoryService;
-import com.example.case_modul6.service.before.InterfaceService.All.ITransactionWalletService;
-import com.example.case_modul6.service.before.InterfaceService.All.IViAdminService;
 import com.example.case_modul6.service.before.SendMailService;
 
 import com.example.case_modul6.service.before.impl.AppUserService;
@@ -15,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Time;
 import java.util.List;
 
 @RestController
@@ -38,6 +37,9 @@ public class AdminAPI {
 
     @Autowired
     IViAdminService viAdminService;
+
+    @Autowired
+    ITransWalletHrService transWalletHrService;
     @GetMapping("/getAllNotConfirm")
     public ResponseEntity<List<Enterprise>> getAllEnterpriseNotConfirm() {
         return new ResponseEntity<>(enterpriseService.getAllEnterpriseNotConfirmOrderByTime(), HttpStatus.OK);
@@ -130,39 +132,50 @@ public class AdminAPI {
     }
     @PostMapping ("/confirmTransWallet/{id}")
     public ResponseEntity<Integer>confirmTransWallet(@PathVariable int id){
+        int percentDiscount;
         double moneyToEnterprise;
         double moneyDiscountAfter;
+        TransWalletHr transWalletHr;
+        double moneyDiscount;
+        Time timeNow = Time.valueOf(java.time.LocalTime.now());
+        long millis = System.currentTimeMillis();
+        java.sql.Date date = new java.sql.Date(millis);
         int idEnterprise = transactionWalletService.transactionById(id).getEnterprise().getIdEnterprise();
+        Enterprise enterpriseTrans = enterpriseService.findEnterpriseById(idEnterprise);
+        ViAdmin viAdmin = viAdminService.getViAdmin();
         double moneyViEnterprise = enterpriseService.getMoneyViEnterpriseById(idEnterprise);
         double moneyTrans= transactionWalletService.transactionById(id).getNumberMoney();
         double moneyViAdmin = viAdminService.getViAdmin().getNumberMoneyVi();
         double moneyViAdminExits;
         if(moneyViAdmin>moneyTrans){
-             if(moneyTrans<20){
-                 moneyDiscountAfter = moneyTrans - ((10* moneyTrans)/100);
-                 moneyToEnterprise = moneyViEnterprise+ moneyDiscountAfter;
-                 moneyViAdminExits = moneyViAdmin -moneyDiscountAfter;
-                 enterpriseService.setViEnterprise(idEnterprise,moneyToEnterprise);
-                 viAdminService.setMoneyViAdmin(moneyViAdminExits);
-             }
-             else if(moneyTrans<50){
-                 moneyDiscountAfter = moneyTrans - ((6* moneyTrans)/100);
-                 moneyToEnterprise = moneyViEnterprise+ moneyDiscountAfter;
-                 moneyViAdminExits = moneyViAdmin - moneyDiscountAfter;
-                 enterpriseService.setViEnterprise(idEnterprise,moneyToEnterprise);
-                 viAdminService.setMoneyViAdmin(moneyViAdminExits);
-             }
-             else if(moneyTrans<100){
-                  moneyDiscountAfter = moneyTrans - ((3* moneyTrans)/100);
-                 moneyToEnterprise = moneyViEnterprise+ moneyDiscountAfter;
-                 moneyViAdminExits = moneyViAdmin -moneyDiscountAfter;
-                 enterpriseService.setViEnterprise(idEnterprise,moneyToEnterprise);
-                 viAdminService.setMoneyViAdmin(moneyViAdminExits);
-             }
+              percentDiscount = viAdminService.percentDiscount(moneyTrans);
+              moneyDiscount = (percentDiscount* moneyTrans)/100;
+             moneyDiscountAfter = moneyTrans - moneyDiscount;
+             moneyToEnterprise = moneyViEnterprise+ moneyDiscountAfter;
+             moneyViAdminExits = moneyViAdmin -moneyDiscountAfter;
+            enterpriseService.setViEnterprise(idEnterprise,moneyToEnterprise);
+            viAdminService.setMoneyViAdmin(moneyViAdminExits);
+            transWalletHr = new TransWalletHr(viAdmin,enterpriseTrans,moneyTrans,moneyDiscountAfter,moneyDiscount,date,timeNow);
+            transWalletHrService.save(transWalletHr);
              transactionWalletService.setStatusConfirmTransWallet(id);
              return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+    }
+
+    @PostMapping("/walletAdmin")
+    public ResponseEntity<Double> walletAdmin(@RequestBody AdminWallet adminWallet){
+         if(adminWallet.getPassViAdmin().equals(viAdminService.getPassViAdmin())){
+               double moneyIng = viAdminService.getMoneyViAdmin();
+               double money = moneyIng+adminWallet.getNumberMoney();
+               viAdminService.setMoneyViAdmin(money);
+               return new ResponseEntity<>(HttpStatus.OK);
+         }
+         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    @GetMapping("/transWalletHrAll")
+    public  ResponseEntity<List<TransWalletHr>> getTransWalletHrAll(){
+           return new ResponseEntity<>(transWalletHrService.findAllTransWalletHr(),HttpStatus.OK);
     }
 }
 

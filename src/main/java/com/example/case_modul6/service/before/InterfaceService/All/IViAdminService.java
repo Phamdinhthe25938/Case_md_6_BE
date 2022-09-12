@@ -10,4 +10,6 @@ public interface IViAdminService {
 
 
     ViAdmin getViAdmin();
+
+    int percentDiscount(double money);
 }
