@@ -61,5 +61,6 @@ public interface IEnterpriseRepo extends CrudRepository<Enterprise,Integer>{
     @Query(nativeQuery = true,value = "SELECT * FROM case_module_6.enterprise where status_confirm=1 order by rates_enterprise desc")
     List<Enterprise> listEnterpriseOderByRates();
 
-
+    @Query(nativeQuery = true,value = " UPDATE enterprise SET `address_main_enterprise` =:addressMainEnterprise, `describe_enterprise` = :describeEnterprise, `img_enterprise` = :imgEnterprise, `name_enterprise` = :nameEnterprise WHERE id_enterprise = :id")
+    List<Enterprise> editProfile(@Param("addressMainEnterprise") String addressMainEnterprise,@Param("describeEnterprise") String describeEnterprise, @Param("imgEnterprise") String imgEnterprise, @Param("nameEnterprise") String nameEnterprise,@Param("id") int idEnterprise);
 }

@@ -138,4 +138,11 @@ public class EnterpriseApi {
     public ResponseEntity<PostEnterprise> findPostById(@PathVariable int id){
         return new ResponseEntity<>(postEnterpriseService.findById(id), HttpStatus.OK);
     }
+
+    //Tuan edit profile doanh nghiep
+    @GetMapping("/editProfile/")
+    public ResponseEntity<Enterprise> editProfile(@PathVariable Enterprise enterprise) {
+        enterpriseService.editProfile(enterprise);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

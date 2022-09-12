@@ -1,6 +1,7 @@
 package com.example.case_modul6.service.before.InterfaceService.All;
 
 
+import com.example.case_modul6.model.before.Enterprise;
 import com.example.case_modul6.model.before.FormJob;
 import com.example.case_modul6.model.before.PostEnterprise;
 import com.example.case_modul6.model.before.Regime;
@@ -29,4 +30,5 @@ public interface IPostEnterpriseService {
 
     void statusPost(int id);
     void openKeyPost(int id);
+
 }

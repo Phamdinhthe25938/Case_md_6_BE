@@ -30,6 +30,7 @@ public interface IEnterpriseService {
 //    the
 
 //    tuan
+void editProfile(Enterprise enterprise);
 
 //    song
 
