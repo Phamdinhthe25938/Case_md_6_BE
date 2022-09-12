@@ -21,4 +21,9 @@ public class TransWalletHrService implements ITransWalletHrService {
     public List<TransWalletHr> findAllTransWalletHr() {
         return (List<TransWalletHr>) transWalletHrRepo.findAll();
     }
+
+    @Override
+    public List<TransWalletHr> getAllTransWalletByIdEnter(int id) {
+        return transWalletHrRepo.getAllTransWalletByIdEnter(id);
+    }
 }

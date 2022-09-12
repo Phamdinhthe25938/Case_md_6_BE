@@ -76,4 +76,13 @@ public interface IPostEnterpriseRepo extends CrudRepository<PostEnterprise, Inte
     void setPriorityIdPost(@Param("quantity") int quantity,@Param("id") int id);
 
 
+//    Thực hiện xóa bài viết khi hết hạn !
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true,value = "delete  from case_module_6.post_enterprise where expiration_date_post_enterprise=:date ")
+    void  deletePostExpired(@Param("date") String date);
+
+//    lấy tất cả bài đăng của ngày hiện tại
+    @Query(nativeQuery = true,value = "select * from case_module_6.post_enterprise where expiration_date_post_enterprise=:date limit 1")
+    PostEnterprise getPostExpired(@Param("date") String date);
 }

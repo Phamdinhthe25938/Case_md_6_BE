@@ -38,4 +38,10 @@ public interface IPostEnterpriseService {
     int priorityByIdPost(int id);
 
     void setPriorityIdPost( int number, int id);
+//Thực hiện xóa khi hết hạn
+    void  deletePostExpired( );
+
+    PostEnterprise getPostExpired( String date);
+
+
 }

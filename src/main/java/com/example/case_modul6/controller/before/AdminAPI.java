@@ -153,10 +153,10 @@ public class AdminAPI {
              moneyDiscountAfter = moneyTrans - moneyDiscount;
              moneyToEnterprise = moneyViEnterprise+ moneyDiscountAfter;
              moneyViAdminExits = moneyViAdmin -moneyDiscountAfter;
-            enterpriseService.setViEnterprise(idEnterprise,moneyToEnterprise);
-            viAdminService.setMoneyViAdmin(moneyViAdminExits);
-            transWalletHr = new TransWalletHr(viAdmin,enterpriseTrans,moneyTrans,moneyDiscountAfter,moneyDiscount,date,timeNow);
-            transWalletHrService.save(transWalletHr);
+             enterpriseService.setViEnterprise(idEnterprise,moneyToEnterprise);
+             viAdminService.setMoneyViAdmin(moneyViAdminExits);
+             transWalletHr = new TransWalletHr(viAdmin,enterpriseTrans,moneyTrans,moneyDiscountAfter,moneyDiscount,date,timeNow);
+              transWalletHrService.save(transWalletHr);
              transactionWalletService.setStatusConfirmTransWallet(id);
              return new ResponseEntity<>(HttpStatus.OK);
         }

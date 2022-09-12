@@ -100,5 +100,10 @@ public class UserApi {
         String imgCv = cvUserService.findByIdAppUser(idAppUser).getImgCV().trim();
         return new  ResponseEntity<UserApply>(userApplyService.findByIdAppUserAndIdPost(imgCv,mail,telephoneCV,idAppUser,idPost),HttpStatus.OK);
     }
-
+//    Xóa bài đăng khi hết hạn
+       @GetMapping("/deletePostExpired")
+        public ResponseEntity<Boolean> deletePostExpired(){
+          postEnterpriseService.deletePostExpired();
+         return new ResponseEntity<>(HttpStatus.OK);
+         }
 }
