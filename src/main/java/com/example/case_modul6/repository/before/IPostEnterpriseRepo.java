@@ -91,4 +91,6 @@ public interface IPostEnterpriseRepo extends CrudRepository<PostEnterprise, Inte
     @Query(nativeQuery = true, value = "select * from case_module_6.post_enterprise where name_post_enterprise LIKE %:name% && address_main_enterprise LIKE %:address% && field_id_field=:field  ")
     List<PostEnterprise> findPostUser(@Param("name") String name, @Param("address") String address, @Param("field") int id);
 
+    @Query(nativeQuery = true, value = "select * from case_module_6.post_enterprise where name_post_enterprise LIKE %:name% && address_main_enterprise LIKE %:address%  ")
+    List<PostEnterprise> findPostUserfield(@Param("name") String name, @Param("address") String address);
 }

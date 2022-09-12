@@ -135,7 +135,9 @@ public class PostEnterpriseService implements IPostEnterpriseService {
     public List<PostEnterprise> findPostUser(String name, String address, int field) {
         return postEnterpriseRepo.findPostUser(name, address, field);
     }
-
+    public List<PostEnterprise> findPostUserField(String name, String address){
+        return postEnterpriseRepo.findPostUserfield(name,address);
+    }
     @Override
     public void deletePostExpired() {
         long millis = System.currentTimeMillis();
