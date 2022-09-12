@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.parameters.P;
 
 import javax.transaction.Transactional;
+import java.awt.print.Pageable;
 import java.util.List;
 
 public interface IPostEnterpriseRepo extends CrudRepository<PostEnterprise, Integer> {
@@ -19,8 +20,8 @@ public interface IPostEnterpriseRepo extends CrudRepository<PostEnterprise, Inte
     @Query(nativeQuery = true, value = "select  * from case_module_6.post_enterprise where enterprise_id_enterprise=:id")
     List<PostEnterprise> findAllByIdEnterprise(@Param("id") int id);
 
-    @Query(nativeQuery = true, value = "select   * from case_module_6.post_enterprise where status_post_enterprise=1 order by priority_post_enterprise DESC limit 4")
-    List<PostEnterprise> listPostByOderPriority();
+    @Query(nativeQuery = true, value = "select   * from case_module_6.post_enterprise where status_post_enterprise=1 order by priority_post_enterprise limit :page,5")
+    List<PostEnterprise> listPostByOderPriority(@Param("page") int page);
 
     @Query(nativeQuery = true, value = "select  * from case_module_6.post_enterprise where enterprise_id_enterprise=:id and regime_id_regime=1")
     List<PostEnterprise> listPostVipByEnterprise(@Param("id") int id);

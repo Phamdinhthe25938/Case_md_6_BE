@@ -36,9 +36,12 @@ public class UserApi {
     public ResponseEntity<List<PostEnterprise>> findAll() {
         return new ResponseEntity<>(postEnterpriseService.findAll(), HttpStatus.OK);
     }
-    @GetMapping("/listPostByOderPriority")
-    public ResponseEntity<List<PostEnterprise>>listPostByOderPriority(){
-        return new ResponseEntity<>(postEnterpriseService.listPostByOderPriority(),HttpStatus.OK);
+    @GetMapping("/listPostByOderPriority/{page}")
+    public ResponseEntity<List<PostEnterprise>>listPostByOderPriority(@PathVariable int page){
+        if (postEnterpriseService.listPostByOderPriority(page).isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(postEnterpriseService.listPostByOderPriority(page), HttpStatus.OK);
     }
 
 //    Tạo Cv

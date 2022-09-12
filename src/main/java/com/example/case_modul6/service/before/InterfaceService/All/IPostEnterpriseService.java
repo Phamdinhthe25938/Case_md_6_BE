@@ -24,7 +24,7 @@ public interface IPostEnterpriseService {
     List<FormJob> findAllFormJob();
     List<Regime> findAllRegime();
     List<PostEnterprise> findAllByIdEnterprise(int id);
-    List<PostEnterprise> listPostByOderPriority();
+    List<PostEnterprise> listPostByOderPriority(int page);
     List<PostEnterprise> listPostVipByEnterprise(int id);
     List<PostEnterprise> listPostThuongByEnterprise(int id);
 

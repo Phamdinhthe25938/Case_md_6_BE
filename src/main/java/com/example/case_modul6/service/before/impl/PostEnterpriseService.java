@@ -69,8 +69,8 @@ public class PostEnterpriseService implements IPostEnterpriseService {
     }
 
     @Override
-    public List<PostEnterprise> listPostByOderPriority() {
-        return postEnterpriseRepo.listPostByOderPriority();
+    public List<PostEnterprise> listPostByOderPriority(int page) {
+        return postEnterpriseRepo.listPostByOderPriority(page);
     }
 
     @Override
