@@ -27,4 +27,9 @@ public class NotificationEnterpriseService implements INotificationEnterpriseSer
     public List<NotificationEnterprise> notificationEnterpriseSByEnterprise(int id) {
         return notificationEnterpriseRepo.notificationEnterpriseSByEnterprise(id);
     }
+
+    @Override
+    public void updateStatusNotifi(int id) {
+          notificationEnterpriseRepo.updateStatusNotifi(id);
+    }
 }

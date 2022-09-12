@@ -49,8 +49,8 @@ public class PostEnterpriseService implements IPostEnterpriseService {
     }
 
     @Override
-    public void edit(PostEnterprise postEnterprise) {
-        postEnterpriseRepo.save(postEnterprise);
+    public void editPost(PostEnterprise postEnterprise) {
+        postEnterpriseRepo.editPost(postEnterprise.getAddressMainEnterprise(), postEnterprise.getDescribePostEnterprise(), postEnterprise.getNamePostEnterprise(), postEnterprise.getSalaryBigPostEnterprise(), postEnterprise.getSalarySmallPostEnterprise(), postEnterprise.getVacanciesPostEnterprise(), postEnterprise.getField().getIdField(), postEnterprise.getFormJobPostEnterprise().getIdFormJob(), postEnterprise.getIdPostEnterprise());
     }
 
 // List chế độ bài đăng và hình thức công việc
@@ -84,7 +84,6 @@ public class PostEnterpriseService implements IPostEnterpriseService {
     }
 
     // Song Đạt tìm kiếm bài đăng theo địa chỉ và công ty
-
     public List<PostEnterprise> findByAddress(String address) {
         return postEnterpriseRepo.findByAddress(address);
     }
@@ -102,7 +101,7 @@ public class PostEnterpriseService implements IPostEnterpriseService {
     }
 
     public void statusPost(int id) {
-         postEnterpriseRepo.statusPost(id);
+        postEnterpriseRepo.statusPost(id);
     }
 
     @Override
@@ -117,7 +116,24 @@ public class PostEnterpriseService implements IPostEnterpriseService {
 
     @Override
     public void setQuantityApplyPost(int id, int quantity) {
-         postEnterpriseRepo.setQuantityApplyPost(id,quantity);
+        postEnterpriseRepo.setQuantityApplyPost(id, quantity);
     }
+
+    @Override
+    public int priorityByIdPost(int id) {
+        return postEnterpriseRepo.priorityByIdPost(id);
+    }
+
+    @Override
+    public void setPriorityIdPost(int number, int id) {
+        postEnterpriseRepo.setPriorityIdPost(number, id);
+    }
+
+    // Tìm kiếm bài viết theo tên, địa chỉ, lĩnh vực
+    @Override
+    public List<PostEnterprise> findPostUser(String name, String address, int field) {
+        return postEnterpriseRepo.findPostUser(name, address, field);
+    }
+
 
 }

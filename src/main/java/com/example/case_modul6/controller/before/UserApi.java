@@ -32,73 +32,86 @@ public class UserApi {
 
     @Autowired
     INotificationEnterpriseService notificationEnterpriseService;
+
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<PostEnterprise>> findAll() {
         return new ResponseEntity<>(postEnterpriseService.findAll(), HttpStatus.OK);
     }
+
     @GetMapping("/listPostByOderPriority")
-    public ResponseEntity<List<PostEnterprise>>listPostByOderPriority(){
-        return new ResponseEntity<>(postEnterpriseService.listPostByOderPriority(),HttpStatus.OK);
+    public ResponseEntity<List<PostEnterprise>> listPostByOderPriority() {
+        return new ResponseEntity<>(postEnterpriseService.listPostByOderPriority(), HttpStatus.OK);
     }
 
-//    Tạo Cv
+    //    Tạo Cv
     @PostMapping("/saveCvUser")
-    public ResponseEntity<CvUser> saveCvUser(@RequestBody CvUser cvUser){
-    cvUserService.save(cvUser);
-    return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<CvUser> saveCvUser(@RequestBody CvUser cvUser) {
+        cvUserService.save(cvUser);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-//  a song tìm kiếm
+    //  a song tìm kiếm
     @GetMapping("/findAddress/{address}")
     public ResponseEntity<List<PostEnterprise>> findByAddress(@PathVariable String address) {
         return new ResponseEntity<>(postEnterpriseService.findByAddress(address), HttpStatus.OK);
     }
+
     @GetMapping("/findByNamePost/{name}")
     public ResponseEntity<List<PostEnterprise>> findByNamePost(@PathVariable String name) {
         return new ResponseEntity<>(postEnterpriseService.findByNamePost(name), HttpStatus.OK);
     }
+
     @GetMapping("/findByEnterprise/{id}")
     public ResponseEntity<List<PostEnterprise>> findByEnterprise(@PathVariable int id) {
         return new ResponseEntity<>(postEnterpriseService.findByEnterprise(id), HttpStatus.OK);
     }
+
     @GetMapping("/findSalary/{salary}")
-    public ResponseEntity<List<PostEnterprise>> findBySalary(@PathVariable double salary){
+    public ResponseEntity<List<PostEnterprise>> findBySalary(@PathVariable double salary) {
         return new ResponseEntity<>(postEnterpriseService.findSalary(salary), HttpStatus.OK);
     }
-//    Lưu Cv
+
+    //    Lưu Cv
     @GetMapping("/findCvByIdUser/{id}")
-    public ResponseEntity<CvUser> findCvByIdUser(@PathVariable int id){
-         return new ResponseEntity<>(cvUserService.findByIdAppUser(id),HttpStatus.OK);
+    public ResponseEntity<CvUser> findCvByIdUser(@PathVariable int id) {
+        return new ResponseEntity<>(cvUserService.findByIdAppUser(id), HttpStatus.OK);
     }
+
     //Tuấn Chi tiết bài đăng
     @GetMapping("/postDetail/{id}")
     public ResponseEntity<PostEnterprise> findPostByID(@PathVariable int id) {
         return new ResponseEntity<>(postEnterpriseService.findById(id), HttpStatus.OK);
     }
 
-//    SaveApplyJob  -- Thế
+    //    SaveApplyJob  -- Thế
     @PostMapping("/saveApplyJob")
-    public  ResponseEntity<UserApply> saveApplyJob(@RequestBody UserApply userApply){
+    public ResponseEntity<UserApply> saveApplyJob(@RequestBody UserApply userApply) {
         int idAppUser = userApply.getAppUser().getId();
         int idPost = userApply.getPostEnterprise().getIdPostEnterprise();
         String telephoneCV = cvUserService.findByIdAppUser(idAppUser).getTelephone().trim();
         String mail = cvUserService.findByIdAppUser(idAppUser).getMail().trim();
         String imgCv = cvUserService.findByIdAppUser(idAppUser).getImgCV().trim();
-        UserApply userApply1 = userApplyService.findByIdAppUserAndIdPost(imgCv,mail,telephoneCV,idAppUser,idPost);
-        if(userApply1 ==null){
+        UserApply userApply1 = userApplyService.findByIdAppUserAndIdPost(imgCv, mail, telephoneCV, idAppUser, idPost);
+        if (userApply1 == null) {
             userApplyService.save(userApply);
 
             return new ResponseEntity<>(HttpStatus.OK);
-        }else {
+        } else {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
+
     @GetMapping("/findUserApplyByIdAppUserAndIdPost/{idAppUser}/{idPost}")
-    public ResponseEntity<UserApply>findByIdAppUserAndIdPost(@PathVariable int idAppUser,@PathVariable int idPost){
+    public ResponseEntity<UserApply> findByIdAppUserAndIdPost(@PathVariable int idAppUser, @PathVariable int idPost) {
         String telephoneCV = cvUserService.findByIdAppUser(idAppUser).getTelephone().trim();
         String mail = cvUserService.findByIdAppUser(idAppUser).getMail().trim();
         String imgCv = cvUserService.findByIdAppUser(idAppUser).getImgCV().trim();
-        return new  ResponseEntity<UserApply>(userApplyService.findByIdAppUserAndIdPost(imgCv,mail,telephoneCV,idAppUser,idPost),HttpStatus.OK);
+        return new ResponseEntity<UserApply>(userApplyService.findByIdAppUserAndIdPost(imgCv, mail, telephoneCV, idAppUser, idPost), HttpStatus.OK);
+    }
+
+    @GetMapping("/findPostUser/{namePost}/{address}/{idField}")
+    public ResponseEntity<List<PostEnterprise>> findPostUser(@PathVariable String namePost, @PathVariable String address, @PathVariable int idField) {
+        return new ResponseEntity<>(postEnterpriseService.findPostUser(namePost, address, idField), HttpStatus.OK);
     }
 
 }

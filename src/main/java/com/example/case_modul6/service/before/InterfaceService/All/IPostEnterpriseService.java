@@ -4,6 +4,7 @@ package com.example.case_modul6.service.before.InterfaceService.All;
 import com.example.case_modul6.model.before.FormJob;
 import com.example.case_modul6.model.before.PostEnterprise;
 import com.example.case_modul6.model.before.Regime;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public interface IPostEnterpriseService {
 
     void delete(int id);
 
-    void edit(PostEnterprise postEnterprise);
+    void editPost(PostEnterprise postEnterprise);
     List<FormJob> findAllFormJob();
     List<Regime> findAllRegime();
     List<PostEnterprise> findAllByIdEnterprise(int id);
@@ -33,4 +34,10 @@ public interface IPostEnterpriseService {
 //    lấy và update số lượng apply bài post
     int quantityApplyByIdPost(int id);
     void setQuantityApplyPost(int id,int quantity);
+//    lấy và update điểm đề xuất
+    int priorityByIdPost(int id);
+
+    void setPriorityIdPost( int number, int id);
+// Tìm kiếm bài viết theo tên, địa chỉ và lĩnh vực.
+    List<PostEnterprise> findPostUser(String name, String address, int field);
 }

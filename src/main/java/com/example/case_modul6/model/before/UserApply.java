@@ -18,6 +18,8 @@ public class UserApply {
     private String mailCv;
 
     private String imgCV;
+
+    private boolean statusConfirm=false;
     @ManyToOne
     private AppUser appUser;
 
