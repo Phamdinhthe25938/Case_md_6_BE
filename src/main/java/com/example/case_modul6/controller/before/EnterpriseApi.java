@@ -189,8 +189,13 @@ public class EnterpriseApi {
         }
          return new ResponseEntity<>(userApplyService.listUserApplyByIdPost(idPost),HttpStatus.OK);
     }
-
+//tìm ra dối tượng apply theo id
+    @GetMapping("/userApplyById/{id}")
+    public ResponseEntity<UserApply> getUserApplyById(@PathVariable int id){
+        return new ResponseEntity<>(userApplyService.findById(id),HttpStatus.OK);
+    }
 //    Save việc nạp tiền
+
     @PostMapping("/saveTransWallet")
     public ResponseEntity<TransactionWallet> saveTransWallet(@RequestBody TransactionWallet transactionWallet){
         Time timeNow = Time.valueOf(java.time.LocalTime.now());
