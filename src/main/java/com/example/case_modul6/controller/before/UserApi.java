@@ -1,6 +1,7 @@
 package com.example.case_modul6.controller.before;
 
 import com.example.case_modul6.model.before.CvUser;
+import com.example.case_modul6.model.before.FindPostByUser;
 import com.example.case_modul6.model.before.Notification.NotificationEnterprise;
 import com.example.case_modul6.model.before.PostEnterprise;
 import com.example.case_modul6.model.before.UserApply;
@@ -109,9 +110,9 @@ public class UserApi {
         return new ResponseEntity<UserApply>(userApplyService.findByIdAppUserAndIdPost(imgCv, mail, telephoneCV, idAppUser, idPost), HttpStatus.OK);
     }
 
-    @GetMapping("/findPostUser/{namePost}/{address}/{idField}")
-    public ResponseEntity<List<PostEnterprise>> findPostUser(@PathVariable String namePost, @PathVariable String address, @PathVariable int idField) {
-        return new ResponseEntity<>(postEnterpriseService.findPostUser(namePost, address, idField), HttpStatus.OK);
+    @PostMapping("/findPostUser")
+    public ResponseEntity<List<PostEnterprise>> findPostUser(@RequestBody FindPostByUser findPostByUser) {
+        return new ResponseEntity<>(postEnterpriseService.findPostUser(findPostByUser.getNameEnterprise(), findPostByUser.getCity(), findPostByUser.getIdField()), HttpStatus.OK);
     }
 
 }
