@@ -6,11 +6,14 @@ import com.example.case_modul6.model.before.Regime;
 import com.example.case_modul6.repository.before.IFormJobRepo;
 import com.example.case_modul6.repository.before.IPostEnterpriseRepo;
 import com.example.case_modul6.repository.before.IRegimeRepo;
+import com.example.case_modul6.repository.before.IUserApplyRepo;
 import com.example.case_modul6.service.before.InterfaceService.All.IPostEnterpriseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -23,6 +26,8 @@ public class PostEnterpriseService implements IPostEnterpriseService {
     IFormJobRepo formJobRepo;
     @Autowired
     IRegimeRepo regimeRepo;
+    @Autowired
+    IUserApplyRepo userApplyRepo;
 
     @Override
     public List<PostEnterprise> findAll() {
@@ -70,8 +75,17 @@ public class PostEnterpriseService implements IPostEnterpriseService {
     }
 
     @Override
-    public List<PostEnterprise> listPostByOderPriority() {
-        return postEnterpriseRepo.listPostByOderPriority();
+    public List<PostEnterprise> listPostByOderPriority(int idUserLogin) {
+        List<PostEnterprise> postEnterprises;
+        postEnterprises=postEnterpriseRepo.listPostByOderPriority();
+        for (int i = 0; i < postEnterprises.size(); i++) {
+            for (int j = 0; j < userApplyRepo.listIdPostByIdUserApply(idUserLogin).size(); j++) {
+                if (userApplyRepo.listIdPostByIdUserApply(idUserLogin).get(j)==postEnterprises.get(i).getIdPostEnterprise()){
+                    postEnterprises.remove(i);
+                }
+            }
+        }
+        return postEnterprises;
     }
 
     @Override

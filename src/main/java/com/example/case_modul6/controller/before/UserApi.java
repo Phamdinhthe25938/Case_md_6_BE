@@ -39,9 +39,9 @@ public class UserApi {
         return new ResponseEntity<>(postEnterpriseService.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/listPostByOderPriority")
-    public ResponseEntity<List<PostEnterprise>> listPostByOderPriority() {
-        return new ResponseEntity<>(postEnterpriseService.listPostByOderPriority(), HttpStatus.OK);
+    @GetMapping("/listPostByOderPriority/{id}")
+    public ResponseEntity<List<PostEnterprise>> listPostByOderPriority(@PathVariable int id) {
+        return new ResponseEntity<>(postEnterpriseService.listPostByOderPriority(id), HttpStatus.OK);
     }
 
     //    Tạo Cv
