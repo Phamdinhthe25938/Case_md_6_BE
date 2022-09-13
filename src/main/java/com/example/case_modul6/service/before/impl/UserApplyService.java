@@ -29,34 +29,34 @@ public class UserApplyService implements IUserApplyService {
     INotificationEnterpriseService notificationEnterpriseService;
 
     @Override
-    public void save(UserApply userApply){
+    public void save(UserApply userApply) {
         int idPost = userApply.getPostEnterprise().getIdPostEnterprise();
-        CvUser cvUser =   cvUserService.findByIdAppUser((int) userApply.getAppUser().getId());
+        CvUser cvUser = cvUserService.findByIdAppUser((int) userApply.getAppUser().getId());
         userApply.setNameCV(cvUser.getName());
         userApply.setMailCv(cvUser.getMail());
         userApply.setNumberCV(cvUser.getTelephone());
         userApply.setImgCV(cvUser.getImgCV());
         userApplyRepo.save(userApply);
-        int quantity = postEnterpriseService.quantityApplyByIdPost(idPost)+1;
-        postEnterpriseService.setQuantityApplyPost(idPost,quantity);
-        Enterprise enterpriseNotifi= postEnterpriseService.findById(idPost).getEnterprise();
+        int quantity = postEnterpriseService.quantityApplyByIdPost(idPost) + 1;
+        postEnterpriseService.setQuantityApplyPost(idPost, quantity);
+        Enterprise enterpriseNotifi = postEnterpriseService.findById(idPost).getEnterprise();
         Time timeNow = Time.valueOf(java.time.LocalTime.now());
         long millis = System.currentTimeMillis();
         java.sql.Date dateNow = new java.sql.Date(millis);
-        int priority =postEnterpriseService.priorityByIdPost(idPost);
-        int priorityUpdate = priority +3 ;
-        postEnterpriseService.setPriorityIdPost(priorityUpdate,idPost);
-        notificationEnterpriseService.save(new NotificationEnterprise(userApply,enterpriseNotifi,timeNow,dateNow));
+        int priority = postEnterpriseService.priorityByIdPost(idPost);
+        int priorityUpdate = priority + 3;
+        postEnterpriseService.setPriorityIdPost(priorityUpdate, idPost);
+        notificationEnterpriseService.save(new NotificationEnterprise(userApply, enterpriseNotifi, timeNow, dateNow));
     }
 
     @Override
-    public UserApply  findByIdAppUserAndIdPost(String imgcv,String mail,String numberTelephone,int idAppUser, int idPost) {
-        return userApplyRepo.findByIdAppUserAndIdPost(imgcv,mail,numberTelephone,idAppUser,idPost);
+    public UserApply findByIdAppUserAndIdPost(String imgcv, String mail, String numberTelephone, int idAppUser, int idPost) {
+        return userApplyRepo.findByIdAppUserAndIdPost(imgcv, mail, numberTelephone, idAppUser, idPost);
     }
 
     @Override
     public void updateStatusConfirmUserApply(int id) {
-          userApplyRepo.updateStatusConfirmUserApply(id);
+        userApplyRepo.updateStatusConfirmUserApply(id);
     }
 
     @Override
@@ -67,5 +67,10 @@ public class UserApplyService implements IUserApplyService {
     @Override
     public List<UserApply> listUserApplyByIdPost(int id) {
         return userApplyRepo.listUserApplyByIdPost(id);
+    }
+
+    @Override
+    public List<UserApply> listUserApplyByIdAppUser(int id) {
+        return userApplyRepo.listUserApplyByIdAppUser(id);
     }
 }

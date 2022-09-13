@@ -120,10 +120,15 @@ public class UserApi {
         return new ResponseEntity<>(postEnterpriseService.findPostUserField(findPostByUser.getNameEnterprise(), findPostByUser.getCity()), HttpStatus.OK);
     }
 
-//    Xóa bài đăng khi hết hạn
-       @GetMapping("/deletePostExpired")
-        public ResponseEntity<Boolean> deletePostExpired(){
-          postEnterpriseService.deletePostExpired();
-         return new ResponseEntity<>(HttpStatus.OK);
-         }
+    //    Xóa bài đăng khi hết hạn
+    @GetMapping("/deletePostExpired")
+    public ResponseEntity<Boolean> deletePostExpired() {
+        postEnterpriseService.deletePostExpired();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/listUserApplyByIdAppUser/{id}")
+    public ResponseEntity<List<UserApply>> findUserApply(@PathVariable int appUserId){
+        return new ResponseEntity<>(userApplyService.listUserApplyByIdAppUser(appUserId),HttpStatus.OK);
+    }
 }
