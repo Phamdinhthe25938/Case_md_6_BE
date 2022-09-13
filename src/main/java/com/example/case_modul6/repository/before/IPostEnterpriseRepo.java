@@ -1,15 +1,10 @@
 package com.example.case_modul6.repository.before;
-
-import com.example.case_modul6.model.before.Enterprise;
 import com.example.case_modul6.model.before.PostEnterprise;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.security.core.parameters.P;
-
 import javax.transaction.Transactional;
-import java.awt.print.Pageable;
 import java.util.List;
 
 public interface IPostEnterpriseRepo extends CrudRepository<PostEnterprise, Integer> {
@@ -71,10 +66,9 @@ public interface IPostEnterpriseRepo extends CrudRepository<PostEnterprise, Inte
     @Query(nativeQuery = true,value = "select  priority_post_enterprise from case_module_6.post_enterprise where id_post_enterprise=:id")
     int priorityByIdPost(@Param("id") int id);
 
+
     @Modifying
     @Transactional
     @Query(nativeQuery = true,value = "update post_enterprise set priority_post_enterprise=:quantity where id_post_enterprise=:id ")
     void setPriorityIdPost(@Param("quantity") int quantity,@Param("id") int id);
-
-
 }
