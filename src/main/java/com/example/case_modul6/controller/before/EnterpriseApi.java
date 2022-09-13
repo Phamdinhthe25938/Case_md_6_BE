@@ -140,9 +140,15 @@ public class EnterpriseApi {
     }
 
     //Tuan edit profile doanh nghiep
-    @GetMapping("/editProfile/")
-    public ResponseEntity<Enterprise> editProfile(@PathVariable Enterprise enterprise) {
+//    @GetMapping("/editProfile/")
+//    public ResponseEntity<Enterprise> editProfile(@PathVariable Enterprise enterprise) {
+//        enterpriseService.editProfile(enterprise);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
+    @PostMapping("/editProfile")
+    public ResponseEntity<Enterprise> editProfile(@RequestBody Enterprise enterprise) {
         enterpriseService.editProfile(enterprise);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }

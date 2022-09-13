@@ -93,7 +93,7 @@ public class EnterpriseService implements IEnterpriseService {
     public double findViByIdEnterprise(int id){
         return enterpriseRepo.findViByIdEnterprise(id);
     }
-
+@Override
     public void editProfile(Enterprise enterprise){
         enterpriseRepo.editProfile(enterprise.getAddressMainEnterprise(),enterprise.getDescribeEnterprise(),enterprise.getImgEnterprise(),enterprise.getNameEnterprise(),enterprise.getIdEnterprise());
     }
