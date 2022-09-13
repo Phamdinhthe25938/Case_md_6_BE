@@ -47,6 +47,7 @@ public interface IEnterpriseRepo extends CrudRepository<Enterprise,Integer>{
     @Transactional
     @Query(nativeQuery = true,value = "update case_module_6.enterprise set status_enterprise=1 where id_enterprise=:id")
     void setStatusEnterpriseTo0(@Param("id") int id);
+
     @Modifying
     @Transactional
     @Query(nativeQuery = true,value = "update case_module_6.enterprise set vi_enterprise=:numberMoney where id_enterprise=:id")
@@ -66,4 +67,14 @@ public interface IEnterpriseRepo extends CrudRepository<Enterprise,Integer>{
     @Transactional
     @Query(nativeQuery = true,value = " UPDATE enterprise SET address_main_enterprise =:addressMainEnterprise, describe_enterprise = :describeEnterprise, img_enterprise = :imgEnterprise, name_enterprise = :nameEnterprise WHERE id_enterprise = :id")
     void editProfile(@Param("addressMainEnterprise") String addressMainEnterprise,@Param("describeEnterprise") String describeEnterprise, @Param("imgEnterprise") String imgEnterprise, @Param("nameEnterprise") String nameEnterprise,@Param("id") int idEnterprise);
+
+
+
+
+
+
+
+
+
+
 }

@@ -10,12 +10,11 @@ import java.util.Set;
 public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
     private String username;
     private  String email;
     private String password;
 //    @ManyToMany(fetch = FetchType.EAGER)
     @OneToOne
     private Role roles;
-
 }
