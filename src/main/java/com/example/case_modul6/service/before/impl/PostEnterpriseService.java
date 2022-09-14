@@ -94,7 +94,7 @@ public class PostEnterpriseService implements IPostEnterpriseService {
     }
 
     @Override
-    public List<PostEnterprise> listPostThuongByEnterprise(int id) {
+    public List<PostEnterprise> listPostThuongByEnterprise(int id){
         return postEnterpriseRepo.listPostThuongByEnterprise(id);
     }
 
@@ -169,5 +169,4 @@ public class PostEnterpriseService implements IPostEnterpriseService {
     public PostEnterprise getPostExpired(String date) {
         return postEnterpriseRepo.getPostExpired(date);
     }
-
 }
