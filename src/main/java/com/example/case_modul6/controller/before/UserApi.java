@@ -11,11 +11,13 @@ import com.example.case_modul6.service.before.InterfaceService.All.IUserApplySer
 import com.example.case_modul6.service.before.impl.CvUserService;
 import com.example.case_modul6.service.before.impl.PostEnterpriseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 @RestController
@@ -38,10 +40,14 @@ public class UserApi {
     public ResponseEntity<List<PostEnterprise>> findAll() {
         return new ResponseEntity<>(postEnterpriseService.findAll(), HttpStatus.OK);
     }
+    @RequestMapping("/getAll/{page}")
+    public ResponseEntity<List<PostEnterprise>> findAll(@PathVariable int page) {
+        return new ResponseEntity<>(postEnterpriseService.getAll(PageRequest.of(page, 3)), HttpStatus.OK);
+    }
 
-    @GetMapping("/listPostByOderPriority/{id}")
-    public ResponseEntity<List<PostEnterprise>> listPostByOderPriority(@PathVariable int id) {
-        return new ResponseEntity<>(postEnterpriseService.listPostByOderPriority(id), HttpStatus.OK);
+    @GetMapping("/listPostByOderPriority/{id}/{page}")
+    public ResponseEntity<List<PostEnterprise>> listPostByOderPriority(@PathVariable int id,@PathVariable int page) {
+        return new ResponseEntity<>(postEnterpriseService.listPostByOderPriority(id,PageRequest.of(page-1, 3)), HttpStatus.OK);
     }
 
     //    Tạo Cv
