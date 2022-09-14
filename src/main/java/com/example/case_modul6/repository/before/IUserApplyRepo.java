@@ -24,4 +24,9 @@ public interface IUserApplyRepo extends CrudRepository<UserApply,Integer> {
 
     @Query(nativeQuery = true,value = "select post_enterprise_id_post_enterprise from case_module_6.user_apply where app_user_id=:id")
     List<Integer> listIdPostByIdUserApply(@Param("id") int id);
+
+    @Query(nativeQuery = true, value = "select * from case_module_6.user_apply where app_user_id=:id")
+    List<UserApply> listUserApplyByIdAppUser(@Param("id") int id);
+    @Query(nativeQuery = true,value = "select * from user_apply where app_user_id=:idUser and post_enterprise_id_post_enterprise=:idPost")
+    UserApply findImgCvApply(@Param("idUser")int idUser,@Param("idPost")int idPost);
 }

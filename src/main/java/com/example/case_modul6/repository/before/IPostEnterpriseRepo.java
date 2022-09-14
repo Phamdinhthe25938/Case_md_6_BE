@@ -2,25 +2,31 @@ package com.example.case_modul6.repository.before;
 
 import com.example.case_modul6.model.before.Enterprise;
 import com.example.case_modul6.model.before.PostEnterprise;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import javax.transaction.Transactional;
 import java.util.List;
 
-public interface IPostEnterpriseRepo extends CrudRepository<PostEnterprise, Integer> {
-
+public interface IPostEnterpriseRepo extends PagingAndSortingRepository<PostEnterprise, Integer> {
+    @Query(nativeQuery = true,value = "select  * from case_module_6.post_enterprise")
+    List<PostEnterprise> getAll(Pageable pageable);
     @Query(nativeQuery = true, value = "select  * from case_module_6.post_enterprise where id_post_enterprise=:id")
     List<PostEnterprise> findAllById(@Param("id") int id);
 
     @Query(nativeQuery = true, value = "select  * from case_module_6.post_enterprise where enterprise_id_enterprise=:id")
     List<PostEnterprise> findAllByIdEnterprise(@Param("id") int id);
 
-    @Query(nativeQuery = true, value = "select   * from case_module_6.post_enterprise where status_post_enterprise=1 order by priority_post_enterprise limit :page,5")
-    List<PostEnterprise> listPostByOderPriority(@Param("page") int page);
-    @Query(nativeQuery = true, value = "select   * from case_module_6.post_enterprise where status_post_enterprise=1 order by priority_post_enterprise DESC ")
-    List<PostEnterprise> listPostByOderPriority();
+//    select * from post_enterprise where id_post_enterprise not in
+//            (select post_enterprise_id_post_enterprise from user_apply
+//                    where app_user_id = 3)
+    @Query(nativeQuery = true, value = " select * from post_enterprise where id_post_enterprise not in\n" +
+            "            (select post_enterprise_id_post_enterprise from user_apply\n" +
+            "                    where app_user_id =:id ) having status_post_enterprise=1 order by priority_post_enterprise DESC ")
+    List<PostEnterprise> listPostByOderPriority(@Param("id")int id, Pageable pageable);
 
     @Query(nativeQuery = true, value = "select  * from case_module_6.post_enterprise where enterprise_id_enterprise=:id and regime_id_regime=1")
     List<PostEnterprise> listPostVipByEnterprise(@Param("id") int id);
@@ -93,4 +99,9 @@ public interface IPostEnterpriseRepo extends CrudRepository<PostEnterprise, Inte
 
     @Query(nativeQuery = true, value = "select * from case_module_6.post_enterprise where name_post_enterprise LIKE %:name% && address_main_enterprise LIKE %:address%  ")
     List<PostEnterprise> findPostUserfield(@Param("name") String name, @Param("address") String address);
+
+    @Query(nativeQuery = true ,value = "select * from post_enterprise where id_post_enterprise in\n" +
+            "(select post_enterprise_id_post_enterprise from user_apply\n" +
+            "where app_user_id = :id)")
+    public  List<PostEnterprise> searchPostApplyByUser(@Param("id") int id);
 }
