@@ -19,7 +19,7 @@ public interface IPostEnterpriseRepo extends CrudRepository<PostEnterprise, Inte
     @Query(nativeQuery = true, value = "select  * from case_module_6.post_enterprise where enterprise_id_enterprise=:id")
     List<PostEnterprise> findAllByIdEnterprise(@Param("id") int id);
 
-    @Query(nativeQuery = true, value = "select   * from case_module_6.post_enterprise where status_post_enterprise=1 order by priority_post_enterprise DESC limit 4")
+    @Query(nativeQuery = true, value = "select   * from case_module_6.post_enterprise where status_post_enterprise=1 order by priority_post_enterprise DESC ")
     List<PostEnterprise> listPostByOderPriority();
 
     @Query(nativeQuery = true, value = "select  * from case_module_6.post_enterprise where enterprise_id_enterprise=:id and regime_id_regime=1")
@@ -93,4 +93,7 @@ public interface IPostEnterpriseRepo extends CrudRepository<PostEnterprise, Inte
 
     @Query(nativeQuery = true, value = "select * from case_module_6.post_enterprise where name_post_enterprise LIKE %:name% && address_main_enterprise LIKE %:address%  ")
     List<PostEnterprise> findPostUserfield(@Param("name") String name, @Param("address") String address);
+
+    @Query(nativeQuery = true ,value = "select * from post_enterprise join post_enterprise_cv_users on post_enterprise.id_post_enterprise=post_enterprise_cv_users.post_enterprise_id_post_enterprise where post_enterprise_cv_users.cv_users_id=:id")
+    public  List<PostEnterprise> searchPostApplyByUser(@Param("id") int id);
 }

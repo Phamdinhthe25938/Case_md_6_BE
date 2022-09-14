@@ -39,9 +39,9 @@ public class UserApi {
         return new ResponseEntity<>(postEnterpriseService.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/listPostByOderPriority")
-    public ResponseEntity<List<PostEnterprise>> listPostByOderPriority() {
-        return new ResponseEntity<>(postEnterpriseService.listPostByOderPriority(), HttpStatus.OK);
+    @GetMapping("/listPostByOderPriority/{id}")
+    public ResponseEntity<List<PostEnterprise>> listPostByOderPriority(@PathVariable int id) {
+        return new ResponseEntity<>(postEnterpriseService.listPostByOderPriority(id), HttpStatus.OK);
     }
 
     //    Tạo Cv
@@ -127,8 +127,9 @@ public class UserApi {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/listUserApplyByIdAppUser/{id}")
-    public ResponseEntity<List<UserApply>> findUserApply(@PathVariable int appUserId){
-        return new ResponseEntity<>(userApplyService.listUserApplyByIdAppUser(appUserId),HttpStatus.OK);
+
+    @GetMapping("/listUserApplyByIdAppUser/{id}")
+    public ResponseEntity<List<PostEnterprise>> findUserApply(@PathVariable int id){
+        return new ResponseEntity<>(postEnterpriseService.findPostByUserApply(id),HttpStatus.OK);
     }
 }

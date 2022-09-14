@@ -29,9 +29,9 @@ public class UserApplyService implements IUserApplyService {
     INotificationEnterpriseService notificationEnterpriseService;
 
     @Override
-    public void save(UserApply userApply) {
+    public void save(UserApply userApply){
         int idPost = userApply.getPostEnterprise().getIdPostEnterprise();
-        CvUser cvUser = cvUserService.findByIdAppUser((int) userApply.getAppUser().getId());
+        CvUser cvUser =   cvUserService.findByIdAppUser((int) userApply.getAppUser().getId());
         userApply.setNameCV(cvUser.getName());
         userApply.setMailCv(cvUser.getMail());
         userApply.setNumberCV(cvUser.getTelephone());
@@ -56,7 +56,7 @@ public class UserApplyService implements IUserApplyService {
 
     @Override
     public void updateStatusConfirmUserApply(int id) {
-        userApplyRepo.updateStatusConfirmUserApply(id);
+          userApplyRepo.updateStatusConfirmUserApply(id);
     }
 
     @Override
@@ -67,6 +67,11 @@ public class UserApplyService implements IUserApplyService {
     @Override
     public List<UserApply> listUserApplyByIdPost(int id) {
         return userApplyRepo.listUserApplyByIdPost(id);
+    }
+
+    @Override
+    public List<Integer> listIdPostByIdUserApply(int id) {
+        return userApplyRepo.listIdPostByIdUserApply(id);
     }
 
     @Override
