@@ -78,4 +78,8 @@ public class UserApplyService implements IUserApplyService {
     public List<UserApply> listUserApplyByIdAppUser(int id) {
         return userApplyRepo.listUserApplyByIdAppUser(id);
     }
+     @Override
+     public UserApply findImgCvApply(int idUser, int idPost){
+        return userApplyRepo.findImgCvApply(idUser,idPost);
+    }
 }

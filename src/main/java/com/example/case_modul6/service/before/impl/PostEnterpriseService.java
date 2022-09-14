@@ -62,7 +62,7 @@ public class PostEnterpriseService implements IPostEnterpriseService {
 
     @Override
     public void editPost(PostEnterprise postEnterprise) {
-        postEnterpriseRepo.editPost(postEnterprise.getAddressMainEnterprise(), postEnterprise.getDescribePostEnterprise(), postEnterprise.getNamePostEnterprise(), postEnterprise.getSalaryBigPostEnterprise(), postEnterprise.getSalarySmallPostEnterprise(), postEnterprise.getVacanciesPostEnterprise(), postEnterprise.getField().getIdField(), postEnterprise.getFormJobPostEnterprise().getIdFormJob(), postEnterprise.getIdPostEnterprise());
+        postEnterpriseRepo.editPost(postEnterprise.getAddressMainEnterprise(),postEnterprise.getDescribePostEnterprise(),postEnterprise.getNamePostEnterprise(),postEnterprise.getSalaryBigPostEnterprise(),postEnterprise.getSalarySmallPostEnterprise(),postEnterprise.getVacanciesPostEnterprise(),postEnterprise.getField().getIdField(),postEnterprise.getFormJobPostEnterprise().getIdFormJob(),postEnterprise.getIdPostEnterprise());
     }
 
 // List chế độ bài đăng và hình thức công việc
