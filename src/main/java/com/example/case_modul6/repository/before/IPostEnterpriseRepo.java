@@ -1,4 +1,6 @@
 package com.example.case_modul6.repository.before;
+
+import com.example.case_modul6.model.before.Enterprise;
 import com.example.case_modul6.model.before.PostEnterprise;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -17,6 +19,8 @@ public interface IPostEnterpriseRepo extends CrudRepository<PostEnterprise, Inte
 
     @Query(nativeQuery = true, value = "select   * from case_module_6.post_enterprise where status_post_enterprise=1 order by priority_post_enterprise limit :page,5")
     List<PostEnterprise> listPostByOderPriority(@Param("page") int page);
+    @Query(nativeQuery = true, value = "select   * from case_module_6.post_enterprise where status_post_enterprise=1 order by priority_post_enterprise DESC ")
+    List<PostEnterprise> listPostByOderPriority();
 
     @Query(nativeQuery = true, value = "select  * from case_module_6.post_enterprise where enterprise_id_enterprise=:id and regime_id_regime=1")
     List<PostEnterprise> listPostVipByEnterprise(@Param("id") int id);
@@ -36,6 +40,7 @@ public interface IPostEnterpriseRepo extends CrudRepository<PostEnterprise, Inte
 
     @Query(nativeQuery = true, value = "select * from case_module_6.post_enterprise where salary_big_post_enterprise between  salary_small_post_enterprise AND  salary_big_post_enterprise ")
     List<PostEnterprise> findSalary(double salary);
+
     @Modifying
     @Transactional
     @Query(nativeQuery = true, value = "update post_enterprise set status_post_enterprise = 0 where  id_post_enterprise=:id ")
@@ -66,9 +71,26 @@ public interface IPostEnterpriseRepo extends CrudRepository<PostEnterprise, Inte
     @Query(nativeQuery = true,value = "select  priority_post_enterprise from case_module_6.post_enterprise where id_post_enterprise=:id")
     int priorityByIdPost(@Param("id") int id);
 
-
     @Modifying
     @Transactional
     @Query(nativeQuery = true,value = "update post_enterprise set priority_post_enterprise=:quantity where id_post_enterprise=:id ")
     void setPriorityIdPost(@Param("quantity") int quantity,@Param("id") int id);
+
+
+//    Thực hiện xóa bài viết khi hết hạn !
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true,value = "delete  from case_module_6.post_enterprise where expiration_date_post_enterprise=:date ")
+    void  deletePostExpired(@Param("date") String date);
+
+//    lấy tất cả bài đăng của ngày hiện tại
+    @Query(nativeQuery = true,value = "select * from case_module_6.post_enterprise where expiration_date_post_enterprise=:date limit 1")
+    PostEnterprise getPostExpired(@Param("date") String date);
+    // Tìm kiếm bài viết theo lĩnh vực tên công việc, thành phố
+
+    @Query(nativeQuery = true, value = "select * from case_module_6.post_enterprise where name_post_enterprise LIKE %:name% && address_main_enterprise LIKE %:address% && field_id_field=:field  ")
+    List<PostEnterprise> findPostUser(@Param("name") String name, @Param("address") String address, @Param("field") int id);
+
+    @Query(nativeQuery = true, value = "select * from case_module_6.post_enterprise where name_post_enterprise LIKE %:name% && address_main_enterprise LIKE %:address%  ")
+    List<PostEnterprise> findPostUserfield(@Param("name") String name, @Param("address") String address);
 }

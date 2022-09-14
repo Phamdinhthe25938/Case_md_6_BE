@@ -13,4 +13,11 @@ public interface ITransWalletHrRepo extends CrudRepository<TransWalletHr,Integer
     @Query(nativeQuery = true,value = "select * from case_module_6.trans_wallet_hr where enterprise_id_enterprise=:id")
     List<TransWalletHr> getAllTransWalletByIdEnter(@Param("id") int id);
 
+
+    @Query(nativeQuery = true,value = "select * from case_module_6.trans_wallet_hr where  date_trans=:date")
+    List<TransWalletHr> getAllTransWalletDateNow(@Param("date") String date);
+
+    @Query(nativeQuery = true,value = "select SUM(money_away) from trans_wallet_hr where  date_trans=:date")
+    double  totalMoneyTransDateNow(@Param("date") String date);
+
 }

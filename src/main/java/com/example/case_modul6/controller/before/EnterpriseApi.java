@@ -44,6 +44,9 @@ public class EnterpriseApi {
     @Autowired
     ITransactionWalletService transactionWalletService;
 
+    @Autowired
+    ITransWalletHrService transWalletHrService;
+
     @GetMapping("/findAll")
     public ResponseEntity<List<PostEnterprise>> findAllPostEnterprise() {
         return new ResponseEntity<>(postEnterpriseService.findAll(), HttpStatus.OK);
@@ -186,8 +189,13 @@ public class EnterpriseApi {
         }
          return new ResponseEntity<>(userApplyService.listUserApplyByIdPost(idPost),HttpStatus.OK);
     }
-
+//tìm ra dối tượng apply theo id
+    @GetMapping("/userApplyById/{id}")
+    public ResponseEntity<UserApply> getUserApplyById(@PathVariable int id){
+        return new ResponseEntity<>(userApplyService.findById(id),HttpStatus.OK);
+    }
 //    Save việc nạp tiền
+
     @PostMapping("/saveTransWallet")
     public ResponseEntity<TransactionWallet> saveTransWallet(@RequestBody TransactionWallet transactionWallet){
         Time timeNow = Time.valueOf(java.time.LocalTime.now());
@@ -197,6 +205,17 @@ public class EnterpriseApi {
         transactionWallet.setDateTransaction(date);
         transactionWalletService.save(transactionWallet);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+//  list walletHrByID
+    @GetMapping("/transWalletHrByIdEnter/{id}")
+    public ResponseEntity<List<TransWalletHr>> transWalletByIdEnter(@PathVariable int id){
+        return new ResponseEntity<>(transWalletHrService.getAllTransWalletByIdEnter(id),HttpStatus.OK);
+    }
+//    xóa đi những bài post khi hết hạn !
+    @GetMapping("/deletePostExpired")
+    public ResponseEntity<Boolean> deletePostExpired(){
+          postEnterpriseService.deletePostExpired();
+          return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

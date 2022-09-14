@@ -68,4 +68,9 @@ public class UserApplyService implements IUserApplyService {
     public List<UserApply> listUserApplyByIdPost(int id) {
         return userApplyRepo.listUserApplyByIdPost(id);
     }
+
+    @Override
+    public List<Integer> listIdPostByIdUserApply(int id) {
+        return userApplyRepo.listIdPostByIdUserApply(id);
+    }
 }

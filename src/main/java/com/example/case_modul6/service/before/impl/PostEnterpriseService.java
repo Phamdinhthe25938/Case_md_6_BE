@@ -6,10 +6,14 @@ import com.example.case_modul6.model.before.Regime;
 import com.example.case_modul6.repository.before.IFormJobRepo;
 import com.example.case_modul6.repository.before.IPostEnterpriseRepo;
 import com.example.case_modul6.repository.before.IRegimeRepo;
+import com.example.case_modul6.repository.before.IUserApplyRepo;
 import com.example.case_modul6.service.before.InterfaceService.All.IPostEnterpriseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -22,6 +26,8 @@ public class PostEnterpriseService implements IPostEnterpriseService {
     IFormJobRepo formJobRepo;
     @Autowired
     IRegimeRepo regimeRepo;
+    @Autowired
+    IUserApplyRepo userApplyRepo;
 
     @Override
     public List<PostEnterprise> findAll() {
@@ -69,8 +75,17 @@ public class PostEnterpriseService implements IPostEnterpriseService {
     }
 
     @Override
-    public List<PostEnterprise> listPostByOderPriority(int page) {
-        return postEnterpriseRepo.listPostByOderPriority(page);
+    public List<PostEnterprise> listPostByOderPriority(int idUserLogin) {
+        List<PostEnterprise> postEnterprises;
+        postEnterprises=postEnterpriseRepo.listPostByOderPriority();
+        for (int i = 0; i < postEnterprises.size(); i++) {
+            for (int j = 0; j < userApplyRepo.listIdPostByIdUserApply(idUserLogin).size(); j++) {
+                if (userApplyRepo.listIdPostByIdUserApply(idUserLogin).get(j)==postEnterprises.get(i).getIdPostEnterprise()){
+                    postEnterprises.remove(i);
+                }
+            }
+        }
+        return postEnterprises;
     }
 
     @Override
@@ -82,41 +97,77 @@ public class PostEnterpriseService implements IPostEnterpriseService {
     public List<PostEnterprise> listPostThuongByEnterprise(int id) {
         return postEnterpriseRepo.listPostThuongByEnterprise(id);
     }
+
     // Song Đạt tìm kiếm bài đăng theo địa chỉ và công ty
     public List<PostEnterprise> findByAddress(String address) {
         return postEnterpriseRepo.findByAddress(address);
     }
+
     public List<PostEnterprise> findByNamePost(String name) {
         return postEnterpriseRepo.findByNamePost(name);
     }
+
     public List<PostEnterprise> findByEnterprise(int id) {
         return postEnterpriseRepo.findByEnterprise(id);
     }
+
     public List<PostEnterprise> findSalary(double salary) {
         return postEnterpriseRepo.findSalary(salary);
     }
+
     public void statusPost(int id) {
-         postEnterpriseRepo.statusPost(id);
+        postEnterpriseRepo.statusPost(id);
     }
+
     @Override
     public void openKeyPost(int id) {
         postEnterpriseRepo.openKeyPost(id);
     }
+
     @Override
     public int quantityApplyByIdPost(int id) {
         return postEnterpriseRepo.quantityApplyByIdPost(id);
     }
+
     @Override
     public void setQuantityApplyPost(int id, int quantity) {
-         postEnterpriseRepo.setQuantityApplyPost(id,quantity);
+        postEnterpriseRepo.setQuantityApplyPost(id, quantity);
     }
+
     @Override
     public int priorityByIdPost(int id) {
         return postEnterpriseRepo.priorityByIdPost(id);
     }
+
     @Override
     public void setPriorityIdPost(int number, int id) {
-         postEnterpriseRepo.setPriorityIdPost(number,id);
+        postEnterpriseRepo.setPriorityIdPost(number, id);
+    }
+
+    // Tìm kiếm bài viết theo tên, địa chỉ, lĩnh vực
+    @Override
+    public List<PostEnterprise> findPostUser(String name, String address, int field) {
+        return postEnterpriseRepo.findPostUser(name, address, field);
+    }
+    public List<PostEnterprise> findPostUserField(String name, String address){
+        return postEnterpriseRepo.findPostUserfield(name,address);
+    }
+    @Override
+    public void deletePostExpired() {
+        long millis = System.currentTimeMillis();
+        java.sql.Date dateNow = new java.sql.Date(millis);
+        String dateNowStr= String.valueOf(dateNow);
+        if(getPostExpired(dateNowStr)!=null){
+               postEnterpriseRepo.deletePostExpired(dateNowStr);
+        }
+        else {
+            System.out.println("Không có !");
+        }
+    }
+
+    @Override
+    public PostEnterprise getPostExpired(String date) {
+        return postEnterpriseRepo.getPostExpired(date);
     }
 
 }

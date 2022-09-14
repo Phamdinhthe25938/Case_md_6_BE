@@ -153,10 +153,10 @@ public class AdminAPI {
              moneyDiscountAfter = moneyTrans - moneyDiscount;
              moneyToEnterprise = moneyViEnterprise+ moneyDiscountAfter;
              moneyViAdminExits = moneyViAdmin -moneyDiscountAfter;
-            enterpriseService.setViEnterprise(idEnterprise,moneyToEnterprise);
-            viAdminService.setMoneyViAdmin(moneyViAdminExits);
-            transWalletHr = new TransWalletHr(viAdmin,enterpriseTrans,moneyTrans,moneyDiscountAfter,moneyDiscount,date,timeNow);
-            transWalletHrService.save(transWalletHr);
+             enterpriseService.setViEnterprise(idEnterprise,moneyToEnterprise);
+             viAdminService.setMoneyViAdmin(moneyViAdminExits);
+             transWalletHr = new TransWalletHr(viAdmin,enterpriseTrans,moneyTrans,moneyDiscountAfter,moneyDiscount,date,timeNow);
+              transWalletHrService.save(transWalletHr);
              transactionWalletService.setStatusConfirmTransWallet(id);
              return new ResponseEntity<>(HttpStatus.OK);
         }
@@ -176,6 +176,14 @@ public class AdminAPI {
     @GetMapping("/transWalletHrAll")
     public  ResponseEntity<List<TransWalletHr>> getTransWalletHrAll(){
            return new ResponseEntity<>(transWalletHrService.findAllTransWalletHr(),HttpStatus.OK);
+    }
+    @GetMapping("/transWalletHrAllDateNow")
+    public ResponseEntity<List<TransWalletHr>> getTransWalletHrAllDateNow(){
+        return new ResponseEntity<>(transWalletHrService.getAllTransWalletDateNow(),HttpStatus.OK);
+    }
+    @GetMapping("/totalMoneyTransDateNow")
+    public ResponseEntity<Double> totalMoneyTransDateNow(){
+        return new ResponseEntity<>(transWalletHrService.totalMoneyTransDateNow(),HttpStatus.OK);
     }
 }
 
