@@ -37,21 +37,21 @@ public class UserApplyService implements IUserApplyService {
         userApply.setNumberCV(cvUser.getTelephone());
         userApply.setImgCV(cvUser.getImgCV());
         userApplyRepo.save(userApply);
-        int quantity = postEnterpriseService.quantityApplyByIdPost(idPost)+1;
-        postEnterpriseService.setQuantityApplyPost(idPost,quantity);
-        Enterprise enterpriseNotifi= postEnterpriseService.findById(idPost).getEnterprise();
+        int quantity = postEnterpriseService.quantityApplyByIdPost(idPost) + 1;
+        postEnterpriseService.setQuantityApplyPost(idPost, quantity);
+        Enterprise enterpriseNotifi = postEnterpriseService.findById(idPost).getEnterprise();
         Time timeNow = Time.valueOf(java.time.LocalTime.now());
         long millis = System.currentTimeMillis();
         java.sql.Date dateNow = new java.sql.Date(millis);
-        int priority =postEnterpriseService.priorityByIdPost(idPost);
-        int priorityUpdate = priority +3 ;
-        postEnterpriseService.setPriorityIdPost(priorityUpdate,idPost);
-        notificationEnterpriseService.save(new NotificationEnterprise(userApply,enterpriseNotifi,timeNow,dateNow));
+        int priority = postEnterpriseService.priorityByIdPost(idPost);
+        int priorityUpdate = priority + 3;
+        postEnterpriseService.setPriorityIdPost(priorityUpdate, idPost);
+        notificationEnterpriseService.save(new NotificationEnterprise(userApply, enterpriseNotifi, timeNow, dateNow));
     }
 
     @Override
-    public UserApply  findByIdAppUserAndIdPost(String imgcv,String mail,String numberTelephone,int idAppUser, int idPost) {
-        return userApplyRepo.findByIdAppUserAndIdPost(imgcv,mail,numberTelephone,idAppUser,idPost);
+    public UserApply findByIdAppUserAndIdPost(String imgcv, String mail, String numberTelephone, int idAppUser, int idPost) {
+        return userApplyRepo.findByIdAppUserAndIdPost(imgcv, mail, numberTelephone, idAppUser, idPost);
     }
 
     @Override
@@ -72,5 +72,10 @@ public class UserApplyService implements IUserApplyService {
     @Override
     public List<Integer> listIdPostByIdUserApply(int id) {
         return userApplyRepo.listIdPostByIdUserApply(id);
+    }
+
+    @Override
+    public List<UserApply> listUserApplyByIdAppUser(int id) {
+        return userApplyRepo.listUserApplyByIdAppUser(id);
     }
 }

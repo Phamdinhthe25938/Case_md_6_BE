@@ -14,4 +14,6 @@ public interface IUserApplyService {
     UserApply findById(int id);
     List<UserApply> listUserApplyByIdPost( int id);
     List<Integer> listIdPostByIdUserApply( int id);
+
+    List<UserApply> listUserApplyByIdAppUser (int id);
 }

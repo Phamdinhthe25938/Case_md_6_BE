@@ -5,6 +5,7 @@ import com.example.case_modul6.model.before.Enterprise;
 import com.example.case_modul6.model.before.FormJob;
 import com.example.case_modul6.model.before.PostEnterprise;
 import com.example.case_modul6.model.before.Regime;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
@@ -12,6 +13,8 @@ import java.util.List;
 public interface IPostEnterpriseService {
 
     List<PostEnterprise> findAll();
+    List<PostEnterprise> getAll(Pageable pageable);
+
 
     List<PostEnterprise> findAllById(int id);
 
@@ -25,7 +28,7 @@ public interface IPostEnterpriseService {
     List<FormJob> findAllFormJob();
     List<Regime> findAllRegime();
     List<PostEnterprise> findAllByIdEnterprise(int id);
-    List<PostEnterprise> listPostByOderPriority(int idUserLogin);
+    List<PostEnterprise> listPostByOderPriority(int idUserLogin,Pageable pageable);
     List<PostEnterprise> listPostVipByEnterprise(int id);
     List<PostEnterprise> listPostThuongByEnterprise(int id);
 

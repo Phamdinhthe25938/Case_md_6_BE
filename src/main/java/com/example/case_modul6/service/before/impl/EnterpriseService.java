@@ -105,4 +105,5 @@ IAppUserRepo iAppUserRepo;
     public void editProfile(Enterprise enterprise){
         enterpriseRepo.editProfile(enterprise.getAddressMainEnterprise(),enterprise.getDescribeEnterprise(),enterprise.getImgEnterprise(),enterprise.getNameEnterprise(),enterprise.getIdEnterprise());
     }
+
 }
