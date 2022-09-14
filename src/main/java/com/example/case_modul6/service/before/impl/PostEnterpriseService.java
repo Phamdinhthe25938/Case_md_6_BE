@@ -9,6 +9,7 @@ import com.example.case_modul6.repository.before.IRegimeRepo;
 import com.example.case_modul6.repository.before.IUserApplyRepo;
 import com.example.case_modul6.service.before.InterfaceService.All.IPostEnterpriseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.sql.Time;
@@ -32,6 +33,11 @@ public class PostEnterpriseService implements IPostEnterpriseService {
     @Override
     public List<PostEnterprise> findAll() {
         return (List<PostEnterprise>) postEnterpriseRepo.findAll();
+    }
+
+    @Override
+    public List<PostEnterprise> getAll(Pageable pageable) {
+        return postEnterpriseRepo.getAll(pageable);
     }
 
     @Override
@@ -75,17 +81,9 @@ public class PostEnterpriseService implements IPostEnterpriseService {
     }
 
     @Override
-    public List<PostEnterprise> listPostByOderPriority(int idUserLogin) {
-        List<PostEnterprise> postEnterprises;
-        postEnterprises=postEnterpriseRepo.listPostByOderPriority();
-        for (int i = 0; i < postEnterprises.size(); i++) {
-            for (int j = 0; j < userApplyRepo.listIdPostByIdUserApply(idUserLogin).size(); j++) {
-                if (userApplyRepo.listIdPostByIdUserApply(idUserLogin).get(j)==postEnterprises.get(i).getIdPostEnterprise()){
-                    postEnterprises.remove(i);
-                }
-            }
-        }
-        return postEnterprises;
+    public List<PostEnterprise> listPostByOderPriority(int idUserLogin,Pageable pageable) {
+
+        return postEnterpriseRepo.listPostByOderPriority(idUserLogin,pageable);
     }
 
     @Override
@@ -164,7 +162,6 @@ public class PostEnterpriseService implements IPostEnterpriseService {
             System.out.println("Không có !");
         }
     }
-
     @Override
     public PostEnterprise getPostExpired(String date) {
         return postEnterpriseRepo.getPostExpired(date);
