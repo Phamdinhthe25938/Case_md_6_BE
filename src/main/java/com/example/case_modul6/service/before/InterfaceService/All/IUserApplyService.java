@@ -16,4 +16,5 @@ public interface IUserApplyService {
     List<Integer> listIdPostByIdUserApply( int id);
 
     List<UserApply> listUserApplyByIdAppUser (int id);
+    UserApply findImgCvApply(int idUser,int idPost);
 }

@@ -8,8 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.security.core.parameters.P;
-
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -102,6 +100,8 @@ public interface IPostEnterpriseRepo extends PagingAndSortingRepository<PostEnte
     @Query(nativeQuery = true, value = "select * from case_module_6.post_enterprise where name_post_enterprise LIKE %:name% && address_main_enterprise LIKE %:address%  ")
     List<PostEnterprise> findPostUserfield(@Param("name") String name, @Param("address") String address);
 
-    @Query(nativeQuery = true ,value = "select * from post_enterprise join post_enterprise_cv_users on post_enterprise.id_post_enterprise=post_enterprise_cv_users.post_enterprise_id_post_enterprise where post_enterprise_cv_users.cv_users_id=:id")
+    @Query(nativeQuery = true ,value = "select * from post_enterprise where id_post_enterprise in\n" +
+            "(select post_enterprise_id_post_enterprise from user_apply\n" +
+            "where app_user_id = :id)")
     public  List<PostEnterprise> searchPostApplyByUser(@Param("id") int id);
 }

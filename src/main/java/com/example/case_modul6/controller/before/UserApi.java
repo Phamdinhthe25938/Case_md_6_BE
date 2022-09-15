@@ -138,4 +138,7 @@ public class UserApi {
     public ResponseEntity<List<PostEnterprise>> findUserApply(@PathVariable int id){
         return new ResponseEntity<>(postEnterpriseService.findPostByUserApply(id),HttpStatus.OK);
     }
+    @GetMapping("/findImgCvApply/{idUser}/{idPost}")
+    public ResponseEntity<UserApply> findImgCvApply(@PathVariable int idUser,@PathVariable int idPost){
+        return new ResponseEntity<>(userApplyService.findImgCvApply(idUser,idPost),HttpStatus.OK);}
 }
