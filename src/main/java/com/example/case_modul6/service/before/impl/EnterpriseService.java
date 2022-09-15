@@ -14,17 +14,18 @@ public class EnterpriseService implements IEnterpriseService {
     @Autowired
     IEnterpriseRepo enterpriseRepo;
 
-@Autowired
-IAppUserRepo iAppUserRepo;
+    @Autowired
+    IAppUserRepo iAppUserRepo;
+
     @Override
-    public void save(Enterprise enterprise){
+    public void save(Enterprise enterprise) {
 
         enterpriseRepo.save(enterprise);
     }
 
     @Override
     public List<Enterprise> getAllEnterprise() {
-       return (List<Enterprise>) enterpriseRepo.findAll();
+        return (List<Enterprise>) enterpriseRepo.findAll();
     }
 
     @Override
@@ -43,48 +44,54 @@ IAppUserRepo iAppUserRepo;
     }
 
     @Override
-    public void confirmRegisterEnterprise(String password, String codeVi,String numberVi, int status, int id) {
-        enterpriseRepo.confirmRegisterEnterprise(password,codeVi,numberVi,status,id);
+    public void confirmRegisterEnterprise(String password, String codeVi, String numberVi, int status, int id) {
+        enterpriseRepo.confirmRegisterEnterprise(password, codeVi, numberVi, status, id);
     }
+
     @Override
-    public void delete(int id){
+    public void delete(int id) {
         enterpriseRepo.deleteById(id);
     }
+
     @Override
-    public void rechargeWallet(int id, double numberMoney){
-         enterpriseRepo.rechargeWallet(id,numberMoney);
+    public void rechargeWallet(int id, double numberMoney) {
+        enterpriseRepo.rechargeWallet(id, numberMoney);
     }
+
     @Override
     public double getMoneyViEnterpriseById(int id) {
         return enterpriseRepo.getMoneyViEnterpriseById(id);
     }
 
     @Override
-    public void changeCodeVi(int id, String codeVi){
-        enterpriseRepo.changeCodeVi(id,codeVi);
+    public void changeCodeVi(int id, String codeVi) {
+        enterpriseRepo.changeCodeVi(id, codeVi);
     }
+
     @Override
     public void setStatusEnterpriseTo1(int id) {
         enterpriseRepo.setStatusEnterpriseTo1(id);
     }
+
     @Override
     public void setStatusEnterpriseTo0(int id) {
         enterpriseRepo.setStatusEnterpriseTo0(id);
     }
-// ĐỔi mật khẩu
+
+    // ĐỔi mật khẩu
     @Override
     public void changPassword(String email, String password) {
-        iAppUserRepo.changPassword(email,password);
+        iAppUserRepo.changPassword(email, password);
     }
 
     @Override
-    public void setViEnterprise(int id, double numberMoney){
-         enterpriseRepo.setViEnterprise(id,numberMoney);
+    public void setViEnterprise(int id, double numberMoney) {
+        enterpriseRepo.setViEnterprise(id, numberMoney);
     }
 
     @Override
-    public void setRatesByEnterprise(int id,double rates) {
-        enterpriseRepo.setRatesByEnterprise(id,rates);
+    public void setRatesByEnterprise(int id, double rates) {
+        enterpriseRepo.setRatesByEnterprise(id, rates);
     }
 
     @Override
@@ -93,12 +100,14 @@ IAppUserRepo iAppUserRepo;
     }
 
     @Override
-    public Enterprise findByGmailEnterprise(String name){
+    public Enterprise findByGmailEnterprise(String name) {
         return enterpriseRepo.findByGmailEnterprise(name);
     }
 
     @Override
-    public double findViByIdEnterprise(int id){
+    public double findViByIdEnterprise(int id) {
         return enterpriseRepo.findViByIdEnterprise(id);
     }
+
+
 }

@@ -63,16 +63,7 @@ public interface IEnterpriseRepo extends CrudRepository<Enterprise,Integer>{
     List<Enterprise> listEnterpriseOderByRates();
 
 
-    // Đếm số bài viết hiện có của doanh nghiệp
 
-    @Query(nativeQuery = true,value = "select count(id_post_enterprise)  from case_module_6.post_enterprise where enterprise_id_enterprise =:id;")
-    void sumAllPostEnterprise(@Param("id") int id);
-
-    @Query(nativeQuery = true,value = "select count(id_post_enterprise)  from case_module_6.post_enterprise where regime_id_regime = `Full_Time`")
-    void sumPostEnterPriseFullTime();
-
-    @Query(nativeQuery = true,value = "select count(id_post_enterprise)  from case_module_6.post_enterprise where regime_id_regime = `Part_Time`")
-    void sumPostEnterPrisePartTime();
 
 
 
