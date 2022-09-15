@@ -2,15 +2,18 @@ package com.example.case_modul6.controller.before;
 
 import com.example.case_modul6.model.before.*;
 import com.example.case_modul6.model.before.ot.AdminWallet;
+import com.example.case_modul6.model.before.ot.ContentBanEnterprise;
 import com.example.case_modul6.service.before.InterfaceService.All.*;
 
 import com.example.case_modul6.service.before.SendMailService;
 
 import com.example.case_modul6.service.before.impl.AppUserService;
 
+import com.example.case_modul6.service.before.impl.EnterpriseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.method.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Time;
@@ -184,6 +187,20 @@ public class AdminAPI {
     @GetMapping("/totalMoneyTransDateNow")
     public ResponseEntity<Double> totalMoneyTransDateNow(){
         return new ResponseEntity<>(transWalletHrService.totalMoneyTransDateNow(),HttpStatus.OK);
+    }
+
+    @PostMapping("/banEnterprise/{id}")
+    public ResponseEntity<Enterprise> banEnterprise (@PathVariable int id, @RequestBody ContentBanEnterprise content){
+        enterpriseService.setStatusEnterpriseTo0(id);
+        Enterprise enterprise = enterpriseService.findEnterpriseById(id);
+        String subjectMail = "Thông báo khóa tài khoản";
+        sendMailService.sendMail(enterprise.getGmailEnterprise(),subjectMail,content.getContent());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @GetMapping("/unbanEnterprise/{id}")
+    public ResponseEntity<Enterprise> unbanEnterprise (@PathVariable int id){
+        enterpriseService.setStatusEnterpriseTo1(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
 
