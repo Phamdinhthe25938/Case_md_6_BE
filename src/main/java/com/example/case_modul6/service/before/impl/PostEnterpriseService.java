@@ -168,7 +168,7 @@ public class PostEnterpriseService implements IPostEnterpriseService {
         return postEnterpriseRepo.getPostExpired(date);
     }
 
-    public List<PostEnterprise> findPostByUserApply(int id){
-        return postEnterpriseRepo.searchPostApplyByUser(id);
+    public List<PostEnterprise> findPostByUserApply(int id,Pageable pageable){
+        return postEnterpriseRepo.searchPostApplyByUser(id,pageable);
     }
 }

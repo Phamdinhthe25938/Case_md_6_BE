@@ -103,5 +103,5 @@ public interface IPostEnterpriseRepo extends PagingAndSortingRepository<PostEnte
     @Query(nativeQuery = true ,value = "select * from post_enterprise where id_post_enterprise in\n" +
             "(select post_enterprise_id_post_enterprise from user_apply\n" +
             "where app_user_id = :id)")
-    public  List<PostEnterprise> searchPostApplyByUser(@Param("id") int id);
+    public  List<PostEnterprise> searchPostApplyByUser(@Param("id") int id,Pageable pageable);
 }
