@@ -105,7 +105,7 @@ public interface IPostEnterpriseRepo extends PagingAndSortingRepository<PostEnte
     @Query(nativeQuery = true ,value = "select * from post_enterprise where id_post_enterprise in\n" +
             "(select post_enterprise_id_post_enterprise from user_apply\n" +
             "where app_user_id = :id)")
-    List<PostEnterprise> searchPostApplyByUser(@Param("id") int id);
+    List<PostEnterprise> searchPostApplyByUser(@Param("id") int id,Pageable pageable);
 
 
     // Đếm số bài viết hiện có của doanh nghiệp
@@ -118,5 +118,5 @@ public interface IPostEnterpriseRepo extends PagingAndSortingRepository<PostEnte
 
     @Query(nativeQuery = true, value = "select count(id_post_enterprise)  from case_module_6.post_enterprise where enterprise_id_enterprise=:id and regime_id_regime = 2")
     int sumPostEnterPriseNormal(@Param("id") int id);
-    public  List<PostEnterprise> searchPostApplyByUser(@Param("id") int id,Pageable pageable);
+//    public  List<PostEnterprise> searchPostApplyByUser(@Param("id") int id,Pageable pageable);
 }
