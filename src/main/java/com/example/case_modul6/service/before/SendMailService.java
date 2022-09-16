@@ -48,7 +48,6 @@ public class SendMailService {
          }
          return code;
     }
-
     public boolean sendMail(String toMail, String subject, String content){
         SimpleMailMessage message =new SimpleMailMessage();
 //         chinh mail

@@ -14,10 +14,11 @@ public class EnterpriseService implements IEnterpriseService {
     @Autowired
     IEnterpriseRepo enterpriseRepo;
 
-@Autowired
-IAppUserRepo iAppUserRepo;
+    @Autowired
+    IAppUserRepo iAppUserRepo;
+
     @Override
-    public void save(Enterprise enterprise){
+    public void save(Enterprise enterprise) {
 
         enterpriseRepo.save(enterprise);
     }

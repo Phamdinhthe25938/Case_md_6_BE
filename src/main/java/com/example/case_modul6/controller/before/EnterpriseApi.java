@@ -7,6 +7,7 @@ import com.example.case_modul6.repository.before.IUserApplyRepo;
 import com.example.case_modul6.service.before.InterfaceService.All.*;
 import com.example.case_modul6.service.before.SendMailService;
 import com.example.case_modul6.service.before.impl.AppUserService;
+import com.example.case_modul6.service.before.impl.PostEnterpriseService;
 import com.example.case_modul6.service.before.impl.TransactionHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,8 @@ import java.util.List;
 public class EnterpriseApi {
     @Autowired
     IPostEnterpriseService postEnterpriseService;
+    @Autowired
+    PostEnterpriseService implPostEnterpriseService;
 
     @Autowired
     IEnterpriseService enterpriseService;
@@ -218,6 +221,22 @@ public class EnterpriseApi {
           return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    //////////////
+    @GetMapping("/sumAllPostEnterprise/{id}")
+    public int sumAllPostEnterprise(@PathVariable int id) {
+        return implPostEnterpriseService.sumAllPostEnterprise(id);
+
+    }
+
+    @GetMapping("/sumPostEnterPriseVip/{id}")
+    public int sumPostEnterPriseVip(@PathVariable int id) {
+        return implPostEnterpriseService.sumPostEnterPriseVip(id);
+    }
+
+    @GetMapping("/sumPostEnterPriseNormal/{id}")
+    public int sumPostEnterPriseNormal(@PathVariable int id) {
+        return implPostEnterpriseService.sumPostEnterPriseNormal(id);
+    }
 
     //Tuan edit profile doanh nghiep
 //    @GetMapping("/editProfile/")

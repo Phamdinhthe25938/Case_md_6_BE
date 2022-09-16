@@ -62,7 +62,7 @@ public class PostEnterpriseService implements IPostEnterpriseService {
 
     @Override
     public void editPost(PostEnterprise postEnterprise) {
-        postEnterpriseRepo.editPost(postEnterprise.getAddressMainEnterprise(),postEnterprise.getDescribePostEnterprise(),postEnterprise.getNamePostEnterprise(),postEnterprise.getSalaryBigPostEnterprise(),postEnterprise.getSalarySmallPostEnterprise(),postEnterprise.getVacanciesPostEnterprise(),postEnterprise.getField().getIdField(),postEnterprise.getFormJobPostEnterprise().getIdFormJob(),postEnterprise.getIdPostEnterprise());
+        postEnterpriseRepo.editPost(postEnterprise.getAddressMainEnterprise(), postEnterprise.getDescribePostEnterprise(), postEnterprise.getNamePostEnterprise(), postEnterprise.getSalaryBigPostEnterprise(), postEnterprise.getSalarySmallPostEnterprise(), postEnterprise.getVacanciesPostEnterprise(), postEnterprise.getField().getIdField(), postEnterprise.getFormJobPostEnterprise().getIdFormJob(), postEnterprise.getIdPostEnterprise());
     }
 
 // List chế độ bài đăng và hình thức công việc
@@ -168,7 +168,21 @@ public class PostEnterpriseService implements IPostEnterpriseService {
         return postEnterpriseRepo.getPostExpired(date);
     }
 
-    public List<PostEnterprise> findPostByUserApply(int id){
-        return postEnterpriseRepo.searchPostApplyByUser(id);
+    public List<PostEnterprise> findPostByUserApply(int id,Pageable pageable){
+        return postEnterpriseRepo.searchPostApplyByUser(id,pageable);
+    }
+
+    //////////
+    public int sumAllPostEnterprise(int id) {
+        return postEnterpriseRepo.sumAllPostEnterprise(id);
+    }
+
+
+    public int sumPostEnterPriseVip(int id) {
+        return postEnterpriseRepo.sumPostEnterPriseVip(id);
+    }
+
+    public int sumPostEnterPriseNormal(int id) {
+        return postEnterpriseRepo.sumPostEnterPriseNormal(id);
     }
 }
