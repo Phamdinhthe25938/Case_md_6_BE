@@ -24,6 +24,10 @@ import java.util.List;
 @CrossOrigin("*")
 @RequestMapping("/user")
 public class UserApi {
+//    ICvUserService cvUserService;
+////    public UserApi(ICvUserService cvUserService) {
+////          this.cvUserService=cvUserService;
+////    }
 
     @Autowired
     PostEnterpriseService postEnterpriseService;
@@ -42,7 +46,7 @@ public class UserApi {
     }
     @RequestMapping("/getAll/{page}")
     public ResponseEntity<List<PostEnterprise>> findAll(@PathVariable int page) {
-        return new ResponseEntity<>(postEnterpriseService.getAll(PageRequest.of(page, 3)), HttpStatus.OK);
+        return new ResponseEntity<>(postEnterpriseService.getAll(PageRequest.of(page-1, 3)), HttpStatus.OK);
     }
 
     @GetMapping("/listPostByOderPriority/{id}/{page}")
@@ -134,8 +138,11 @@ public class UserApi {
     }
 
 
-    @GetMapping("/listUserApplyByIdAppUser/{id}")
-    public ResponseEntity<List<PostEnterprise>> findUserApply(@PathVariable int id){
-        return new ResponseEntity<>(postEnterpriseService.findPostByUserApply(id),HttpStatus.OK);
+    @GetMapping("/listUserApplyByIdAppUser/{id}/{page}")
+    public ResponseEntity<List<PostEnterprise>> findUserApply(@PathVariable int id,@PathVariable int page){
+        return new ResponseEntity<>(postEnterpriseService.findPostByUserApply(id,PageRequest.of(page-1, 2)),HttpStatus.OK);
     }
+    @GetMapping("/findImgCvApply/{idUser}/{idPost}")
+    public ResponseEntity<UserApply> findImgCvApply(@PathVariable int idUser,@PathVariable int idPost){
+        return new ResponseEntity<>(userApplyService.findImgCvApply(idUser,idPost),HttpStatus.OK);}
 }

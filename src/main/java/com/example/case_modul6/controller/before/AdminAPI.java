@@ -185,8 +185,7 @@ public class AdminAPI {
     public ResponseEntity<Double> totalMoneyTransDateNow(){
         return new ResponseEntity<>(transWalletHrService.totalMoneyTransDateNow(),HttpStatus.OK);
     }
-
-
+//    khoa tai khỉa
 }
 
 

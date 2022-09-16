@@ -81,9 +81,9 @@ public class PostEnterpriseService implements IPostEnterpriseService {
     }
 
     @Override
-    public List<PostEnterprise> listPostByOderPriority(int idUserLogin, Pageable pageable) {
+    public List<PostEnterprise> listPostByOderPriority(int idUserLogin,Pageable pageable) {
 
-        return postEnterpriseRepo.listPostByOderPriority(idUserLogin, pageable);
+        return postEnterpriseRepo.listPostByOderPriority(idUserLogin,pageable);
     }
 
     @Override
@@ -92,7 +92,7 @@ public class PostEnterpriseService implements IPostEnterpriseService {
     }
 
     @Override
-    public List<PostEnterprise> listPostThuongByEnterprise(int id) {
+    public List<PostEnterprise> listPostThuongByEnterprise(int id){
         return postEnterpriseRepo.listPostThuongByEnterprise(id);
     }
 
@@ -147,19 +147,18 @@ public class PostEnterpriseService implements IPostEnterpriseService {
     public List<PostEnterprise> findPostUser(String name, String address, int field) {
         return postEnterpriseRepo.findPostUser(name, address, field);
     }
-
-    public List<PostEnterprise> findPostUserField(String name, String address) {
-        return postEnterpriseRepo.findPostUserfield(name, address);
+    public List<PostEnterprise> findPostUserField(String name, String address){
+        return postEnterpriseRepo.findPostUserfield(name,address);
     }
-
     @Override
     public void deletePostExpired() {
         long millis = System.currentTimeMillis();
         java.sql.Date dateNow = new java.sql.Date(millis);
-        String dateNowStr = String.valueOf(dateNow);
-        if (getPostExpired(dateNowStr) != null) {
-            postEnterpriseRepo.deletePostExpired(dateNowStr);
-        } else {
+        String dateNowStr= String.valueOf(dateNow);
+        if(getPostExpired(dateNowStr)!=null){
+               postEnterpriseRepo.deletePostExpired(dateNowStr);
+        }
+        else {
             System.out.println("Không có !");
         }
     }
@@ -169,8 +168,8 @@ public class PostEnterpriseService implements IPostEnterpriseService {
         return postEnterpriseRepo.getPostExpired(date);
     }
 
-    public List<PostEnterprise> findPostByUserApply(int id) {
-        return postEnterpriseRepo.searchPostApplyByUser(id);
+    public List<PostEnterprise> findPostByUserApply(int id,Pageable pageable){
+        return postEnterpriseRepo.searchPostApplyByUser(id,pageable);
     }
 
     //////////
