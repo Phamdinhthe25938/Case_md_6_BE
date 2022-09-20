@@ -22,6 +22,9 @@ public class JwtService {
 
     public String createToken(Authentication authentication) {
         // lấy đối tượng đang đăng nhập.
+//        authentication là nơi chứa principal (Đối tượng đang đăng nhập )
+//        authentication được lưu trong class SecurityContext
+//        gọi SecurityContext thông qua việc gọi class SecurityContextHolder.getContent();
         User user = (User) authentication.getPrincipal();
         return Jwts.builder()
                 .setSubject((user.getUsername()))

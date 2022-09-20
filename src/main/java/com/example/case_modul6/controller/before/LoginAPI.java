@@ -38,7 +38,8 @@ public class LoginAPI {
         try{
             // Tạo ra 1 đối tượng Authentication.
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(appUser.getUsername(), appUser.getPassword()));
+                    new UsernamePasswordAuthenticationToken(appUser.getUsername(),appUser.getPassword()));
+//            Xác thực  UsernamePasswordAuthenticationToken
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String token = jwtService.createToken(authentication);
             AppUser appUser1 = appUserService.findByUserName(appUser.getUsername());

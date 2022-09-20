@@ -32,11 +32,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 String username = jwtService.getUserNameFromJwtToken(token);
                 // lấy ra UserDetails thông qua username
                 UserDetails userDetails = userService.loadUserByUsername(username);
-
                 // thực hiện việc xắc thực thông qua token.
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+//                Cần hỏi thêm
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         } catch (Exception e) {

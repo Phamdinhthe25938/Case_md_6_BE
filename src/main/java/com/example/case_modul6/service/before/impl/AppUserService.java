@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
-public class AppUserService implements UserDetailsService {
+public class AppUserService implements UserDetailsService{
     @Autowired
     IAppUserRepo iAppUserRepo;
 
