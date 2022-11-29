@@ -7,11 +7,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EnterpriseService implements IEnterpriseService {
-    @Autowired
-    EnterpriseService enterpriseService;
+
 
     @Override
     public void save(Enterprise enterprise) {
-          enterpriseService.save(enterprise);
+
     }
 }
