@@ -1,48 +1,33 @@
 package com.example.case_modul6.model.before;
 
-import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.sql.Time;
+import java.util.Set;
 
 @Entity
 @Data
 public class Enterprise {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idEnterprise;
 
     private String nameEnterprise;
 
-    private String codeConfirmEnterprise;
+    private String  imgEnterprise;
 
     private String gmailEnterprise;
 
-    private String  imgEnterprise;
+    private String passwordEnterprise;
 
-    private String addressMainEnterprise;
-
-    @ManyToOne
-    private Field fieldEnterprise;
+    private String codeConfirmEnterprise;
 
     private String describeEnterprise;
 
-    private Time timeRegisterEnterprise;
+    private double viEnterprise;
 
-    private Date dateRegisterEnterprise;
+    private boolean statusEnterprise=false;
 
-    private String passwordEnterprise;
-
-    private String numberViEnterprise;
-
-    private String codeViEnterprise;
-
-    private double viEnterprise=0;
-// Tỷ suất phần trăm
-    private double ratesEnterprise;
-    private boolean statusEnterprise;
-
-    private boolean statusConfirm;
+//    @ManyToMany(fetch = FetchType.EAGER)
+    @OneToOne
+    private Role roles;
 }

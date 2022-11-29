@@ -1,5 +1,6 @@
 package com.example.case_modul6.service;
-import com.example.case_modul6.service.before.impl.AppUserService;
+
+import com.example.case_modul6.service.before.AppUserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,6 @@ public class JwtService {
 
     public String createToken(Authentication authentication) {
         // lấy đối tượng đang đăng nhập.
-//        authentication là nơi chứa principal (Đối tượng đang đăng nhập )
-//        authentication được lưu trong class SecurityContext
-//        gọi SecurityContext thông qua việc gọi class SecurityContextHolder.getContent();
         User user = (User) authentication.getPrincipal();
         return Jwts.builder()
                 .setSubject((user.getUsername()))

@@ -1,6 +1,6 @@
 package com.example.case_modul6.config.filter;
 import com.example.case_modul6.service.JwtService;
-import com.example.case_modul6.service.before.impl.AppUserService;
+import com.example.case_modul6.service.before.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,16 +32,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 String username = jwtService.getUserNameFromJwtToken(token);
                 // lấy ra UserDetails thông qua username
                 UserDetails userDetails = userService.loadUserByUsername(username);
+
                 // thực hiện việc xắc thực thông qua token.
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-//                Cần hỏi thêm
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         } catch (Exception e) {
             logger.error("Can NOT set user authentication -> Message: {}", e);
         }
+
         filterChain.doFilter(request, response);
     }
 
