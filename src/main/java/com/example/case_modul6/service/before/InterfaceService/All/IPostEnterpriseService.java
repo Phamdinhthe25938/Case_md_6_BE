@@ -4,6 +4,7 @@ package com.example.case_modul6.service.before.InterfaceService.All;
 import com.example.case_modul6.model.before.FormJob;
 import com.example.case_modul6.model.before.PostEnterprise;
 import com.example.case_modul6.model.before.Regime;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -26,4 +27,7 @@ public interface IPostEnterpriseService {
     List<PostEnterprise> listPostByOderPriority();
     List<PostEnterprise> listPostVipByEnterprise(int id);
     List<PostEnterprise> listPostThuongByEnterprise(int id);
+
+
+    Page<PostEnterprise> findAllPostEnterprise(int idEnterprise);
 }

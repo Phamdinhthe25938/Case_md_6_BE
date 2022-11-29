@@ -8,10 +8,12 @@ import com.example.case_modul6.service.before.InterfaceService.All.ITransactionH
 import com.example.case_modul6.service.before.impl.AppUserService;
 import com.example.case_modul6.service.before.impl.TransactionHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.print.Pageable;
 import java.sql.Time;
 import java.util.List;
 
@@ -95,6 +97,13 @@ public class EnterpriseApi {
     public ResponseEntity<Enterprise> getEnterpriseByName(@PathVariable String name){
           return new ResponseEntity<>(enterpriseService.findByGmailEnterprise(name),HttpStatus.OK);
     }
+
+    @GetMapping("/findPost/{idEnterprise}")
+    public ResponseEntity<Page<PostEnterprise>> getEnterpriseByName(@PathVariable int idEnterprise){
+        return new ResponseEntity<>(postEnterpriseService.findAllPostEnterprise(idEnterprise),HttpStatus.OK);
+    }
+
+
     @PostMapping("/rechargeWallet/{id}/{numberMoney}")
     public ResponseEntity<Double> rechargeWallet(@PathVariable int id,@PathVariable double numberMoney ){
         double money = enterpriseService.getMoneyViEnterpriseById(id)+numberMoney;
