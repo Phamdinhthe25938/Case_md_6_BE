@@ -6,11 +6,19 @@ import com.example.case_modul6.model.before.Regime;
 import com.example.case_modul6.repository.before.IFormJobRepo;
 import com.example.case_modul6.repository.before.IPostEnterpriseRepo;
 import com.example.case_modul6.repository.before.IRegimeRepo;
+import com.example.case_modul6.repository.before.IUserApplyRepo;
 import com.example.case_modul6.service.before.InterfaceService.All.IPostEnterpriseService;
 import org.springframework.beans.factory.annotation.Autowired;
+<<<<<<< HEAD
 import org.springframework.data.domain.Page;
+=======
+import org.springframework.data.domain.Pageable;
+>>>>>>> e7d160f755e0aed3454f350899ddc8a0cd917a9c
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -24,11 +32,20 @@ public class PostEnterpriseService implements IPostEnterpriseService {
     @Autowired
     IRegimeRepo regimeRepo;
     @Autowired
+<<<<<<< HEAD
     IPostEnterpriseService iPostEnterpriseService;
+=======
+    IUserApplyRepo userApplyRepo;
+>>>>>>> e7d160f755e0aed3454f350899ddc8a0cd917a9c
 
     @Override
     public List<PostEnterprise> findAll() {
         return (List<PostEnterprise>) postEnterpriseRepo.findAll();
+    }
+
+    @Override
+    public List<PostEnterprise> getAll(Pageable pageable) {
+        return postEnterpriseRepo.getAll(pageable);
     }
 
     @Override
@@ -52,8 +69,8 @@ public class PostEnterpriseService implements IPostEnterpriseService {
     }
 
     @Override
-    public void edit(PostEnterprise postEnterprise) {
-        postEnterpriseRepo.save(postEnterprise);
+    public void editPost(PostEnterprise postEnterprise) {
+        postEnterpriseRepo.editPost(postEnterprise.getAddressMainEnterprise(), postEnterprise.getDescribePostEnterprise(), postEnterprise.getNamePostEnterprise(), postEnterprise.getSalaryBigPostEnterprise(), postEnterprise.getSalarySmallPostEnterprise(), postEnterprise.getVacanciesPostEnterprise(), postEnterprise.getField().getIdField(), postEnterprise.getFormJobPostEnterprise().getIdFormJob(), postEnterprise.getIdPostEnterprise());
     }
 
 // List chế độ bài đăng và hình thức công việc
@@ -72,8 +89,9 @@ public class PostEnterpriseService implements IPostEnterpriseService {
     }
 
     @Override
-    public List<PostEnterprise> listPostByOderPriority() {
-        return postEnterpriseRepo.listPostByOderPriority();
+    public List<PostEnterprise> listPostByOderPriority(int idUserLogin,Pageable pageable) {
+
+        return postEnterpriseRepo.listPostByOderPriority(idUserLogin,pageable);
     }
 
     @Override
@@ -82,7 +100,7 @@ public class PostEnterpriseService implements IPostEnterpriseService {
     }
 
     @Override
-    public List<PostEnterprise> listPostThuongByEnterprise(int id) {
+    public List<PostEnterprise> listPostThuongByEnterprise(int id){
         return postEnterpriseRepo.listPostThuongByEnterprise(id);
     }
 
@@ -92,7 +110,10 @@ public class PostEnterpriseService implements IPostEnterpriseService {
     }
 
     // Song Đạt tìm kiếm bài đăng theo địa chỉ và công ty
+<<<<<<< HEAD
 
+=======
+>>>>>>> e7d160f755e0aed3454f350899ddc8a0cd917a9c
     public List<PostEnterprise> findByAddress(String address) {
         return postEnterpriseRepo.findByAddress(address);
     }
@@ -109,5 +130,76 @@ public class PostEnterpriseService implements IPostEnterpriseService {
         return postEnterpriseRepo.findSalary(salary);
     }
 
+    public void statusPost(int id) {
+        postEnterpriseRepo.statusPost(id);
+    }
 
+    @Override
+    public void openKeyPost(int id) {
+        postEnterpriseRepo.openKeyPost(id);
+    }
+
+    @Override
+    public int quantityApplyByIdPost(int id) {
+        return postEnterpriseRepo.quantityApplyByIdPost(id);
+    }
+
+    @Override
+    public void setQuantityApplyPost(int id, int quantity) {
+        postEnterpriseRepo.setQuantityApplyPost(id, quantity);
+    }
+
+    @Override
+    public int priorityByIdPost(int id) {
+        return postEnterpriseRepo.priorityByIdPost(id);
+    }
+
+    @Override
+    public void setPriorityIdPost(int number, int id) {
+        postEnterpriseRepo.setPriorityIdPost(number, id);
+    }
+
+    // Tìm kiếm bài viết theo tên, địa chỉ, lĩnh vực
+    @Override
+    public List<PostEnterprise> findPostUser(String name, String address, int field) {
+        return postEnterpriseRepo.findPostUser(name, address, field);
+    }
+    public List<PostEnterprise> findPostUserField(String name, String address){
+        return postEnterpriseRepo.findPostUserfield(name,address);
+    }
+    @Override
+    public void deletePostExpired() {
+        long millis = System.currentTimeMillis();
+        java.sql.Date dateNow = new java.sql.Date(millis);
+        String dateNowStr= String.valueOf(dateNow);
+        if(getPostExpired(dateNowStr)!=null){
+               postEnterpriseRepo.deletePostExpired(dateNowStr);
+        }
+        else {
+            System.out.println("Không có !");
+        }
+    }
+
+    @Override
+    public PostEnterprise getPostExpired(String date) {
+        return postEnterpriseRepo.getPostExpired(date);
+    }
+
+    public List<PostEnterprise> findPostByUserApply(int id,Pageable pageable){
+        return postEnterpriseRepo.searchPostApplyByUser(id,pageable);
+    }
+
+    //////////
+    public int sumAllPostEnterprise(int id) {
+        return postEnterpriseRepo.sumAllPostEnterprise(id);
+    }
+
+
+    public int sumPostEnterPriseVip(int id) {
+        return postEnterpriseRepo.sumPostEnterPriseVip(id);
+    }
+
+    public int sumPostEnterPriseNormal(int id) {
+        return postEnterpriseRepo.sumPostEnterPriseNormal(id);
+    }
 }

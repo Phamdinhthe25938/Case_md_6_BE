@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.List;
 
 @Data
 @Entity
@@ -34,7 +35,7 @@ public class PostEnterprise {
 //    Ngày hết hạn
     private Date expirationDatePostEnterprise;
 // độ ưu tiên bài đăng
-    private int priorityPostEnterprise;
+    private int priorityPostEnterprise=0;
 
     private String describePostEnterprise;
 
@@ -48,4 +49,7 @@ public class PostEnterprise {
 
     @ManyToOne
     private Enterprise enterprise;
+//
+//   @ManyToMany(fetch = FetchType.EAGER)
+//    private List<CvUser> cvUsers;
 }

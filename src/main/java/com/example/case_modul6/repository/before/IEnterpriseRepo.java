@@ -45,8 +45,9 @@ public interface IEnterpriseRepo extends CrudRepository<Enterprise,Integer>{
 
     @Modifying
     @Transactional
-    @Query(nativeQuery = true,value = "update case_module_6.enterprise set status_enterprise=1 where id_enterprise=:id")
+    @Query(nativeQuery = true,value = "update case_module_6.enterprise set status_enterprise=0 where id_enterprise=:id")
     void setStatusEnterpriseTo0(@Param("id") int id);
+
     @Modifying
     @Transactional
     @Query(nativeQuery = true,value = "update case_module_6.enterprise set vi_enterprise=:numberMoney where id_enterprise=:id")
@@ -58,8 +59,26 @@ public interface IEnterpriseRepo extends CrudRepository<Enterprise,Integer>{
     void setRatesByEnterprise(@Param("id") int id,@Param("rates") double rates);
 
 
-    @Query(nativeQuery = true,value = "SELECT * FROM case_module_6.enterprise order by rates_enterprise desc")
+    @Query(nativeQuery = true,value = "SELECT * FROM case_module_6.enterprise where status_confirm=1 order by rates_enterprise desc")
     List<Enterprise> listEnterpriseOderByRates();
+
+
+    @Modifying
+    @Transactional
+    @Query(nativeQuery = true,value = " UPDATE enterprise SET address_main_enterprise =:addressMainEnterprise, describe_enterprise = :describeEnterprise, img_enterprise = :imgEnterprise, name_enterprise = :nameEnterprise WHERE id_enterprise = :id")
+    void editProfile(@Param("addressMainEnterprise") String addressMainEnterprise,@Param("describeEnterprise") String describeEnterprise, @Param("imgEnterprise") String imgEnterprise, @Param("nameEnterprise") String nameEnterprise,@Param("id") int idEnterprise);
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

@@ -48,11 +48,10 @@ public class SendMailService {
          }
          return code;
     }
-
     public boolean sendMail(String toMail, String subject, String content){
         SimpleMailMessage message =new SimpleMailMessage();
 //         chinh mail
-        message.setFrom("phamdinhthe2509@gmail.com");
+        message.setFrom("ducnguyenbvtvc@gmail.com");
         message.setTo(toMail);
         message.setSubject(subject);
         message.setText(content);
